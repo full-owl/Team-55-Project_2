@@ -69,7 +69,20 @@ chicken: .7
 string bean: .1
 string bean chicken sauce: .2
 
+id: chicken egg roll
+chicken: .6
+egg: .1
+vegetables: .1
+breading: .2
 
+id: veggie spring roll
+vegetables: .8
+breading: .2
+
+id: cream cheese rangoon
+cream cheese: .6
+breading: .3
+sweet sauce: .1
 
 
 
