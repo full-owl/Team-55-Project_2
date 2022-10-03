@@ -1,0 +1,92 @@
+id: white rice
+rice: 1
+
+id: brown rice
+brown rice: 1
+
+id: fried rice
+rice: .9
+vegetables: .1
+
+id: chow mein
+noodles: .9
+vegetables: .1
+
+id: super greens
+broccoli: 1
+
+id: orange chicken
+chicken: .8
+orange sauce: .2
+
+id: black pepper angus steak
+steak: .6
+vegetables: .2
+black pepper sauce: .2
+
+id: honey walnut shrimp
+shrimp: .6
+walnut: .2
+honey walnut shrimp sauce: .1
+
+id: grilled teriyaki chicken
+chicken: .8
+teriyaki sauce: .2
+
+id: broccoli beef
+beef: .6
+broccoli: .3
+broccoli beef sauce: .1
+
+id: kung pao chicken
+chicken: .65
+peanuts: .05
+vegetables : .1
+kung pao sauce: .2
+
+id: honey sesame chicken
+chicken: .8
+honey sesame sauce: .2
+
+id: beijing beef
+beef: .8
+beijing sauce: .2
+
+id: mushroom chicken
+chicken: .6
+mushroom: .1
+vegetables: .1
+mushroom chicken sauce: .2
+
+id: sweetfire chicken breast
+chicken: .6
+pineapple: .1
+vegetables: .1
+sweetfire sauce: .2
+
+id: string bean chicken
+chicken: .7
+string bean: .1
+string bean chicken sauce: .2
+
+id: chicken egg roll
+chicken: .6
+egg: .1
+vegetables: .1
+breading: .2
+
+id: veggie spring roll
+vegetables: .8
+breading: .2
+
+id: cream cheese rangoon
+cream cheese: .6
+breading: .3
+sweet sauce: .1
+
+
+
+
+
+
+
