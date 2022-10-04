@@ -49,25 +49,35 @@ public class jdbcpostgreSQL {
                " menuItem4 INT, menuItem5 INT, customInstructions VARCHAR, FOREIGN KEY (menuItem1) REFERENCES MenuItems(id)" +
                ", FOREIGN KEY (menuItem2) REFERENCES MenuItems(id), FOREIGN KEY (menuItem3) REFERENCES MenuItems(id)" +
                ", FOREIGN KEY (menuItem4) REFERENCES MenuItems(id), FOREIGN KEY (menuItem5) REFERENCES MenuItems(id));";
-       String createMenuSizes = "CREATE TABLE MealSizes (foodType VARCHAR, mealType VARCHAR, amountNeeded INT, price FLOAT);";
+       String createMealSizes = "CREATE TABLE MealSizes (foodType VARCHAR, mealType VARCHAR, amountNeeded INT, price DECIMAL(18,2));";
        String createMenuIngredients = "CREATE TABLE MenuIngredients (menuId INT, inventoryId INT, proportion INT, " +
                "FOREIGN KEY (menuId) REFERENCES MenuItems(id), FOREIGN KEY (inventoryId) REFERENCES Inventory(id));";
-       String dropTable = "DROP TABLE MenuItems;";
+       String dropTable = "DROP TABLE MealSizes;";
        try {
-           Scanner sc = new Scanner(new File("menu_items.csv"));
+           Scanner sc = new Scanner(new File("inventory.csv"));
            sc.useDelimiter(",");
            String desc = "Not Available";
            int i = 1;
+           String res = "INSERT INTO inventory (id, ingredient, currentAmount, unit) VALUES (?, ?, ?, ?)";
+           PreparedStatement ps = conn.prepareStatement(res);
            while (sc.hasNext()) {
-               String name = sc.next();
-               String type = sc.next();
-               name.trim();
-               type.trim();
-               String res = "INSERT INTO MenuItems (id, name, foodType, Description) VALUES('" + i + "', '" + name + "', '" + type + "', '" + desc + "');";
-               //System.out.println(res);
-               ResultSet result = stmt.executeQuery(res);
+               String ingred = sc.next();
+               int am = sc.nextInt();
+               String un = sc.next();
+               if (i != 1)
+               {
+                   ingred = ingred.substring(2,ingred.length());
+               }
+               ps.setInt(1,i);
+               ps.setString(2,ingred);
+               ps.setInt(3,am);
+               ps.setString(4,un);
+               ps.addBatch();
                i++;
+               //System.out.print(name);
            }
+           ps.executeBatch();
+           //System.out.println(res);
            sc.close();
        } catch (FileNotFoundException e) {
            System.out.println("An error occurred.");
@@ -75,7 +85,8 @@ public class jdbcpostgreSQL {
        }
        //send statement to DBMS
        //This executeQuery command is useful for data retrieval
-         //ResultSet result = stmt.executeQuery(createMenuItems);
+         //String update1 = "UPDATE menuitems set name = 'Chow Mein' where id = '1';";
+         //ResultSet result = stmt.executeQuery(createInventory);
        //OR
        //This executeUpdate command is useful for updating data
        //int result = stmt.executeUpdate(sqlStatement);

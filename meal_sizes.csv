@@ -1,18 +1,17 @@
-food_type,meal_type,amount_needed,price
-,bowl,,7.50
-,plate,,9.00
-,bigger plate,,10.50
-,family,,32.00
-side,medium,2,4.40
-side,large,4,5.40
-entree,small,1,4.90
-entree,medium,2,8.90
-entree,large,4,10.40
-premium entree,small,1,6.15
-premium entree,medium,2,10.70
-premium entree,large,4,14.65
-drink,small,16,2.10
-drink,medium,24,2.30
-drink,large,32,2.50
-appetizer,small,1,2.00
-appetizer,large,4,10.00
+N/A,bowl,0,7.50,
+N/A,plate,0,9.00,
+N/A,bigger plate,0,10.50,
+N/A,family,0,32.00,
+side,medium,2,4.40,
+side,large,4,5.40,
+entree,small,1,4.90,
+entree,medium,2,8.90,
+entree,large,4,10.40,
+premium entree,small,1,6.15,
+premium entree,medium,2,10.70,
+premium entree,large,4,14.65,
+drink,small,16,2.10,
+drink,medium,24,2.30,
+drink,large,32,2.50,
+appetizer,small,1,2.00,
+appetizer,large,4,10.00,
