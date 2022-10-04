@@ -1,6 +1,6 @@
 import java.sql.*;
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 /*
 CSCE 331
 9-28-2022 Lab
@@ -16,17 +16,7 @@ public class jdbcpostgreSQL {
 
   //Windows: java -cp ".;postgresql-42.2.8.jar" jdbcpostgreSQL
   //Mac/Linux: java -cp ".:postgresql-42.2.8.jar" jdbcpostgreSQL
-
   //MAKE SURE YOU ARE ON VPN or TAMU WIFI TO ACCESS DATABASE
-  public static void readInData(String className, Statement stm)
-  {
-      Scanner sc = new Scanner(className);
-      sc.useDelimiter(",");
-      while (sc.hasNext())
-      {
-
-      }
-  }
   public static void main(String args[]) {
 
     //Building the connection with your credentials
@@ -62,10 +52,30 @@ public class jdbcpostgreSQL {
        String createMenuSizes = "CREATE TABLE MealSizes (foodType VARCHAR, mealType VARCHAR, amountNeeded INT, price FLOAT);";
        String createMenuIngredients = "CREATE TABLE MenuIngredients (menuId INT, inventoryId INT, proportion INT, " +
                "FOREIGN KEY (menuId) REFERENCES MenuItems(id), FOREIGN KEY (inventoryId) REFERENCES Inventory(id));";
-
+       String dropTable = "DROP TABLE MenuItems;";
+       try {
+           Scanner sc = new Scanner(new File("menu_items.csv"));
+           sc.useDelimiter(",");
+           String desc = "Not Available";
+           int i = 1;
+           while (sc.hasNext()) {
+               String name = sc.next();
+               String type = sc.next();
+               name.trim();
+               type.trim();
+               String res = "INSERT INTO MenuItems (id, name, foodType, Description) VALUES('" + i + "', '" + name + "', '" + type + "', '" + desc + "');";
+               //System.out.println(res);
+               ResultSet result = stmt.executeQuery(res);
+               i++;
+           }
+           sc.close();
+       } catch (FileNotFoundException e) {
+           System.out.println("An error occurred.");
+           e.printStackTrace();
+       }
        //send statement to DBMS
        //This executeQuery command is useful for data retrieval
-       ResultSet result = stmt.executeQuery(createMenuItems);
+         //ResultSet result = stmt.executeQuery(createMenuItems);
        //OR
        //This executeUpdate command is useful for updating data
        //int result = stmt.executeUpdate(sqlStatement);
@@ -77,7 +87,7 @@ public class jdbcpostgreSQL {
        //System.out.println(result.getString("column_name"));
        //}
        //OR
-       System.out.println(result);
+       //System.out.println(result);
    } catch (Exception e){
        e.printStackTrace();
        System.err.println(e.getClass().getName()+": "+e.getMessage());
