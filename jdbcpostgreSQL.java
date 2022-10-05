@@ -26,7 +26,7 @@ public class jdbcpostgreSQL {
     String teamNumber = "55"; // Your team number
     String sectionNumber = "904"; // Your section number
     String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-    String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+    String dbConnectionString = "jdbc:postgresql://127.0.0.1/" + dbName;
     dbSetup myCredentials = new dbSetup();
 
     // Connecting to the database
@@ -41,28 +41,33 @@ public class jdbcpostgreSQL {
     System.out.println("Opened database successfully");
 
     try {
-      // create a statement object
-      Statement stmt = conn.createStatement();
-      // Running a query
-      // TODO: update the sql command here
-      String createMenuItems = "CREATE TABLE MenuItems (id INT PRIMARY KEY, name VARCHAR, foodType VARCHAR, Description VARCHAR);";
-      String createInventory = "CREATE TABLE Inventory (id INT PRIMARY KEY, ingredient VARCHAR, currentAmount INT, unit VARCHAR);";
-      String createOrderItems = "CREATE TABLE OrderItems (orderId INT, mealType VARCHAR, menuItem1 INT, menuItem2 INT, menuItem3 INT,"
+      // Create the Tables
+      String createMenuItems = "CREATE TABLE IF NOT EXISTS MenuItems (id INT PRIMARY KEY, name VARCHAR, foodType VARCHAR, Description VARCHAR);";
+      String createInventory = "CREATE TABLE IF NOT EXISTS Inventory (id INT PRIMARY KEY, ingredient VARCHAR, currentAmount INT, unit VARCHAR);";
+      String createOrderItems = "CREATE TABLE IF NOT EXISTS OrderItems (orderId INT, mealType VARCHAR, menuItem1 INT, menuItem2 INT, menuItem3 INT,"
           +
           " menuItem4 INT, menuItem5 INT, customInstructions VARCHAR, FOREIGN KEY (menuItem1) REFERENCES MenuItems(id)"
           +
           ", FOREIGN KEY (menuItem2) REFERENCES MenuItems(id), FOREIGN KEY (menuItem3) REFERENCES MenuItems(id)" +
           ", FOREIGN KEY (menuItem4) REFERENCES MenuItems(id), FOREIGN KEY (menuItem5) REFERENCES MenuItems(id));";
-      String createMealSizes = "CREATE TABLE MealSizes (foodType VARCHAR, mealType VARCHAR, amountNeeded INT, price DECIMAL(18,2));";
-      String createMenuIngredients = "CREATE TABLE MenuIngredients (menuId INT, inventoryId INT, proportion INT, " +
+      String createMealSizes = "CREATE TABLE IF NOT EXISTS MealSizes (foodType VARCHAR, mealType VARCHAR, amountNeeded INT, price DECIMAL(18,2));";
+      String createMenuIngredients = "CREATE TABLE IF NOT EXISTS MenuIngredients (menuId INT, inventoryId INT, proportion INT, " +
           "FOREIGN KEY (menuId) REFERENCES MenuItems(id), FOREIGN KEY (inventoryId) REFERENCES Inventory(id));";
+      
+      String[] tables = {createMenuItems, createInventory, createOrderItems, createMealSizes, createMenuIngredients};
+      for (String t : tables) {
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate(t);
+        stmt.close();
+      }
+
       String dropTable = "DROP TABLE MealSizes;";
       try {
         Scanner sc = new Scanner(new File("inventory.csv"));
         sc.useDelimiter(",");
         String desc = "Not Available";
         int i = 1;
-        String res = "INSERT INTO inventory (id, ingredient, currentAmount, unit) VALUES (?, ?, ?, ?)";
+        String res = "INSERT INTO inventory (id, ingredient, currentAmount, unit) VALUES (?, ?, ?, ?) ON CONFLICT (id) DO UPDATE SET id= EXCLUDED.id";
         PreparedStatement ps = conn.prepareStatement(res);
         while (sc.hasNext()) {
           String ingred = sc.next();
