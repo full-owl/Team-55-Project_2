@@ -39,10 +39,8 @@ public class jdbcpostgreSQL {
      System.out.println("Opened database successfully");
 
      try{
-       //create a statement object
        Statement stmt = conn.createStatement();
-       //Running a query
-       //TODO: update the sql command here
+       String createOrders = "CREATE TABLE orders (id INT PRIMARY KEY, date DATE, subTotal DECIMAL(18,2), total DECIMAL(18,2), employeeId INT);";
        String createMenuItems = "CREATE TABLE MenuItems (id INT PRIMARY KEY, name VARCHAR, foodType VARCHAR, Description VARCHAR);";
        String createInventory = "CREATE TABLE Inventory (id INT PRIMARY KEY, ingredient VARCHAR, currentAmount INT, unit VARCHAR);";
        String createOrderItems = "CREATE TABLE OrderItems (orderId INT, mealType VARCHAR, menuItem1 INT, menuItem2 INT, menuItem3 INT," +
@@ -50,49 +48,42 @@ public class jdbcpostgreSQL {
                ", FOREIGN KEY (menuItem2) REFERENCES MenuItems(id), FOREIGN KEY (menuItem3) REFERENCES MenuItems(id)" +
                ", FOREIGN KEY (menuItem4) REFERENCES MenuItems(id), FOREIGN KEY (menuItem5) REFERENCES MenuItems(id));";
        String createMealSizes = "CREATE TABLE MealSizes (foodType VARCHAR, mealType VARCHAR, amountNeeded INT, price DECIMAL(18,2));";
-       String createMenuIngredients = "CREATE TABLE MenuIngredients (menuId INT, inventoryId INT, proportion INT, " +
+       String createMenuIngredients = "CREATE TABLE MenuIngredients (menuId INT, inventoryId INT, proportion DECIMAL(18,2), " +
                "FOREIGN KEY (menuId) REFERENCES MenuItems(id), FOREIGN KEY (inventoryId) REFERENCES Inventory(id));";
-       String dropTable = "DROP TABLE MealSizes;";
+       String dropTable = "DROP TABLE orders;";
+
        try {
-           Scanner sc = new Scanner(new File("inventory.csv"));
+           Scanner sc = new Scanner(new File("orders.csv"));
            sc.useDelimiter(",");
-           String desc = "Not Available";
            int i = 1;
-           String res = "INSERT INTO inventory (id, ingredient, currentAmount, unit) VALUES (?, ?, ?, ?)";
+           String res = "INSERT INTO orders (id, date, subTotal, total, employeeId) VALUES (?, ?, ?, ?, ?)";
            PreparedStatement ps = conn.prepareStatement(res);
            while (sc.hasNext()) {
-               String ingred = sc.next();
-               int am = sc.nextInt();
-               String un = sc.next();
-               if (i != 1)
-               {
-                   ingred = ingred.substring(2,ingred.length());
-               }
+               String item1 = sc.next();
+               String item2 = sc.next();
+               float item3 = sc.nextFloat();
+               float item4 = sc.nextFloat();
+               int item5 = sc.nextInt();
                ps.setInt(1,i);
-               ps.setString(2,ingred);
-               ps.setInt(3,am);
-               ps.setString(4,un);
+               ps.setString(2,item2);
+               ps.setFloat(3,item3);
+               ps.setFloat(4,item4);
+               ps.setInt(5,item5);
                ps.addBatch();
                i++;
-               //System.out.print(name);
            }
-           ps.executeBatch();
+           //ps.executeBatch();
            //System.out.println(res);
            sc.close();
        } catch (FileNotFoundException e) {
            System.out.println("An error occurred.");
            e.printStackTrace();
        }
-       //send statement to DBMS
-       //This executeQuery command is useful for data retrieval
-         //String update1 = "UPDATE menuitems set name = 'Chow Mein' where id = '1';";
-         //ResultSet result = stmt.executeQuery(createInventory);
-       //OR
-       //This executeUpdate command is useful for updating data
+
+       //ResultSet result = stmt.executeQuery(createOrders);
        //int result = stmt.executeUpdate(sqlStatement);
 
-       //OUTPUT
-       //You will need to output the results differently depeninding on which function you use
+
        System.out.println("--------------------Query Results--------------------");
        //while (result.next()) {
        //System.out.println(result.getString("column_name"));
