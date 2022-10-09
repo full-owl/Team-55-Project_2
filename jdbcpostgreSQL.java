@@ -19,7 +19,7 @@ public class jdbcpostgreSQL {
   //MAKE SURE YOU ARE ON VPN or TAMU WIFI TO ACCESS DATABASE
 
     // Parses a csv file and pushes data to the database
-    public static void convertData(string fileName)
+    public static void convertData(Connection conn, String fileName) throws SQLException
     {
         try {
             Scanner sc = new Scanner(new File(fileName));
@@ -112,7 +112,7 @@ public class jdbcpostgreSQL {
      try{
        Statement stmt = conn.createStatement();
 
-       convertData("order_items.csv");
+       convertData(conn, "order_items.csv");
        //ResultSet result = stmt.executeQuery(insert1);
        //int result = stmt.executeUpdate(sqlStatement);
 
