@@ -1,15 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class CashierView extends JFrame {
-    public JPanel menuItemsView;
-
+public class CashierView extends JPanel {
     public CashierView() {
-        // createUIComponents();
-        // add(menuItemsView);
-        menuItemsView = new JPanel();
-        menuItemsView.setLayout(new BoxLayout(menuItemsView, BoxLayout.Y_AXIS));
-        menuItemsView.setVisible(true);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setVisible(true);
 
         // Add menu items
         final String[] categories = {"Sides", "Entrees", "Drinks", "Appetizers"};
@@ -26,7 +21,7 @@ public class CashierView extends JFrame {
                 button.setText(item);
                 panel.add(button);
             }
-            menuItemsView.add(panel);
+            this.add(panel);
         }
 
         // Add Sizes
@@ -41,17 +36,22 @@ public class CashierView extends JFrame {
             button.setText(size);
             panel.add(button);
         }
-        menuItemsView.add(panel);
+        this.add(panel);
 
-        add(menuItemsView);
-        // Bottom
-        pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        add(this);
+//        // Bottom
+//        pack();
+//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
     public static void main(String[] args) {
+        var frame = new JFrame();
         var cv = new CashierView();
+        frame.add(cv);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 
     public static String[] menuItems(String category) {
