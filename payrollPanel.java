@@ -1,35 +1,33 @@
 import javax.swing.*;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import java.awt.*;
 
+public class payrollPanel extends JPanel {
 
-public class inventoryPanel extends JPanel {
-
-    inventoryPanel() {
+    payrollPanel() {
 
         JLabel l = new JLabel();
-        l.setText("Inventory");
+        l.setText("Payroll");
 
         // Data to be displayed in the JTable
         Object[][] data = {
 
-                {"0", "rice", "100"},
-                {"1", "noodles", "100"}
+                {"Employee1", "cook"},
+                {"Employee2", "cashier"}
         };
 
         // Column Names
-        String[] columnNames = {"id", "ingredient", "amount"};
+        String[] columnNames = {"employee", "position"};
 
         // Initializing the JTable
         JTable j = new JTable(data, columnNames);
-        //j.setBounds(0, 0, 200, 200);
+        //j.setBounds(0, 0, 150, 150);
         j.setFillsViewportHeight(true);
 
         // adding it to JScrollPane
         JScrollPane sp = new JScrollPane(j);
+        //sp.setBounds(0,0,150,150);
 
         this.add(l);
         this.add(sp);
+
     }
 }
