@@ -1,10 +1,24 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class CashierView extends JPanel {
-    public CashierView() {
+public class MenuItemsView extends JPanel {
+    public MenuItemsView() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setVisible(true);
+
+        // Add Sizes
+        var sizePanel = new JPanel();
+        sizePanel.setName("Sizes");
+        sizePanel.setBorder(BorderFactory.createTitledBorder("Sizes"));
+        var layout = new GridLayout(0,5,5,5);
+        sizePanel.setLayout(layout);
+        String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
+        for(String size: sizes) {
+            var button = new JToggleButton();
+            button.setText(size);
+            sizePanel.add(button);
+        }
+        this.add(sizePanel);
 
         // Add menu items
         final String[] categories = {"Sides", "Entrees", "Drinks", "Appetizers"};
@@ -12,7 +26,7 @@ public class CashierView extends JPanel {
             var panel = new JPanel();
             panel.setName(category);
             panel.setBorder(BorderFactory.createTitledBorder(category));
-            var layout = new GridLayout(0, 5, 5, 5);
+            layout = new GridLayout(0, 5, 5, 5);
             panel.setLayout(layout);
 
             String[] items = menuItems(category);
@@ -24,30 +38,24 @@ public class CashierView extends JPanel {
             this.add(panel);
         }
 
-        // Add Sizes
-        var panel = new JPanel();
-        panel.setName("Sizes");
-        panel.setBorder(BorderFactory.createTitledBorder("Sizes"));
-        var layout = new GridLayout(0,5,5,5);
-        panel.setLayout(layout);
-        String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
-        for(String size: sizes) {
-            var button = new JToggleButton();
-            button.setText(size);
-            panel.add(button);
+        // TODO better name
+        var modifyArea = new JPanel();
+        modifyArea.setName("Modify");
+        layout = new GridLayout(0,5,5,5);
+        modifyArea.setLayout(layout);
+        for(String btn: new String[]{"Deselect All", "Add (small)", "Add (medium)", "Add (large)", "Add"}) {
+            var button = new JButton();
+            button.setText(btn);
+            modifyArea.add(button);
         }
-        this.add(panel);
+        add(modifyArea);
 
-//        add(this);
-//        // Bottom
-//        pack();
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
 
     public static void main(String[] args) {
         var frame = new JFrame();
-        var cv = new CashierView();
+        var cv = new MenuItemsView();
         frame.add(cv);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,4 +76,6 @@ public class CashierView extends JPanel {
         return items;
     }
 
+    private void createUIComponents() {
+    }
 }
