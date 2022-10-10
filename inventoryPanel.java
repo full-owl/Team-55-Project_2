@@ -12,14 +12,13 @@ public class inventoryPanel extends JPanel {
         l.setText("Inventory");
 
         // Data to be displayed in the JTable
-        Object[][] data = {
-
-                {"0", "rice", "100"},
-                {"1", "noodles", "100"}
-        };
+        Object[][] data;
+        String[][] invTable = new String[29][4];
+        jdbcpostgreSQL.getInvTable(invTable);
+        data = invTable;
 
         // Column Names
-        String[] columnNames = {"id", "ingredient", "amount"};
+        String[] columnNames = {"id", "ingredient", "amount", "units"};
 
         // Initializing the JTable
         JTable j = new JTable(data, columnNames);

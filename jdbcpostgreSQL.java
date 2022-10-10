@@ -93,6 +93,64 @@ public class jdbcpostgreSQL {
     {
 
     }
+
+    public static void getInvTable(String[][] invTable) {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try{
+            //String sqlStatement = "INSERT INTO TeamMembers (student_name, section, favority_movie, favorite_holiday) VALUES('Plunky', 905, 'Jeepers Creepers', '2022-10-31')";
+            String sqlStatement = "SELECT * FROM inventory";
+
+            PreparedStatement p = conn.prepareStatement(sqlStatement);
+            ResultSet result = p.executeQuery();
+
+            // id, ingredient, currentamount, unit
+
+            System.out.println("--------------------Query Results--------------------");
+
+            int r = 0;
+//            invTable[0][0] = "ID";
+//            invTable[0][1] = "Ingredient";
+//            invTable[0][2] = "Current Amount";
+//            invTable[0][3] = "Unit";
+
+            while(result.next()) {
+
+                invTable[r][0] = result.getString("id");
+                invTable[r][1] = result.getString("ingredient");
+                invTable[r][2] = result.getString("currentamount");
+                invTable[r][3] = result.getString("unit");
+                r++;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        //closing the connection
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }//end try catch
+    }
+
   public static void main(String args[]) {
 
     //Building the connection with your credentials
@@ -142,4 +200,6 @@ public class jdbcpostgreSQL {
       System.out.println("Connection NOT Closed.");
     }//end try catch
   }//end main
+
+
 }//end Class
