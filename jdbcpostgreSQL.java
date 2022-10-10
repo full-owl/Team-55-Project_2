@@ -88,6 +88,11 @@ public class jdbcpostgreSQL {
             e.printStackTrace();
         }
     }
+
+    public static void insertOrder()
+    {
+
+    }
   public static void main(String args[]) {
 
     //Building the connection with your credentials
