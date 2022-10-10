@@ -25,59 +25,14 @@ public class jdbcpostgreSQL {
             Scanner sc = new Scanner(new File(fileName));
             sc.useDelimiter(",");
             int i = 1;
-            String res = "INSERT INTO orderitems (orderId, mealType, menuItem1, menuItem2, menuItem3, menuItem4, menuItem5, " +
-                    "customInstructions) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String res = "INSERT INTO inventory (menuId, orderId, proportion) VALUES (?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(res);
             while (sc.hasNext()) {
                 String line = sc.nextLine();
                 String tokens[] = line.split(",");
-                ps.setInt(1,Integer.parseInt(tokens[1]));
-                ps.setString(2,tokens[2]);
-                if (tokens[3].length() > 3)
-                {
-                    ps.setInt(3,0);
-                }
-                else
-                {
-                    ps.setInt(3,Integer.parseInt(tokens[3]));
-                }
-
-                if (tokens[4].length() > 3)
-                {
-                    ps.setInt(4,0);
-                }
-                else
-                {
-                    ps.setInt(4,Integer.parseInt(tokens[4]));
-                }
-
-                if (tokens[5].length() > 3)
-                {
-                    ps.setInt(5,0);
-                }
-                else
-                {
-                    ps.setInt(5,Integer.parseInt(tokens[5]));
-                }
-
-                if (tokens[6].length() > 3)
-                {
-                    ps.setInt(6,0);
-                }
-                else
-                {
-                    ps.setInt(6,Integer.parseInt(tokens[6]));
-                }
-
-                if (tokens[7].length() > 3)
-                {
-                    ps.setInt(7,0);
-                }
-                else
-                {
-                    ps.setInt(7,Integer.parseInt(tokens[7]));
-                }
-                ps.setString(8,tokens[8]);
+                ps.setInt(1,Integer.parseInt(tokens[0]));
+                ps.setInt(2,Integer.parseInt(tokens[1]));
+                ps.setFloat(3,Float.parseFloat(tokens[2]));
                 ps.addBatch();
                 i++;
             }
@@ -89,10 +44,6 @@ public class jdbcpostgreSQL {
         }
     }
 
-    public static void insertOrder()
-    {
-
-    }
   public static void main(String args[]) {
 
     //Building the connection with your credentials
