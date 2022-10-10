@@ -1,21 +1,22 @@
+import java.util.LinkedList;
+
 public class Order {
-    int orderId;
-    String orderType;
-    int menuItem1;
-    int menuItem2;
-    int menuItem3;
-    int menuItem4;
-    int menuItem5;
-    int menuItem6;
-    public Order(int orderId, String orderType, int menuItem1, int menuItem2, int menuItem3, int menuItem4, int menuItem5, int menuItem6)
+    int id;
+    String currentDate;
+    float subTotal;
+    float total;
+    LinkedList<Order> itemsInOrder;
+
+    public Order(int id, String currentDate, float subTotal, float total)
     {
-        this.orderId = orderId;
-        this.orderType = orderType;
-        this.menuItem1 = menuItem1;
-        this.menuItem2 = menuItem2;
-        this.menuItem3 = menuItem3;
-        this.menuItem4 = menuItem4;
-        this.menuItem5 = menuItem5;
-        this.menuItem6 = menuItem6;
+        this.id = id;
+        this.currentDate = currentDate;
+        this.subTotal = subTotal;
+        this.total = total;
+    }
+
+    public void insertItem(Order orderItem)
+    {
+        this.itemsInOrder.add(orderItem);
     }
 }
