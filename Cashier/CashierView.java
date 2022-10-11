@@ -1,5 +1,6 @@
+package Cashier;
+
 import javax.swing.*;
-import java.awt.*;
 
 public class CashierView extends JSplitPane {
 

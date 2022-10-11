@@ -1,5 +1,6 @@
+package Cashier;
+
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 
