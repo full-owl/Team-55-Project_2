@@ -16,7 +16,7 @@ public class MyButtonGroup extends ButtonGroup {
 
     @Override
     public void clearSelection() {
-        while(selections.isEmpty()) {
+        while(!selections.isEmpty()) {
             var button = selections.firstElement();
             button.setSelected(false);
         }
@@ -24,6 +24,10 @@ public class MyButtonGroup extends ButtonGroup {
 
     public Vector<ButtonModel> getSelections() {
         return selections;
+    }
+
+    public int getMax() {
+        return max;
     }
 
     @Override
@@ -40,10 +44,7 @@ public class MyButtonGroup extends ButtonGroup {
             }
         }
         this.max = max;
-        enableButtons();
-        if(selections.size() >= this.max) {
-            disableUnselected();
-        }
+        resetDisabledButtons();
     }
     @Override
     public void setSelected(ButtonModel button, boolean selected) {
@@ -54,20 +55,21 @@ public class MyButtonGroup extends ButtonGroup {
                 }
                 selections.add(button);
                 button.setSelected(true);
-                if (selections.size() >= max) {
-                    disableUnselected();
-                }
             }
         } else {
             if (button != null && selections.contains(button)) {
                 selections.remove(button);
                 button.setSelected(false);
-                if (selections.size() < max) {
-                    enableButtons();
-                }
             }
         }
+        resetDisabledButtons();
+    }
 
+    public void resetDisabledButtons() {
+        enableButtons();
+        if (selections.size() >= max) {
+            disableUnselected();
+        }
     }
 
     public void disableUnselected() {

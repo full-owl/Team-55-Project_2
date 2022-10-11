@@ -9,8 +9,7 @@ import java.util.HashMap;
 public class MenuItemsView extends JPanel {
 
     ButtonGroup sizeGroup;
-    HashMap<String, MyButtonGroup> itemGroups;
-    HashMap<String, JPanel> itemPanels;
+    HashMap<String, ItemPanel> itemCategories;
 
     public MenuItemsView() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -18,21 +17,37 @@ public class MenuItemsView extends JPanel {
 
 
         createSizePanel();
-        createItemPanels();
+        createItemCategories();
 
         // TODO better name
         var layout = new GridLayout(0,5,5,5);
         var modifyArea = new JPanel();
         modifyArea.setName("Modify");
         modifyArea.setLayout(layout);
-        for(String btn: new String[]{"Deselect All", "Add (small)", "Add (medium)", "Add (large)", "Add"}) {
+
+        // Deselect all button
+        var deselectButton = new JButton();
+        deselectButton.setText("Deselect All");
+        var deselectAction = new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                sizeGroup.clearSelection();
+                for(var category: itemCategories.values()) {
+                    category.group.clearSelection();
+                }
+            }
+        };
+        deselectButton.addActionListener(deselectAction);
+        modifyArea.add(deselectButton);
+
+        for(String btn: new String[]{"Add (small)", "Add (medium)", "Add (large)", "Add"}) {
             var button = new JButton();
             button.setText(btn);
             modifyArea.add(button);
         }
         add(modifyArea);
     }
-
 
     private void createSizePanel() {
         var sizePanel = new JPanel();
@@ -44,7 +59,7 @@ public class MenuItemsView extends JPanel {
         String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
         // Why does button group not have a way to deselect stuff. uuuggghhh
         // sauce: https://stackoverflow.com/questions/4904086/how-to-create-buttongroup-of-jtogglebuttons-that-allows-to-deselect-the-actual
-        var sizeGroup = new ButtonGroup(){
+        sizeGroup = new ButtonGroup(){
             @Override
             public void setSelected(ButtonModel model, boolean selected) {
                 if (selected) {
@@ -59,15 +74,16 @@ public class MenuItemsView extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String size = actionEvent.getActionCommand();
+                System.out.println(size);
                 JToggleButton button = (JToggleButton) actionEvent.getSource();
                 if(button.isSelected()) {
                     int entreeMax = numEntrees(size);
-                    itemGroups.get("Entrees").setMax(entreeMax);
+                    itemCategories.get("Entrees").setMax(entreeMax);
                     int sideMax = numSides(size);
-                    itemGroups.get("Sides").setMax(sideMax);
+                    itemCategories.get("Sides").setMax(sideMax);
                 } else {
-                    itemGroups.get("Entrees").setMax(menuItems("Entrees").length);
-                    itemGroups.get("Sides").setMax(menuItems("Sides").length);
+                    itemCategories.get("Entrees").setMax(menuItems("Entrees").length);
+                    itemCategories.get("Sides").setMax(menuItems("Sides").length);
                 }
             }
         };
@@ -80,29 +96,14 @@ public class MenuItemsView extends JPanel {
         }
     }
 
-    private void createItemPanels() {
-        itemGroups = new HashMap<>();
-        itemPanels = new HashMap<>();
+    private void createItemCategories() {
+        itemCategories = new HashMap<>();
 
         final String[] categories = {"Sides", "Entrees", "Drinks", "Appetizers"};
         for (String category : categories) {
-            var panel = new JPanel();
-            panel.setName(category);
-            panel.setBorder(BorderFactory.createTitledBorder(category));
-            panel.setLayout(new GridLayout(0,5,5,5));
-            add(panel);
-
-            String[] items = menuItems(category);
-            var group = new MyButtonGroup(items.length);
-            for (String item: items) {
-                var button = new JToggleButton();
-                button.setText(item);
-                panel.add(button);
-                group.add(button);
-            }
-
-            itemGroups.put(category, group);
-            itemPanels.put(category, panel);
+            var itemPanel = new ItemPanel(category, menuItems(category));
+            itemCategories.put(category, itemPanel);
+            add(itemPanel);
         }
     }
 
@@ -122,7 +123,7 @@ public class MenuItemsView extends JPanel {
         } else if (category.equals("Entrees")) {
             items = new String[]{"Beef", "Chicken", "Super Greens", "etc."};
         } else if (category.equals("Drinks")) {
-            items = new String[]{"Coke", "Diet Coke", "Sprite", "etc."};
+            items = new String[]{"Coke", "Diet Coke", "Sprite", "etc.","1","2","3","4","5","6","7","8","9","10"};
         } else if (category.equals("Appetizers")) {
             items = new String[]{"Egg rolls"};
         }
