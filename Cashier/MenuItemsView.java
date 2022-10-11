@@ -16,17 +16,35 @@ public class MenuItemsView extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setVisible(true);
 
-        var layout = new GridLayout(0,5,5,5);
 
-        // Add Sizes
+        createSizePanel();
+        createItemPanels();
+
+        // TODO better name
+        var layout = new GridLayout(0,5,5,5);
+        var modifyArea = new JPanel();
+        modifyArea.setName("Modify");
+        modifyArea.setLayout(layout);
+        for(String btn: new String[]{"Deselect All", "Add (small)", "Add (medium)", "Add (large)", "Add"}) {
+            var button = new JButton();
+            button.setText(btn);
+            modifyArea.add(button);
+        }
+        add(modifyArea);
+    }
+
+
+    private void createSizePanel() {
         var sizePanel = new JPanel();
         sizePanel.setName("Sizes");
         sizePanel.setBorder(BorderFactory.createTitledBorder("Sizes"));
-        sizePanel.setLayout(layout);
+        sizePanel.setLayout(new GridLayout(0,5,5,5));
+        add(sizePanel);
 
+        String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
         // Why does button group not have a way to deselect stuff. uuuggghhh
         // sauce: https://stackoverflow.com/questions/4904086/how-to-create-buttongroup-of-jtogglebuttons-that-allows-to-deselect-the-actual
-        sizeGroup = new ButtonGroup(){
+        var sizeGroup = new ButtonGroup(){
             @Override
             public void setSelected(ButtonModel model, boolean selected) {
                 if (selected) {
@@ -36,7 +54,6 @@ public class MenuItemsView extends JPanel {
                 }
             }
         };
-        String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
         var sizeController = new ActionListener() {
             // Whenever you change sizes, update the max number of entrees and sides you can select at one time.
             @Override
@@ -54,7 +71,6 @@ public class MenuItemsView extends JPanel {
                 }
             }
         };
-
         for(String size: sizes) {
             var button = new JToggleButton();
             button.setText(size);
@@ -62,18 +78,19 @@ public class MenuItemsView extends JPanel {
             sizePanel.add(button);
             sizeGroup.add(button);
         }
-        this.add(sizePanel);
+    }
 
-        // Add menu items
-        final String[] categories = {"Sides", "Entrees", "Drinks", "Appetizers"};
+    private void createItemPanels() {
         itemGroups = new HashMap<>();
         itemPanels = new HashMap<>();
 
+        final String[] categories = {"Sides", "Entrees", "Drinks", "Appetizers"};
         for (String category : categories) {
             var panel = new JPanel();
             panel.setName(category);
             panel.setBorder(BorderFactory.createTitledBorder(category));
-            panel.setLayout(layout);
+            panel.setLayout(new GridLayout(0,5,5,5));
+            add(panel);
 
             String[] items = menuItems(category);
             var group = new MyButtonGroup(items.length);
@@ -86,19 +103,7 @@ public class MenuItemsView extends JPanel {
 
             itemGroups.put(category, group);
             itemPanels.put(category, panel);
-            this.add(panel);
         }
-
-        // TODO better name
-        var modifyArea = new JPanel();
-        modifyArea.setName("Modify");
-        modifyArea.setLayout(layout);
-        for(String btn: new String[]{"Deselect All", "Add (small)", "Add (medium)", "Add (large)", "Add"}) {
-            var button = new JButton();
-            button.setText(btn);
-            modifyArea.add(button);
-        }
-        add(modifyArea);
     }
 
     public static void main(String[] args) {
