@@ -16,7 +16,6 @@ public class MenuItemsView extends JPanel {
         this.setVisible(true);
 
         var layout = new GridLayout(0,5,5,5);
-        var controller = new MenuItemsController();
 
         // Add Sizes
         var sizePanel = new JPanel();
@@ -37,10 +36,23 @@ public class MenuItemsView extends JPanel {
             }
         };
         String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
+        var sizeController = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String size = actionEvent.getActionCommand();
+                JToggleButton button = (JToggleButton) actionEvent.getSource();
+                if(button.isSelected()) {
+                    int entreeMax = numEntrees(size);
+                    itemGroups.get("Entrees").setMax(entreeMax);
+                    int sideMax = numSides(size);
+                    itemGroups.get("Sides").setMax(sideMax);
+                }
+            }
+        };
         for(String size: sizes) {
             var button = new JToggleButton();
             button.setText(size);
-            button.addActionListener(controller);
+            button.addActionListener(sizeController);
             sizePanel.add(button);
             sizeGroup.add(button);
         }
@@ -104,17 +116,25 @@ public class MenuItemsView extends JPanel {
         return items;
     }
 
-    private void createUIComponents() {
-    }
-}
-
-class MenuItemsController implements ActionListener {
-
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        var source = actionEvent.getSource();
-        if (source instanceof JToggleButton) {
-            System.out.println(((JToggleButton) source).getParent().getName());
+    public static int numEntrees(String size) {
+        String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
+        int[] nums = {1,2,3,3};
+        for (int i = 0; i < sizes.length; i++) {
+            if(sizes[i].equals(size)) {
+                return nums[i];
+            }
         }
+        return -1;
+    }
+
+    public static int numSides(String size) {
+        String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
+        int[] nums = {1,1,1,2};
+        for (int i = 0; i < sizes.length; i++) {
+            if(sizes[i].equals(size)) {
+                return nums[i];
+            }
+        }
+        return -1;
     }
 }
