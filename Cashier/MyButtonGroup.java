@@ -39,6 +39,7 @@ public class MyButtonGroup extends ButtonGroup {
                 selections.firstElement().setSelected(false);
             }
         }
+        this.max = max;
         enableButtons();
         if(selections.size() >= this.max) {
             disableUnselected();

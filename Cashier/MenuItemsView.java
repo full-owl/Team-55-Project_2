@@ -10,6 +10,7 @@ public class MenuItemsView extends JPanel {
 
     ButtonGroup sizeGroup;
     HashMap<String, MyButtonGroup> itemGroups;
+    HashMap<String, JPanel> itemPanels;
 
     public MenuItemsView() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -37,6 +38,7 @@ public class MenuItemsView extends JPanel {
         };
         String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
         var sizeController = new ActionListener() {
+            // Whenever you change sizes, update the max number of entrees and sides you can select at one time.
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String size = actionEvent.getActionCommand();
@@ -46,9 +48,13 @@ public class MenuItemsView extends JPanel {
                     itemGroups.get("Entrees").setMax(entreeMax);
                     int sideMax = numSides(size);
                     itemGroups.get("Sides").setMax(sideMax);
+                } else {
+                    itemGroups.get("Entrees").setMax(menuItems("Entrees").length);
+                    itemGroups.get("Sides").setMax(menuItems("Sides").length);
                 }
             }
         };
+
         for(String size: sizes) {
             var button = new JToggleButton();
             button.setText(size);
@@ -61,6 +67,7 @@ public class MenuItemsView extends JPanel {
         // Add menu items
         final String[] categories = {"Sides", "Entrees", "Drinks", "Appetizers"};
         itemGroups = new HashMap<>();
+        itemPanels = new HashMap<>();
 
         for (String category : categories) {
             var panel = new JPanel();
@@ -78,6 +85,7 @@ public class MenuItemsView extends JPanel {
             }
 
             itemGroups.put(category, group);
+            itemPanels.put(category, panel);
             this.add(panel);
         }
 
