@@ -35,14 +35,14 @@ public class MyButtonGroup extends ButtonGroup {
         if (max < this.max) {
             // Remove extra selected
             this.max = max;
-            while(selections.size() > max) {
+            while (selections.size() > max) {
                 selections.firstElement().setSelected(false);
             }
-        } else if(max > this.max) {
-            // Increase and reenable buttons
-            enableButtons();
         }
-        this.max = max;
+        enableButtons();
+        if(selections.size() >= this.max) {
+            disableUnselected();
+        }
     }
     @Override
     public void setSelected(ButtonModel button, boolean selected) {
