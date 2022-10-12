@@ -1,4 +1,4 @@
-package Cashier;
+package src.Cashier;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;

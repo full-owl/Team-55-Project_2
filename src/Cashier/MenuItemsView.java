@@ -1,10 +1,13 @@
-package Cashier;
+package src.Cashier;
+
+import src.Order;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Vector;
 
 public class MenuItemsView extends JPanel {
 
@@ -107,6 +110,20 @@ public class MenuItemsView extends JPanel {
         }
     }
 
+    public Order toOrder() {
+        String meal = sizeGroup.getSelection().getActionCommand();
+        var selectedItems = new HashMap<String, Vector<String>>();
+        for(var set: itemCategories.entrySet()) {
+            var selectedButtons = set.getValue().group.getSelections();
+            var selected = new Vector<String>();
+            for(var button: selectedButtons) {
+                selected.add(button.getActionCommand());
+            }
+            selectedItems.put(set.getKey(), selected);
+        }
+        return new Order(selectedItems);
+
+    }
     public static void main(String[] args) {
         var frame = new JFrame();
         var cv = new MenuItemsView();

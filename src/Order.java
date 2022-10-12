@@ -1,4 +1,8 @@
+package src;
+
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Vector;
 
 public class Order {
     int id;
@@ -13,6 +17,10 @@ public class Order {
         this.currentDate = currentDate;
         this.subTotal = subTotal;
         this.total = total;
+    }
+
+    public Order(HashMap<String, Vector<String>> selectedItems) {
+        // TODO: create an order from items that are selected, separated by item type.
     }
 
     public void insertItem(Order orderItem)

@@ -1,10 +1,9 @@
-package Cashier;
+package src.Cashier;
 
 import javax.swing.*;
 import java.util.Vector;
 
 public class MyButtonGroup extends ButtonGroup {
-
 
     private int max;
     private Vector<ButtonModel> selections = new Vector<>();
