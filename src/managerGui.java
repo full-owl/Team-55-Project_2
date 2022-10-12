@@ -25,7 +25,7 @@ public class managerGui {
         // f.add(sales_panel);
         f.add(new inventoryPanel());
         f.add(new salesPanel());
-        f.add(new payrollPanel());
+        f.add(new mealSizesPanel());
         f.add(new miscPanel());
         f.setVisible(true);
 

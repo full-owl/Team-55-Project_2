@@ -5,19 +5,19 @@ import java.awt.*;
 
 public class miscPanel extends JPanel {
     miscPanel() {
-        JButton schedule_button = new JButton("Schedule");
-        schedule_button.setSize(100,100);
-        JButton alerts_button = new JButton("Alerts");
-        alerts_button.setSize(100,100);
-        JButton receipts_button = new JButton("Receipts");
-        receipts_button.setSize(100,100);
-        JButton register_button = new JButton("Register");
-        register_button.setSize(100,100);
+        JButton update_inventory = new JButton("Update Inventory");
+        update_inventory.setBounds(200,100,200,50);
+        JButton add_inventory = new JButton("Add to Inventory");
+        add_inventory.setBounds(0, 100, 200,50);
+        JButton update_prices = new JButton("Update Prices");
+        update_prices.setBounds(500, 100, 200,50);
+        JButton register_view = new JButton("Register View");
+        register_view.setBounds(500,175,200,50);
 
-        this.add(schedule_button);
-        this.add(alerts_button);
-        this.add(receipts_button);
-        this.add(register_button);
-        this.setLayout(new GridLayout(1,4));
+        this.add(update_inventory);
+        this.add(add_inventory);
+        this.add(update_prices);
+        this.add(register_view);
+        this.setLayout(new BorderLayout());
     }
 }
