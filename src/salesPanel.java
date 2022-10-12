@@ -11,14 +11,13 @@ public class salesPanel extends JPanel {
         l.setText("Sales");
 
         // Data to be displayed in the JTable
-        Object[][] data = {
+        Object[][] data;
 
-                {"10/9/2022", "1500"},
-                {"11/9/2022", "2000"}
-        };
-
+        String[][] ordTable = new String[100][5];
+        jdbcpostgreSQL.getOrdTable(ordTable);
+        data = ordTable;
         // Column Names
-        String[] columnNames = {"date", "amount"};
+        String[] columnNames = {"Order ID", "Date", "Subtotal", "Total", "EmployeeID"};
 
         // Initializing the JTable
         JTable j = new JTable(data, columnNames);

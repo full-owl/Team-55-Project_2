@@ -153,6 +153,61 @@ public class jdbcpostgreSQL {
         }//end try catch
     }
 
+    public static void getOrdTable(String[][] ordTable) {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try{
+            //String sqlStatement = "INSERT INTO TeamMembers (student_name, section, favority_movie, favorite_holiday) VALUES('Plunky', 905, 'Jeepers Creepers', '2022-10-31')";
+            String sqlStatement = "SELECT * FROM orders ORDER BY id DESC;";
+
+            PreparedStatement p = conn.prepareStatement(sqlStatement);
+            ResultSet result = p.executeQuery();
+
+
+
+            System.out.println("--------------------Query Results--------------------");
+
+            int r = 0;
+
+
+            while(result.next() && r < ordTable.length) {
+
+                ordTable[r][0] = result.getString("id");
+                ordTable[r][1] = result.getString("date");
+                ordTable[r][2] = result.getString("subtotal");
+                ordTable[r][3] = result.getString("total");
+                ordTable[r][4] = result.getString("employeeid");
+                r++;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        //closing the connection
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }//end try catch
+    }
+
   public static void main(String args[]) {
 
     //Building the connection with your credentials
