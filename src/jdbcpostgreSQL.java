@@ -21,6 +21,7 @@ public class jdbcpostgreSQL {
   //MAKE SURE YOU ARE ON VPN or TAMU WIFI TO ACCESS DATABASE
 
     // Parses a csv file and pushes data to the database
+
     public static void convertData(Connection conn, String fileName) throws SQLException
     {
         try {
