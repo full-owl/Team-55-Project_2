@@ -91,9 +91,90 @@ public class jdbcpostgreSQL {
         }
     }
 
-    public static void insertOrder()
-    {
 
+        public static void editInventory(int id, int amount)
+        {
+            Connection conn = null;
+            String teamNumber = "55";
+            String sectionNumber = "904";
+            String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+            String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+            dbSetup myCredentials = new dbSetup();
+
+            try
+            {
+                conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            } catch (Exception e)
+            {
+                System.out.println("error");
+                e.printStackTrace();
+                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.exit(0);
+            }
+
+            try
+            {
+                String stmt = "UPDATE INVENTORY SET amount = ? WHERE id = ?";
+                PreparedStatement ps = conn.prepareStatement(stmt);
+                ps.setInt(1, amount);
+                ps.setInt(2, id);
+                ResultSet result = ps.executeQuery();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.exit(0);
+            }
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }
+    }
+
+    public static void addInventory(int id, String name, int amount, String unit)
+    {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try
+        {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e)
+        {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        try
+        {
+            String stmt = "INSERT INTO INVENTORY(id, ingredient, currentamount, unit) VALUES (?, ?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(stmt);
+            ps.setInt(1, id);
+            ps.setString(2, name);
+            ps.setInt(3,amount);
+            ps.setString(4, unit);
+            ResultSet result = ps.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }
     }
 
     public static void getInvTable(String[][] invTable) {
@@ -286,7 +367,7 @@ public class jdbcpostgreSQL {
      try{
        Statement stmt = conn.createStatement();
 
-       convertData(conn, "order_items.csv");
+       //convertData(conn, "order_items.csv");
        //ResultSet result = stmt.executeQuery(insert1);
        //int result = stmt.executeUpdate(sqlStatement);
 
