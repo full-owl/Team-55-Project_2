@@ -10,8 +10,10 @@ public class miscPanel extends JPanel implements ActionListener {
     JButton update_prices;
     JButton register_view;
     miscPanel() {
+        //LaunchPage editInventory = new LaunchPage();
         update_inventory = new JButton("Edit Inventory");
         update_inventory.setBounds(200,100,200,50);
+        update_inventory.addActionListener(this);
         //JButton add_inventory = new JButton("Add to Inventory");
         //add_inventory.setBounds(0, 100, 200,50);
         update_prices = new JButton("Edit Prices");
@@ -29,7 +31,8 @@ public class miscPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == update_inventory) {
-
+            System.out.println("inventory update");
+            NewWindow inventoryWindow = new NewWindow();
         }
         if(e.getSource() == update_prices) {
 
