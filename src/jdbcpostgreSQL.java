@@ -92,39 +92,38 @@ public class jdbcpostgreSQL {
     }
 
 
-        public static void editInventory(int id, int amount)
+    public static void editInventory(int id, int amount)
+    {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try
         {
-            Connection conn = null;
-            String teamNumber = "55";
-            String sectionNumber = "904";
-            String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-            String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-            dbSetup myCredentials = new dbSetup();
-
-            try
-            {
-                conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-            } catch (Exception e)
-            {
-                System.out.println("error");
-                e.printStackTrace();
-                System.err.println(e.getClass().getName()+": "+e.getMessage());
-                System.exit(0);
-            }
-
-            try
-            {
-                String stmt = "UPDATE INVENTORY SET amount = ? WHERE id = ?";
-                PreparedStatement ps = conn.prepareStatement(stmt);
-                ps.setInt(1, amount);
-                ps.setInt(2, id);
-                ResultSet result = ps.executeQuery();
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-                System.err.println(e.getClass().getName()+": "+e.getMessage());
-                System.exit(0);
-            }
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e)
+        {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try
+        {
+            String stmt = "UPDATE INVENTORY SET amount = ? WHERE id = ?";
+            PreparedStatement ps = conn.prepareStatement(stmt);
+            ps.setInt(1, amount);
+            ps.setInt(2, id);
+            ResultSet result = ps.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
         try {
             conn.close();
             System.out.println("Connection Closed.");
@@ -169,6 +168,48 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }
+    }
+
+    public static void editPrices(String foodtype, String mealtype, float newPrice)
+    {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try
+        {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e)
+        {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        try
+        {
+            String stmt = "UPDATE mealsizes SET price = ? WHERE foodtype = ? AND mealtype = ?";
+            PreparedStatement ps = conn.prepareStatement(stmt);
+            ps.setFloat(1, newPrice);
+            ps.setString(2, foodtype);
+            ps.setString(3, mealtype);
+            ResultSet result = ps.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
         try {
             conn.close();
             System.out.println("Connection Closed.");
