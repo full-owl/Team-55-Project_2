@@ -1,5 +1,6 @@
+package src.Cashier;
+
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 
@@ -29,6 +30,8 @@ public class ReceiptView extends JSplitPane {
         setOrientation(JSplitPane.VERTICAL_SPLIT);
         setLeftComponent(scrollPane);
         setRightComponent(checkoutView);
+        setDividerLocation(0.9);
+        setResizeWeight(0.9);
     }
 
     class ReceiptTableModel extends AbstractTableModel {

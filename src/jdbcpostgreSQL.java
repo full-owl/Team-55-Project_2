@@ -1,3 +1,5 @@
+package src;
+
 import java.sql.*;
 import java.io.*;
 import java.util.*;
@@ -14,8 +16,8 @@ public class jdbcpostgreSQL {
 
   /* DON"T COPY PASTE WRITE THE COMMANDS IN YOUR TERMINAL MANUALLY*/
 
-  //Windows: java -cp ".;postgresql-42.2.8.jar" jdbcpostgreSQL
-  //Mac/Linux: java -cp ".:postgresql-42.2.8.jar" jdbcpostgreSQL
+  //Windows: java -cp ".;postgresql-42.2.8.jar" src.jdbcpostgreSQL
+  //Mac/Linux: java -cp ".:postgresql-42.2.8.jar" src.jdbcpostgreSQL
   //MAKE SURE YOU ARE ON VPN or TAMU WIFI TO ACCESS DATABASE
 
     // Parses a csv file and pushes data to the database

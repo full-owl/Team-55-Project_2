@@ -1,3 +1,5 @@
+package src;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -6,10 +8,10 @@ public class managerGui {
     public static void main(String args[]){
 
 
-        // JPanel inventory_panel = new inventoryPanel();
+        // JPanel inventory_panel = new src.inventoryPanel();
         // inventory_panel.setSize(300,100);
 
-        // JPanel sales_panel = new salesPanel();
+        // JPanel sales_panel = new src.salesPanel();
         // sales_panel.setSize(500,100);
 
         JFrame f = new JFrame();
