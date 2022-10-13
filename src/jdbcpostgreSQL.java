@@ -207,7 +207,7 @@ public class jdbcpostgreSQL {
             PreparedStatement ps = conn.prepareStatement(stmt);
             ps.setInt(1, amount);
             ps.setInt(2, id);
-            ResultSet result = ps.executeQuery();
+            int result = ps.executeUpdate();
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -293,7 +293,7 @@ public class jdbcpostgreSQL {
             ps.setFloat(1, newPrice);
             ps.setString(2, foodtype);
             ps.setString(3, mealtype);
-            ResultSet result = ps.executeQuery();
+            int result = ps.executeUpdate();
         } catch (Exception e)
         {
             e.printStackTrace();
