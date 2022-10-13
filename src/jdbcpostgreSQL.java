@@ -308,7 +308,7 @@ public class jdbcpostgreSQL {
         }
     }
 
-    public static void addMenuItem(int id, String name, String type)
+    public static void addMenuItem(int id, String name, String type, String description)
     {
         Connection conn = null;
         String teamNumber = "55";
@@ -330,11 +330,12 @@ public class jdbcpostgreSQL {
 
         try
         {
-            String stmt = "INSERT INTO menuitems(id, name, type) VALUES (?, ?, ?)";
+            String stmt = "INSERT INTO menuitems(id, name, foodtype, description) VALUES (?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(stmt);
             ps.setInt(1, id);
             ps.setString(2, name);
             ps.setString(3, type);
+            ps.setString(4, description);
             ResultSet result = ps.executeQuery();
         } catch (Exception e)
         {
