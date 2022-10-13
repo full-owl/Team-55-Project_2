@@ -11,9 +11,9 @@ public class OrderItems {
     int menuItem3;
     int menuItem4;
     int menuItem5;
-    int menuItem6;
+    //int menuItem6;
 
-    public OrderItems(int orderId, String orderType, int menuItem1, int menuItem2, int menuItem3, int menuItem4, int menuItem5, int menuItem6)
+    public OrderItems(int orderId, String orderType, int menuItem1, int menuItem2, int menuItem3, int menuItem4, int menuItem5) // int menuItem6)
     {
         this.orderId = orderId;
         this.orderType = orderType;
@@ -22,7 +22,7 @@ public class OrderItems {
         this.menuItem3 = menuItem3;
         this.menuItem4 = menuItem4;
         this.menuItem5 = menuItem5;
-        this.menuItem6 = menuItem6;
+        //this.menuItem6 = menuItem6;
     }
 
     // TODO WHAT DOES THIS DO?
@@ -74,6 +74,7 @@ public class OrderItems {
         return;
     }
 
+    // WE PROB DON"T NEED THESE TWO FUNCTIONS
     public void add(String item) {
         // Look up index by name
         int index = jdbcpostgreSQL.getItemIndex(item);
@@ -88,6 +89,7 @@ public class OrderItems {
 
     }
 
+    // TODO IMPLEMENT THIS
     public double getPrice() {
         // Look up based off of the table in the db
         return 0.0;
