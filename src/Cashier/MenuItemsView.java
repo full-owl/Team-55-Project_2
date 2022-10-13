@@ -110,7 +110,7 @@ public class MenuItemsView extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String size = actionEvent.getActionCommand();
-                System.out.println(size);
+                System.out.println("Size: " + size);
                 JToggleButton button = (JToggleButton) actionEvent.getSource();
                 if(button.isSelected()) {
                     int entreeMax = numEntrees(size);
@@ -179,6 +179,7 @@ public class MenuItemsView extends JPanel {
             var selectedButtons = set.getValue().group.getSelections();
             var selected = new Vector<String>();
             for(var button: selectedButtons) {
+                System.out.println("Selected: " + button.getActionCommand());
                 selected.add(button.getActionCommand());
             }
 
@@ -190,8 +191,7 @@ public class MenuItemsView extends JPanel {
                     mealItem.setEntrees(selected);
                 } else {
                     for(var itemName: selected) {
-                        var item = new OrderItems(size);
-                        item.add(itemName);
+                        var item = new OrderItems(size, itemName);
                         items.add(item);
                     }
                 }
@@ -199,8 +199,7 @@ public class MenuItemsView extends JPanel {
             // Add Sides and Entrees al la carte
             else {
                 for(var itemName: selected) {
-                    var item = new OrderItems(size);
-                    item.add(itemName);
+                    var item = new OrderItems(size, itemName);
                     items.add(item);
                 }
             }

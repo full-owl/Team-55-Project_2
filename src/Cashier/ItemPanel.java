@@ -28,6 +28,7 @@ public class ItemPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("Item: " + actionEvent.getActionCommand());
                 updateNumSelected();
             }
         };
@@ -35,6 +36,7 @@ public class ItemPanel extends JPanel {
         for (String item: items) {
             var button = new JToggleButton();
             button.setText(item);
+            button.setActionCommand(item);
             button.addActionListener(action);
             innerPanel.add(button);
             group.add(button);

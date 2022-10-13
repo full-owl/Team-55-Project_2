@@ -25,9 +25,12 @@ public class OrderItems {
         this.instructions = instructions;
     }
 
-    // TODO WHAT DOES THIS DO?
     public OrderItems(String orderType) {
-
+        this.orderType = orderType;
+    }
+    public OrderItems(String orderType, String menuItem) {
+        this.orderType = orderType;
+        this.menuItem1 = jdbcpostgreSQL.getItemIndex(menuItem);
     }
 
 
@@ -72,21 +75,6 @@ public class OrderItems {
             this.menuItem3 = 0;
         }
         return;
-    }
-
-    // WE PROB DON"T NEED THESE TWO FUNCTIONS
-    public void add(String item) {
-        // Look up index by name
-        int index = jdbcpostgreSQL.getItemIndex(item);
-        add(index);
-
-    }
-
-    public void add(int index) {
-
-        // Add item based on index
-        // Should error if there is more than 6 menuItems
-
     }
 
     // TODO IMPLEMENT THIS
