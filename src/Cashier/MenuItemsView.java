@@ -1,6 +1,5 @@
 package src.Cashier;
 
-import src.Order;
 import src.OrderItems;
 
 import javax.swing.*;
@@ -15,7 +14,7 @@ public class MenuItemsView extends JPanel {
     ButtonGroup sizeGroup;
     HashMap<String, ItemPanel> itemCategories;
 
-    ReceiptView.ReceiptTableModel receiptModel;
+    ReceiptTableModel receiptModel;
 
     public MenuItemsView() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -54,22 +53,30 @@ public class MenuItemsView extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String action = actionEvent.getActionCommand();
+                System.out.println(action);
                 Vector<OrderItems> items;
                 if (action.equals("add")) { // Only add meal since they don't need to specify what size they are
                     items = new Vector<>();
                     items.add(addMeal());
+                    sizeGroup.clearSelection();
                     itemCategories.get("Sides").group.clearSelection();
                     itemCategories.get("Entrees").group.clearSelection();
                 } else {
                     items = addSelectedItems(action);
+                    sizeGroup.clearSelection();
+                    for (var categoryGroup : itemCategories.values()) {
+                        categoryGroup.group.clearSelection();
+                    }
                 }
 
                 receiptModel.addItems(items);
             }
         };
-        for(String btn: new String[]{"Add (small)", "Add (medium)", "Add (large)", "Add"}) {
+        for(int i = 0; i < buttonLabels.length; i++) {
             var button = new JButton();
-            button.setText(btn);
+            button.setText(buttonLabels[i]);
+            button.setActionCommand(buttonActionCommand[i]);
+            button.addActionListener(addAction);
             modifyArea.add(button);
         }
         add(modifyArea);

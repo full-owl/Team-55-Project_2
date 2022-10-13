@@ -10,8 +10,10 @@ public class CashierView extends JSplitPane {
     public CashierView() {
         super();
         itemsView = new MenuItemsView();
-        receiptView = new ReceiptView();
 
+        var receiptModel = new ReceiptTableModel();
+        receiptView = new ReceiptView(receiptModel);
+        itemsView.receiptModel = receiptModel;
         setLeftComponent(itemsView);
         setRightComponent(receiptView);
 

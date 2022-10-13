@@ -49,4 +49,16 @@ public class OrderItems {
         // Add item based on index
         // Should error if there is more than 6 menuItems
     }
+
+    public double getPrice() {
+        // Look up based off of the table in the db
+        return 0.0;
+    }
+
+    @Override
+    public String toString() {
+        // Ex. Bowl with white rice with orange chicken
+        // Plate with white rice with orange chicken and bejing beef.
+        return "TODO";
+    }
 }
