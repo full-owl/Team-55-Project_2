@@ -58,5 +58,7 @@ class ReceiptTableModel extends AbstractTableModel {
 
     public void addItems(Vector<OrderItems> items) {
         // AAAHHHHHHH
+        data.addAll(items);
+        fireTableDataChanged();
     }
 }
