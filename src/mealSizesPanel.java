@@ -13,7 +13,7 @@ public class mealSizesPanel extends JPanel {
 
         // Data to be displayed in the JTable
         Object[][] data;
-        String[][] mealSizeTable = new String[17][4];
+        String[][] mealSizeTable = new String[jdbcpostgreSQL.getDBSize("mealsizes") + 1][4];
         jdbcpostgreSQL.getMealSizeTable(mealSizeTable);
         data = mealSizeTable;
 

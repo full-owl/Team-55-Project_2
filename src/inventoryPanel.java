@@ -14,7 +14,7 @@ public class inventoryPanel extends JPanel {
 
         // Data to be displayed in the JTable
         Object[][] data;
-        String[][] invTable = new String[100][4];
+        String[][] invTable = new String[jdbcpostgreSQL.getDBSize("inventory") + 1][4];
         jdbcpostgreSQL.getInvTable(invTable);
         data = invTable;
 
