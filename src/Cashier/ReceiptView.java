@@ -45,7 +45,7 @@ public class ReceiptView extends JSplitPane {
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("Check out");
                 ReceiptTableModel model = (ReceiptTableModel) table.getModel();
-                jdbcpostgreSQL.insertOrder(model.toOrder());
+                jdbcpostgreSQL.insertOrder(model.data);
 
                 model.clear();
             }

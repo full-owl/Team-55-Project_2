@@ -1,14 +1,13 @@
 package src.Cashier;
 
 import src.Order;
-import src.OrderItems;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Vector;
 
 class ReceiptTableModel extends AbstractTableModel {
     private final String[] cols = {"Item", "Price"};
-    public Vector<OrderItems> data = new Vector<>();
+    public Vector<OrderItem> data = new Vector<>();
 
 
     @Override
@@ -46,22 +45,10 @@ class ReceiptTableModel extends AbstractTableModel {
         return false; // price is not editable
     }
 
-//        @Override
-//        public void setValueAt(Object value, int row, int col) {
-//            data[row][col] = value;
-//            fireTableCellUpdated(row,col);
-//        }
-
-    public void addItems(Vector<OrderItems> items) {
-        // AAAHHHHHHH
+    public void addItems(Vector<OrderItem> items) {
         System.out.println(items);
         data.addAll(items);
         fireTableDataChanged();
-    }
-
-    public Order toOrder() {
-        // Converts data into an Order
-        return null;
     }
 
     public void clear() {

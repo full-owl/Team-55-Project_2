@@ -1,9 +1,8 @@
 package src;
 
-import java.awt.font.TextHitInfo;
 import java.util.Vector;
 
-public class OrderItems {
+public class DBOrderItem {
     int orderId;
     String orderType;
     int menuItem1;
@@ -13,7 +12,7 @@ public class OrderItems {
     int menuItem5;
     //int menuItem6;
     String instructions;
-    public OrderItems(int orderId, String orderType, int menuItem1, int menuItem2, int menuItem3, int menuItem4, int menuItem5, String instructions)
+    public DBOrderItem(int orderId, String orderType, int menuItem1, int menuItem2, int menuItem3, int menuItem4, int menuItem5, String instructions)
     {
         this.orderId = orderId;
         this.orderType = orderType;
@@ -25,10 +24,10 @@ public class OrderItems {
         this.instructions = instructions;
     }
 
-    public OrderItems(String orderType) {
+    public DBOrderItem(String orderType) {
         this.orderType = orderType;
     }
-    public OrderItems(String orderType, String menuItem) {
+    public DBOrderItem(String orderType, String menuItem) {
         this.orderType = orderType;
         this.menuItem1 = jdbcpostgreSQL.getItemIndex(menuItem);
     }

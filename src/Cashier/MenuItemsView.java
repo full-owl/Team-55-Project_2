@@ -1,7 +1,5 @@
 package src.Cashier;
 
-import src.OrderItems;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -54,7 +52,7 @@ public class MenuItemsView extends JPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 String action = actionEvent.getActionCommand();
                 System.out.println(action);
-                Vector<OrderItems> items;
+                Vector<OrderItem> items;
                 if (action.equals("add")) { // Only add meal since they don't need to specify what size they are
                     items = new Vector<>();
                     var item = addMeal();
@@ -143,12 +141,12 @@ public class MenuItemsView extends JPanel {
         }
     }
 
-    public OrderItems addMeal() {
+    public OrderItem addMeal() {
 
         var mealButton = sizeGroup.getSelection();
         if (mealButton != null) {
             var mealSize = mealButton.getActionCommand();
-            var mealItem = new OrderItems(mealSize);
+            var mealItem = new MealItem(mealSize);
 
             var sides = new Vector<String>();
             for(var button: itemCategories.get("Sides").group.getSelections()) {
@@ -166,16 +164,20 @@ public class MenuItemsView extends JPanel {
         return null; // No meal was selected
     }
 
-    public Vector<OrderItems> addSelectedItems(String size) {
-        var items = new Vector<OrderItems>();
-        OrderItems mealItem = null;
-        if (sizeGroup.getSelection() != null) {
-            var mealSize = sizeGroup.getSelection().getActionCommand();
-            mealItem = new OrderItems(mealSize);
+    public Vector<OrderItem> addSelectedItems(String size) {
+        var items = new Vector<OrderItem>();
+        OrderItem mealItem = addMeal();
+        if (mealItem != null) {
             items.add(mealItem);
         }
-        var selectedItems = new HashMap<String, Vector<String>>();
+
         for(var set: itemCategories.entrySet()) {
+            // Sides and Entrees are already added, so don't add them again
+            if(mealItem != null && (set.getKey().equals("Sides") || set.getKey().equals("Entrees"))) {
+                continue;
+            }
+
+            // Get Items that are selected for that category
             var selectedButtons = set.getValue().group.getSelections();
             var selected = new Vector<String>();
             for(var button: selectedButtons) {
@@ -183,25 +185,10 @@ public class MenuItemsView extends JPanel {
                 selected.add(button.getActionCommand());
             }
 
-            // Add Sides and Entrees to the meal, instead of al la carte
-            if(mealItem != null) {
-                if (set.getKey().equals("Sides")) {
-                    mealItem.setSides(selected);
-                } else if(set.getKey().equals("Entrees")) {
-                    mealItem.setEntrees(selected);
-                } else {
-                    for(var itemName: selected) {
-                        var item = new OrderItems(size, itemName);
-                        items.add(item);
-                    }
-                }
-            }
             // Add Sides and Entrees al la carte
-            else {
-                for(var itemName: selected) {
-                    var item = new OrderItems(size, itemName);
-                    items.add(item);
-                }
+            for(var itemName: selected) {
+                var item = new AlLaCarteItem(size, itemName);
+                items.add(item);
             }
         }
         return items;

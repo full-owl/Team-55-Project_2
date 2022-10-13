@@ -1,28 +1,26 @@
 package src;
 
-import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Vector;
 
 public class Order {
     int id;
     String currentDate;
-    float subTotal;
-    float total;
+    double subTotal;
+    double total;
 
     int employeeid;
-    LinkedList<OrderItems> itemsInOrder;
+    LinkedList<DBOrderItem> itemsInOrder;
 
-    public Order(int id, float subTotal, float total, int employeeid)
+    public Order(int id, double subTotal)
     {
         this.id = id;
         this.currentDate = getDate();
         this.subTotal = subTotal;
-        this.total = total;
-        this.employeeid = employeeid;
+        this.total = subTotal * (1 + 0.875);
+        this.employeeid = 0; // Only one employee lol
     }
 
-    public void insertItem(OrderItems orderItem)
+    public void insertItem(DBOrderItem orderItem)
     {
         this.itemsInOrder.add(orderItem);
     }

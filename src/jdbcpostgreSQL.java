@@ -1,5 +1,7 @@
 package src;
 
+import src.Cashier.OrderItem;
+
 import java.sql.*;
 import java.io.*;
 import java.sql.Date;
@@ -106,7 +108,7 @@ public class jdbcpostgreSQL {
     /**
      *
      */
-    public static void insertOrder(Order order) {
+    public static void insertOrder(Vector<OrderItem> items) {
 
         int orderid = getDBSize("orders") + 1;
 
@@ -127,9 +129,10 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
-        Iterator ls = order.itemsInOrder.iterator();
-        while (ls.hasNext()) {
-            OrderItems item = (OrderItems) ls.next();
+        float subTotal = 0;
+        for(var it: items) {
+            DBOrderItem item = it.toDBOrderItem();
+
             try
             {
                 String stmt ="INSERT INTO orderitems (orderid, mealtype, menuitem1, menuitem2, menuitem3, side1, side2," +
@@ -146,6 +149,8 @@ public class jdbcpostgreSQL {
                 ps.setString(8, item.instructions);
 
                 int result = ps.executeUpdate();
+
+                subTotal += it.getPrice(); // Only add to price if the item is successfully added
             } catch (Exception e)
             {
                 e.printStackTrace();
@@ -156,6 +161,7 @@ public class jdbcpostgreSQL {
         }
 
         // adding to orders
+        Order order = new Order(orderid, subTotal);
         try
         {
             String stmt ="INSERT INTO orders (id, date, subtotal, total, employeeid) VALUES (? ? ? ? ?);";
