@@ -12,8 +12,8 @@ public class OrderItems {
     int menuItem4;
     int menuItem5;
     //int menuItem6;
-
-    public OrderItems(int orderId, String orderType, int menuItem1, int menuItem2, int menuItem3, int menuItem4, int menuItem5) // int menuItem6)
+    String instructions;
+    public OrderItems(int orderId, String orderType, int menuItem1, int menuItem2, int menuItem3, int menuItem4, int menuItem5, String instructions)
     {
         this.orderId = orderId;
         this.orderType = orderType;
@@ -22,7 +22,7 @@ public class OrderItems {
         this.menuItem3 = menuItem3;
         this.menuItem4 = menuItem4;
         this.menuItem5 = menuItem5;
-        //this.menuItem6 = menuItem6;
+        this.instructions = instructions;
     }
 
     // TODO WHAT DOES THIS DO?

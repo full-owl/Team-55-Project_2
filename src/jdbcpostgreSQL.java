@@ -2,6 +2,7 @@ package src;
 
 import java.sql.*;
 import java.io.*;
+import java.sql.Date;
 import java.util.*;
 /*
 CSCE 331
@@ -106,6 +107,79 @@ public class jdbcpostgreSQL {
      *
      */
     public static void insertOrder(Order order) {
+
+        int orderid = getDBSize("orders") + 1;
+
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+        try
+        {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e)
+        {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        Iterator ls = order.itemsInOrder.iterator();
+        while (ls.hasNext()) {
+            OrderItems item = (OrderItems) ls.next();
+            try
+            {
+                String stmt ="INSERT INTO orderitems (orderid, mealtype, menuitem1, menuitem2, menuitem3, side1, side2," +
+                        "custominstructions) VALUES (? ? ? ? ? ? ? ?);";
+
+                PreparedStatement ps = conn.prepareStatement(stmt);
+                ps.setInt(1, orderid);
+                ps.setString(2, item.orderType);
+                ps.setInt(3, item.menuItem1);
+                ps.setInt(4, item.menuItem2);
+                ps.setInt(5, item.menuItem3);
+                ps.setInt(6, item.menuItem4);
+                ps.setInt(7, item.menuItem5);
+                ps.setString(8, item.instructions);
+
+                ResultSet result = ps.executeQuery();
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.exit(0);
+            }
+
+        }
+
+        // adding to orders
+        try
+        {
+            String stmt ="INSERT INTO orders (id, date, subtotal, total, employeeid) VALUES (? ? ? ? ?);";
+
+            PreparedStatement ps = conn.prepareStatement(stmt);
+            ps.setInt(1, orderid);
+            ps.setDate(2, Date.valueOf(order.currentDate));
+            ps.setDouble(3, order.subTotal);
+            ps.setDouble(4, order.total);
+            ps.setInt(5, order.employeeid);
+            ResultSet result = ps.executeQuery();
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }
     }
 
     public static void editInventory(int id, int amount)
