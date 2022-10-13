@@ -145,7 +145,7 @@ public class jdbcpostgreSQL {
                 ps.setInt(7, item.menuItem5);
                 ps.setString(8, item.instructions);
 
-                ResultSet result = ps.executeQuery();
+                int result = ps.executeUpdate();
             } catch (Exception e)
             {
                 e.printStackTrace();
@@ -166,7 +166,7 @@ public class jdbcpostgreSQL {
             ps.setDouble(3, order.subTotal);
             ps.setDouble(4, order.total);
             ps.setInt(5, order.employeeid);
-            ResultSet result = ps.executeQuery();
+            int result = ps.executeUpdate();
 
         } catch (Exception e)
         {
@@ -250,7 +250,7 @@ public class jdbcpostgreSQL {
             ps.setString(2, name);
             ps.setInt(3,amount);
             ps.setString(4, unit);
-            ResultSet result = ps.executeQuery();
+            int result = ps.executeUpdate();
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -336,7 +336,7 @@ public class jdbcpostgreSQL {
             ps.setString(2, name);
             ps.setString(3, type);
             ps.setString(4, description);
-            ResultSet result = ps.executeQuery();
+            int result = ps.executeUpdate();
         } catch (Exception e)
         {
             e.printStackTrace();
