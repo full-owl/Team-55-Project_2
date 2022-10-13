@@ -203,7 +203,7 @@ public class jdbcpostgreSQL {
         }
         try
         {
-            String stmt = "UPDATE INVENTORY SET amount = ? WHERE id = ?";
+            String stmt = "UPDATE INVENTORY SET currentamount = ? WHERE id = ?";
             PreparedStatement ps = conn.prepareStatement(stmt);
             ps.setInt(1, amount);
             ps.setInt(2, id);
