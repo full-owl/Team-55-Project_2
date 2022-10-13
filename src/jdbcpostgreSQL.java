@@ -308,6 +308,48 @@ public class jdbcpostgreSQL {
         }
     }
 
+    public static void addMenuItem(int id, String name, String type)
+    {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try
+        {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e)
+        {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        try
+        {
+            String stmt = "INSERT INTO menuitems(id, name, type) VALUES (?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(stmt);
+            ps.setInt(1, id);
+            ps.setString(2, name);
+            ps.setString(3, type);
+            ResultSet result = ps.executeQuery();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }
+    }
+
     /**
      *
      * @param invTable
