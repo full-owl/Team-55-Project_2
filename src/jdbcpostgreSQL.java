@@ -7,6 +7,10 @@ import java.util.*;
 CSCE 331
 9-28-2022 Lab
  */
+/**
+ * @author evanw
+ *
+ */
 public class jdbcpostgreSQL {
 
   //Commands to run this script
@@ -22,6 +26,12 @@ public class jdbcpostgreSQL {
 
     // Parses a csv file and pushes data to the database
 
+    /**
+     * Inserts data from a csv into the database
+     * @param conn connection to the database
+     * @param fileName the csv data
+     * @throws SQLException
+     */
     public static void convertData(Connection conn, String fileName) throws SQLException
     {
         try {
@@ -92,6 +102,11 @@ public class jdbcpostgreSQL {
         }
     }
 
+    /**
+     *
+     */
+    public static void insertOrder()
+    {
 
     public static void editInventory(int id, int amount)
     {
@@ -219,6 +234,10 @@ public class jdbcpostgreSQL {
         }
     }
 
+    /**
+     *
+     * @param invTable
+     */
     public static void getInvTable(String[][] invTable) {
         Connection conn = null;
         String teamNumber = "55";

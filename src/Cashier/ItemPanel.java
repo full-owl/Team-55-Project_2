@@ -17,7 +17,7 @@ public class ItemPanel extends JPanel {
         this.setBorder(BorderFactory.createTitledBorder(category));
 
         label = new JLabel("0/" + items.length);
-        this.add(label);
+        this.add(label, BorderLayout.NORTH);
 
 
         // Item grid

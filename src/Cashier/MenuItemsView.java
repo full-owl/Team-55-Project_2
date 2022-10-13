@@ -23,10 +23,9 @@ public class MenuItemsView extends JPanel {
         createItemCategories();
 
         // TODO better name
-        var layout = new GridLayout(0,5,5,5);
         var modifyArea = new JPanel();
         modifyArea.setName("Modify");
-        modifyArea.setLayout(layout);
+        modifyArea.setLayout(new GridLayout(0,5,5,5));
 
         // Deselect all button
         var deselectButton = new JButton();
@@ -110,7 +109,7 @@ public class MenuItemsView extends JPanel {
         }
     }
 
-    public Order toOrder() {
+    public Vector<OrderItems> toOrder() {
         String meal = sizeGroup.getSelection().getActionCommand();
         var selectedItems = new HashMap<String, Vector<String>>();
         for(var set: itemCategories.entrySet()) {
@@ -121,7 +120,7 @@ public class MenuItemsView extends JPanel {
             }
             selectedItems.put(set.getKey(), selected);
         }
-        return new Order(selectedItems);
+        return new Order(meal, selectedItems);
 
     }
     public static void main(String[] args) {
