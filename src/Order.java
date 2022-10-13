@@ -19,10 +19,6 @@ public class Order {
         this.total = total;
     }
 
-    public Order(HashMap<String, Vector<String>> selectedItems) {
-        // TODO: create an order from items that are selected, separated by item type.
-    }
-
     public void insertItem(Order orderItem)
     {
         this.itemsInOrder.add(orderItem);

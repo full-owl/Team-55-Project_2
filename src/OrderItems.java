@@ -25,6 +25,7 @@ public class OrderItems {
         this.menuItem6 = menuItem6;
     }
 
+    // TODO WHAT does this do?
     public OrderItems(String orderType) {
 
     }
@@ -32,22 +33,26 @@ public class OrderItems {
 
     public void setSides(Vector<String> sides) {
         // Errors if there is a wrong amount of sides
+
     }
 
+    // TODO Implement add to have a meal to it
     public void setEntrees(Vector<String> entrees) {
         // Errors if there is a wrong amount of entrees
     }
 
     public void add(String item) {
         // Look up index by name
-        int index = 0;
+        int index = jdbcpostgreSQL.getItemIndex(item);
         add(index);
 
     }
 
     public void add(int index) {
+
         // Add item based on index
         // Should error if there is more than 6 menuItems
+
     }
 
     public double getPrice() {
