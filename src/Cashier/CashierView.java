@@ -2,7 +2,7 @@ package src.Cashier;
 
 import javax.swing.*;
 
-public class CashierView extends JSplitPane {
+public class CashierView extends JSplitPane{
 
     private MenuItemsView itemsView;
     private ReceiptView receiptView;

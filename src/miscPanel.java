@@ -1,5 +1,7 @@
 package src;
 
+import src.Cashier.CashierView;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,27 +11,34 @@ public class miscPanel extends JPanel implements ActionListener {
     JButton addInventory;
     JButton editInventory;
     JButton updatePrices;
-    JButton register_view;
+    JButton addNewItem;
+    JButton registerView;
     miscPanel() {
         addInventory = new JButton("Add New Item to Inventory");
-        addInventory.setBounds(150,100,200,50);
+        addInventory.setBounds(50,100,200,50);
         addInventory.addActionListener(this);
 
         editInventory = new JButton("Edit Inventory");
-        editInventory.setBounds(150,150,200,50);
+        editInventory.setBounds(50,170,200,50);
         editInventory.addActionListener(this);
 
         updatePrices = new JButton("Edit Prices");
-        updatePrices.setBounds(500, 100, 200,50);
+        updatePrices.setBounds(275, 170, 200,50);
         updatePrices.addActionListener(this);
 
-        register_view = new JButton("Register View");
-        register_view.setBounds(500,175,200,50);
+        addNewItem = new JButton("Add New Menu Item");
+        addNewItem.setBounds(275, 100, 200,50);
+        addNewItem.addActionListener(this);
+
+        registerView = new JButton("Register View");
+        registerView.setBounds(540,300,200,50);
+        registerView.addActionListener(this);
 
         this.add(addInventory);
         this.add(editInventory);
         this.add(updatePrices);
-        this.add(register_view);
+        this.add(addNewItem);
+        this.add(registerView);
         this.setLayout(new BorderLayout());
     }
 
@@ -44,8 +53,11 @@ public class miscPanel extends JPanel implements ActionListener {
         if(e.getSource() == updatePrices) {
             EditPriceWindow updatePricesWindow = new EditPriceWindow();
         }
-        if(e.getSource() == register_view) {
-
+        if (e.getSource()==addNewItem) {
+            AddItemWindow addItemWindow = new AddItemWindow();
+        }
+        if(e.getSource() == registerView) {
+            CashierView cashierWindow = new CashierView();
         }
     }
 }
