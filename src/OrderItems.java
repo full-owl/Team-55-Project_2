@@ -25,7 +25,7 @@ public class OrderItems {
         this.menuItem6 = menuItem6;
     }
 
-    // TODO WHAT does this do?
+    // TODO WHAT DOES THIS DO?
     public OrderItems(String orderType) {
 
     }
@@ -33,12 +33,45 @@ public class OrderItems {
 
     public void setSides(Vector<String> sides) {
         // Errors if there is a wrong amount of sides
-
+        if (sides.size() == 2) {
+            this.menuItem4 = jdbcpostgreSQL.getItemIndex(sides.elementAt(0));
+            this.menuItem5 = jdbcpostgreSQL.getItemIndex(sides.elementAt(1));
+        }
+        else if (sides.size() == 1) {
+            this.menuItem4 = jdbcpostgreSQL.getItemIndex(sides.elementAt(0));
+            this.menuItem5 = 0;
+        }
+        else if (sides.size() == 0) {
+            this.menuItem4 = 0;
+            this.menuItem5 = 0;
+        }
+        return;
     }
 
     // TODO Implement add to have a meal to it
     public void setEntrees(Vector<String> entrees) {
         // Errors if there is a wrong amount of entrees
+        if (entrees.size() == 3) {
+            this.menuItem1 = jdbcpostgreSQL.getItemIndex(entrees.elementAt(0));
+            this.menuItem2 = jdbcpostgreSQL.getItemIndex(entrees.elementAt(1));
+            this.menuItem3 = jdbcpostgreSQL.getItemIndex(entrees.elementAt(2));
+        }
+        else if (entrees.size() == 2) {
+            this.menuItem1 = jdbcpostgreSQL.getItemIndex(entrees.elementAt(0));
+            this.menuItem2 = jdbcpostgreSQL.getItemIndex(entrees.elementAt(1));
+            this.menuItem3 = 0;
+        }
+        else if (entrees.size() == 1) {
+            this.menuItem1 = jdbcpostgreSQL.getItemIndex(entrees.elementAt(0));
+            this.menuItem2 = 0;
+            this.menuItem3 = 0;
+        }
+        else if (entrees.size() == 0){
+            this.menuItem1 = 0;
+            this.menuItem2 = 0;
+            this.menuItem3 = 0;
+        }
+        return;
     }
 
     public void add(String item) {
