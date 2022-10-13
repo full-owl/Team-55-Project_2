@@ -1,6 +1,7 @@
 package src;
 
 import java.awt.font.TextHitInfo;
+import java.util.Vector;
 
 public class OrderItems {
     int orderId;
@@ -22,5 +23,30 @@ public class OrderItems {
         this.menuItem4 = menuItem4;
         this.menuItem5 = menuItem5;
         this.menuItem6 = menuItem6;
+    }
+
+    public OrderItems(String orderType) {
+
+    }
+
+
+    public void setSides(Vector<String> sides) {
+        // Errors if there is a wrong amount of sides
+    }
+
+    public void setEntrees(Vector<String> entrees) {
+        // Errors if there is a wrong amount of entrees
+    }
+
+    public void add(String item) {
+        // Look up index by name
+        int index = 0;
+        add(index);
+
+    }
+
+    public void add(int index) {
+        // Add item based on index
+        // Should error if there is more than 6 menuItems
     }
 }

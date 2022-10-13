@@ -1,6 +1,7 @@
 package src.Cashier;
 
 import src.Order;
+import src.OrderItems;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +14,8 @@ public class MenuItemsView extends JPanel {
 
     ButtonGroup sizeGroup;
     HashMap<String, ItemPanel> itemCategories;
+
+    ReceiptView.ReceiptTableModel receiptModel;
 
     public MenuItemsView() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -43,6 +46,27 @@ public class MenuItemsView extends JPanel {
         deselectButton.addActionListener(deselectAction);
         modifyArea.add(deselectButton);
 
+
+        var buttonLabels =  new String[]{"Add (small)", "Add (medium)", "Add (large)", "Add"};
+        var buttonActionCommand = new String[]{"small", "medium", "large", "add"};
+        var addAction = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String action = actionEvent.getActionCommand();
+                Vector<OrderItems> items;
+                if (action.equals("add")) { // Only add meal since they don't need to specify what size they are
+                    items = new Vector<>();
+                    items.add(addMeal());
+                    itemCategories.get("Sides").group.clearSelection();
+                    itemCategories.get("Entrees").group.clearSelection();
+                } else {
+                    items = addSelectedItems(action);
+                }
+
+                receiptModel.addItems(items);
+            }
+        };
         for(String btn: new String[]{"Add (small)", "Add (medium)", "Add (large)", "Add"}) {
             var button = new JButton();
             button.setText(btn);
@@ -109,8 +133,35 @@ public class MenuItemsView extends JPanel {
         }
     }
 
-    public Vector<OrderItems> toOrder() {
-        String meal = sizeGroup.getSelection().getActionCommand();
+    public OrderItems addMeal() {
+        var mealSize = sizeGroup.getSelection().getActionCommand();
+        if (mealSize != null) {
+            var mealItem = new OrderItems(mealSize);
+
+            var sides = new Vector<String>();
+            for(var button: itemCategories.get("Sides").group.getSelections()) {
+                sides.add(button.getActionCommand());
+            }
+            mealItem.setSides(sides);
+
+            var entrees = new Vector<String>();
+            for(var button: itemCategories.get("Entrees").group.getSelections()) {
+                entrees.add(button.getActionCommand());
+            }
+            mealItem.setEntrees(entrees);
+            return mealItem;
+        }
+        return null; // No meal was selected
+    }
+
+    public Vector<OrderItems> addSelectedItems(String size) {
+        var items = new Vector<OrderItems>();
+        OrderItems mealItem = null;
+        if (sizeGroup.getSelection() != null) {
+            var mealSize = sizeGroup.getSelection().getActionCommand();
+            mealItem = new OrderItems(mealSize);
+            items.add(mealItem);
+        }
         var selectedItems = new HashMap<String, Vector<String>>();
         for(var set: itemCategories.entrySet()) {
             var selectedButtons = set.getValue().group.getSelections();
@@ -118,11 +169,33 @@ public class MenuItemsView extends JPanel {
             for(var button: selectedButtons) {
                 selected.add(button.getActionCommand());
             }
-            selectedItems.put(set.getKey(), selected);
-        }
-        return new Order(meal, selectedItems);
 
+            // Add Sides and Entrees to the meal, instead of al la carte
+            if(mealItem != null) {
+                if (set.getKey().equals("Sides")) {
+                    mealItem.setSides(selected);
+                } else if(set.getKey().equals("Entrees")) {
+                    mealItem.setEntrees(selected);
+                } else {
+                    for(var itemName: selected) {
+                        var item = new OrderItems(size);
+                        item.add(itemName);
+                        items.add(item);
+                    }
+                }
+            }
+            // Add Sides and Entrees al la carte
+            else {
+                for(var itemName: selected) {
+                    var item = new OrderItems(size);
+                    item.add(itemName);
+                    items.add(item);
+                }
+            }
+        }
+        return items;
     }
+
     public static void main(String[] args) {
         var frame = new JFrame();
         var cv = new MenuItemsView();
