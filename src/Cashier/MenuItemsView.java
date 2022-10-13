@@ -57,7 +57,10 @@ public class MenuItemsView extends JPanel {
                 Vector<OrderItems> items;
                 if (action.equals("add")) { // Only add meal since they don't need to specify what size they are
                     items = new Vector<>();
-                    items.add(addMeal());
+                    var item = addMeal();
+                    if(item != null) {
+                        items.add(item);
+                    }
                     sizeGroup.clearSelection();
                     itemCategories.get("Sides").group.clearSelection();
                     itemCategories.get("Entrees").group.clearSelection();
@@ -141,8 +144,10 @@ public class MenuItemsView extends JPanel {
     }
 
     public OrderItems addMeal() {
-        var mealSize = sizeGroup.getSelection().getActionCommand();
-        if (mealSize != null) {
+
+        var mealButton = sizeGroup.getSelection();
+        if (mealButton != null) {
+            var mealSize = mealButton.getActionCommand();
             var mealItem = new OrderItems(mealSize);
 
             var sides = new Vector<String>();

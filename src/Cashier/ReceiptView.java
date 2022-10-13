@@ -1,15 +1,21 @@
 package src.Cashier;
 
+import src.jdbcpostgreSQL;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ReceiptView extends JSplitPane {
     private JButton cancelButton;
-    private JButton cashButton;
-    private JButton cardButton;
+    private JButton checkoutButton;
+//    private JButton cashButton;
+//    private JButton cardButton;
+    private JTable table;
 
     public ReceiptView(ReceiptTableModel model) {
-        var table = new JTable(model);
+        table = new JTable(model);
         table.setPreferredScrollableViewportSize(new Dimension(500,70));
         table.setFillsViewportHeight(true);
 
@@ -18,13 +24,39 @@ public class ReceiptView extends JSplitPane {
 
         // Checkout view
         var checkoutView = new JPanel();
-        checkoutView.setLayout(new GridLayout(0,3,5,5));
+        checkoutView.setLayout(new GridLayout(0,2,5,5));
+
+        var cancelAction = new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("Checking out");
+                ReceiptTableModel model = (ReceiptTableModel) table.getModel();
+                model.clear();
+            }
+        };
         cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(cancelAction);
         checkoutView.add(cancelButton);
-        cashButton = new JButton("Cash");
-        checkoutView.add(cashButton);
-        cardButton = new JButton("Card");
-        checkoutView.add(cardButton);
+
+        var checkoutAction = new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.out.println("Checking out");
+                ReceiptTableModel model = (ReceiptTableModel) table.getModel();
+                jdbcpostgreSQL.insertOrder(model.toOrder());
+
+                model.clear();
+            }
+        };
+        checkoutButton = new JButton("Checkout");
+        checkoutButton.addActionListener(checkoutAction);
+        checkoutView.add(checkoutButton);
+//        cashButton = new JButton("Cash");
+//        checkoutView.add(cashButton);
+//        cardButton = new JButton("Card");
+//        checkoutView.add(cardButton);
 
         setOrientation(JSplitPane.VERTICAL_SPLIT);
         setLeftComponent(scrollPane);

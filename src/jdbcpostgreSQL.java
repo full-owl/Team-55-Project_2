@@ -105,7 +105,7 @@ public class jdbcpostgreSQL {
     /**
      *
      */
-    public static void insertOrder() {
+    public static void insertOrder(Order order) {
     }
 
     public static void editInventory(int id, int amount)

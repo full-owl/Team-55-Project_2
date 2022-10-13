@@ -1,18 +1,14 @@
 package src.Cashier;
 
+import src.Order;
 import src.OrderItems;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.Vector;
 
 class ReceiptTableModel extends AbstractTableModel {
-    private String[] cols = {"Item", "Price"};
-    private Vector<OrderItems> data = new Vector<>();
-//        private Object[][] data = {
-//                {"Bowl with White Steamed Rice, Orange Chicken", "$8.50", false},
-//                {"Medium Dr. Pepper", "$2.50", false},
-//                {"Egg Rolls 6 piece", "$2.00", false},
-//        };
+    private final String[] cols = {"Item", "Price"};
+    public Vector<OrderItems> data = new Vector<>();
 
 
     @Override
@@ -58,7 +54,18 @@ class ReceiptTableModel extends AbstractTableModel {
 
     public void addItems(Vector<OrderItems> items) {
         // AAAHHHHHHH
+        System.out.println(items);
         data.addAll(items);
+        fireTableDataChanged();
+    }
+
+    public Order toOrder() {
+        // Converts data into an Order
+        return null;
+    }
+
+    public void clear() {
+        data.clear();
         fireTableDataChanged();
     }
 }
