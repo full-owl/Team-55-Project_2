@@ -49,7 +49,7 @@ public class NewWindow implements ActionListener {
         f.add(units);
         f.add(submit);
         f.pack();
-        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         //f.setSize(500,500);
         f.setVisible(true);
     }
