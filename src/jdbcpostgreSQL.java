@@ -607,7 +607,7 @@ public class jdbcpostgreSQL {
         return -1; // not in table
     }
 
-    public static double getTablePrice(String foodtype, String mealtype) {
+    public static double getTablePrice(String foodname, String mealtype) {
         Connection conn = null;
         String teamNumber = "55";
         String sectionNumber = "904";
@@ -625,12 +625,11 @@ public class jdbcpostgreSQL {
         }
         try{
             //String sqlStatement = "INSERT INTO TeamMembers (student_name, section, favority_movie, favorite_holiday) VALUES('Plunky', 905, 'Jeepers Creepers', '2022-10-31')";
-            String sqlStatement = "SELECT * FROM mealsizes WHERE (foodtype = '"
-                    + foodtype + "' AND mealtype ='" +mealtype +"');";
+            String sqlStatement = "SELECT * FROM mealsizes INNER JOIN menuitems ON mealsizes.foodtype = menuitems.foodtype " +
+                    "WHERE (menuitems.name = '" + foodname + "' AND mealtype ='" +mealtype +"');";
 
             PreparedStatement p = conn.prepareStatement(sqlStatement);
             ResultSet result = p.executeQuery();
-
 
             result.next();
             return result.getDouble("price");
