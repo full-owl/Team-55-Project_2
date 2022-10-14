@@ -6,8 +6,7 @@ import java.awt.*;
 
 public class managerGui {
     public static JFrame f;
-
-    public managerGui() {
+    public static void setFrame() {
         f = new JFrame("Manager View");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         f.setLayout(new GridLayout(2,2));
@@ -19,12 +18,16 @@ public class managerGui {
         f.add(new miscPanel());
         f.setVisible(true);
     }
-}
+    public static void managerGui() {
+        setFrame();
+    }
+
 //    public static void main(String args[]){
 //        setFrame();
 //    }
 //
-//    public static void refreshManager() {
-//       setFrame();
-//    }
-//}
+    public static void refreshManager() {
+        f.dispose();
+       setFrame();
+    }
+}
