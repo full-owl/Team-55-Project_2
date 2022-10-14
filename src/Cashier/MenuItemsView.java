@@ -210,19 +210,19 @@ public class MenuItemsView extends JPanel {
         // TODO: don't hardcode sizes
         String[] items = {};
         if (category.equals("Sides")) {
-            String[] sides = new String[6];
+            String[] sides = new String[10];
             jdbcpostgreSQL.getSideMenuItems(sides);
             items = sides;
         } else if (category.equals("Entrees")) {
-            String[] entrees = new String[14];
+            String[] entrees = new String[25];
             jdbcpostgreSQL.getEntreeMenuItems(entrees);
             items = entrees;
         } else if (category.equals("Drinks")) {
-            String[] drinks = new String[19];
+            String[] drinks = new String[25];
             jdbcpostgreSQL.getDrinkMenuItems(drinks);
             items = drinks;
         } else if (category.equals("Appetizers")) {
-            String[] appetizers = new String[3];
+            String[] appetizers = new String[5];
             jdbcpostgreSQL.getAppetizerMenuItems(appetizers);
             items = appetizers;
         }
