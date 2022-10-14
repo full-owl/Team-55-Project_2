@@ -5,9 +5,9 @@ import java.awt.*;
 
 
 public class managerGui {
-    public static void main(String args[]){
-
-        JFrame f = new JFrame();
+    public static JFrame f;
+    public static void setFrame() {
+        f = new JFrame();
         f.setTitle("Manager GUI");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setLayout(new GridLayout(2,2));
@@ -18,6 +18,12 @@ public class managerGui {
         f.add(new mealSizesPanel());
         f.add(new miscPanel());
         f.setVisible(true);
+    }
+    public static void main(String args[]){
+        setFrame();
+    }
 
+    public static void refreshManager() {
+        setFrame();
     }
 }
