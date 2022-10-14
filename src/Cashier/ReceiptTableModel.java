@@ -6,6 +6,7 @@ import java.util.Vector;
 class ReceiptTableModel extends AbstractTableModel {
     private final String[] cols = {"Item", "Price"};
     public Vector<OrderItem> data = new Vector<>();
+    public double price = 0.0;
 
 
     @Override
@@ -46,6 +47,9 @@ class ReceiptTableModel extends AbstractTableModel {
     public void addItems(Vector<OrderItem> items) {
         System.out.println(items);
         data.addAll(items);
+        for(var item: items) {
+            price += item.getPrice();
+        }
         fireTableDataChanged();
     }
 
