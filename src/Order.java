@@ -16,7 +16,7 @@ public class Order {
         this.id = id;
         this.currentDate = getDate();
         this.subTotal = subTotal;
-        this.total = subTotal * (1 + 0.875);
+        this.total = subTotal * (1 + 0.0875);
         this.employeeid = 1; // Only one employee lol
     }
 
