@@ -5,7 +5,7 @@ import src.DBOrderItem;
 import java.util.Arrays;
 
 public abstract class OrderItem {
-    static String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
+    static String[] sizes = {"bowl", "plate", "bigger plate", "family"};
     String mealType;
 
 

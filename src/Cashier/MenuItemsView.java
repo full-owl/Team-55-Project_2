@@ -233,7 +233,7 @@ public class MenuItemsView extends JPanel {
         String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
         int[] nums = {1,2,3,3};
         for (int i = 0; i < sizes.length; i++) {
-            if(sizes[i].equals(size)) {
+            if(sizes[i].equalsIgnoreCase(size)) {
                 return nums[i];
             }
         }
@@ -244,7 +244,7 @@ public class MenuItemsView extends JPanel {
         String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
         int[] nums = {1,1,1,2};
         for (int i = 0; i < sizes.length; i++) {
-            if(sizes[i].equals(size)) {
+            if(sizes[i].equalsIgnoreCase(size)) {
                 return nums[i];
             }
         }

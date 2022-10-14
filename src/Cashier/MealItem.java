@@ -1,6 +1,7 @@
 package src.Cashier;
 
 import src.DBOrderItem;
+import src.jdbcpostgreSQL;
 
 import java.util.Arrays;
 import java.util.Vector;
@@ -12,6 +13,8 @@ public class MealItem extends OrderItem {
     Vector<String> entrees = new Vector<>();
     int entreeLen;
 
+    private double price;
+
     public MealItem(String mealType) {
         super(mealType);
 
@@ -21,7 +24,11 @@ public class MealItem extends OrderItem {
         int i = Arrays.asList(sizes).indexOf(mealType);
         entreeLen = entrees[i];
         sideLen = sides[i];
+
+//        price = jdbcpostgreSQL.getTablePrice(mealType);
+        price = 0;
     }
+
 
     @Override
     public double getPrice() {
