@@ -140,7 +140,7 @@ public class jdbcpostgreSQL {
 
             PreparedStatement ps = conn.prepareStatement(stmt);
             ps.setInt(1, orderid);
-            ps.setDate(2, Date.valueOf(order.currentDate));
+            ps.setString(2, order.currentDate);
             ps.setDouble(3, order.subTotal);
             ps.setDouble(4, order.total);
             ps.setInt(5, order.employeeid);
@@ -188,7 +188,7 @@ public class jdbcpostgreSQL {
         } catch(Exception e) {
             System.out.println("Connection NOT Closed.");
         }
-        new managerGui();
+        // new managerGui();
     }
 
     public static void editInventory(int id, int amount)

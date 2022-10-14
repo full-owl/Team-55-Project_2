@@ -7,9 +7,9 @@ public class Tester {
         System.out.println(jdbcpostgreSQL.getTablePrice("medium", "Sprite"));
         System.out.println(Order.getDate());
 
-        DBOrderItem i1 = new DBOrderItem(2504, "plate", 10, 13, 0, 2, 0, "null");
-        DBOrderItem i2 = new DBOrderItem(2504, "plate", 10, 13, 0, 2, 0, "null");
-        Order o1 = new Order(2504,11.50+11.50);
+//        DBOrderItem i1 = new DBOrderItem(2504, "plate", 10, 13, 0, 2, 0, "null");
+//        DBOrderItem i2 = new DBOrderItem(2504, "plate", 10, 13, 0, 2, 0, "null");
+//        Order o1 = new Order(2504,11.50+11.50);
 
 
     }
