@@ -105,9 +105,6 @@ public class jdbcpostgreSQL {
         }
     }
 
-    /**
-     *
-     */
     public static void insertOrder(Vector<OrderItem> items) {
 
         int orderid = getDBSize("orders") + 1;
@@ -361,10 +358,182 @@ public class jdbcpostgreSQL {
         }
     }
 
-    /**
-     *
-     * @param invTable
-     */
+    public static void getSideMenuItems(String[] sideTable) {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try{
+            String sqlStatement = "SELECT name FROM menuitems WHERE foodtype = 'side'";
+
+            PreparedStatement p = conn.prepareStatement(sqlStatement);
+            ResultSet result = p.executeQuery();
+
+            int r = 0;
+
+            while(result.next()) {
+                sideTable[r] = result.getString("name");
+                r++;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        //closing the connection
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }//end try catch
+    }
+
+    public static void getEntreeMenuItems(String[] entreeTable) {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try{
+            String sqlStatement = "SELECT name FROM menuitems WHERE foodtype = 'entree' and foodtype = 'premium entree'";
+
+            PreparedStatement p = conn.prepareStatement(sqlStatement);
+            ResultSet result = p.executeQuery();
+
+            int r = 0;
+
+            while(result.next()) {
+                entreeTable[r] = result.getString("name");
+                r++;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        //closing the connection
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }//end try catch
+    }
+
+    public static void getDrinkMenuItems(String[] drinkTable) {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try{
+            String sqlStatement = "SELECT name FROM menuitems WHERE foodtype = 'drink'";
+
+            PreparedStatement p = conn.prepareStatement(sqlStatement);
+            ResultSet result = p.executeQuery();
+
+            int r = 0;
+
+            while(result.next()) {
+                drinkTable[r] = result.getString("name");
+                r++;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        //closing the connection
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }//end try catch
+    }
+
+    public static void getAppetizerMenuItems(String[] appetizerTable) {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try{
+            String sqlStatement = "SELECT name FROM menuitems WHERE foodtype = 'appetizer'";
+
+            PreparedStatement p = conn.prepareStatement(sqlStatement);
+            ResultSet result = p.executeQuery();
+
+            int r = 0;
+
+            while(result.next()) {
+                appetizerTable[r] = result.getString("name");
+                r++;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        //closing the connection
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }//end try catch
+    }
+
     public static void getInvTable(String[][] invTable) {
         Connection conn = null;
         String teamNumber = "55";
@@ -635,13 +804,12 @@ public class jdbcpostgreSQL {
         }
         try{
             //String sqlStatement = "INSERT INTO TeamMembers (student_name, section, favority_movie, favorite_holiday) VALUES('Plunky', 905, 'Jeepers Creepers', '2022-10-31')";
-            String sqlStatement = "SELECT * FROM mealsizes INNER JOIN menuitems ON mealsizes.foodtype = menuitems.foodtype " +
+            String sqlStatement = "SELECT prices FROM mealsizes INNER JOIN menuitems ON mealsizes.foodtype = menuitems.foodtype " +
                     "WHERE (menuitems.name = '" + foodname + "' AND mealtype ='" +mealtype +"');";
 
             PreparedStatement p = conn.prepareStatement(sqlStatement);
             ResultSet result = p.executeQuery();
 
-            result.next();
             return result.getDouble("price");
 
         } catch (Exception e){

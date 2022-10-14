@@ -1,5 +1,7 @@
 package src.Cashier;
 
+import src.jdbcpostgreSQL;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -206,13 +208,21 @@ public class MenuItemsView extends JPanel {
     public static String[] menuItems(String category) {
         String[] items = {};
         if (category.equals("Sides")) {
-            items = new String[]{"White Steamed Rice", "Brown Steamed Rice", "Fried Rice"};
+            String[] sides = new String[7];
+            jdbcpostgreSQL.getSideMenuItems(sides);
+            items = sides;
         } else if (category.equals("Entrees")) {
-            items = new String[]{"Beef", "Chicken", "Super Greens", "etc."};
+            String[] entrees = new String[14];
+            jdbcpostgreSQL.getEntreeMenuItems(entrees);
+            items = entrees;
         } else if (category.equals("Drinks")) {
-            items = new String[]{"Coke", "Diet Coke", "Sprite", "etc.","1","2","3","4","5","6","7","8","9","10"};
+            String[] drinks = new String[19];
+            jdbcpostgreSQL.getDrinkMenuItems(drinks);
+            items = drinks;
         } else if (category.equals("Appetizers")) {
-            items = new String[]{"Egg rolls"};
+            String[] appetizers = new String[4];
+            jdbcpostgreSQL.getAppetizerMenuItems(appetizers);
+            items = appetizers;
         }
         return items;
     }
