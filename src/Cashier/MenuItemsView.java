@@ -208,7 +208,7 @@ public class MenuItemsView extends JPanel {
     public static String[] menuItems(String category) {
         String[] items = {};
         if (category.equals("Sides")) {
-            String[] sides = new String[7];
+            String[] sides = new String[6];
             jdbcpostgreSQL.getSideMenuItems(sides);
             items = sides;
         } else if (category.equals("Entrees")) {
@@ -220,7 +220,7 @@ public class MenuItemsView extends JPanel {
             jdbcpostgreSQL.getDrinkMenuItems(drinks);
             items = drinks;
         } else if (category.equals("Appetizers")) {
-            String[] appetizers = new String[4];
+            String[] appetizers = new String[3];
             jdbcpostgreSQL.getAppetizerMenuItems(appetizers);
             items = appetizers;
         }

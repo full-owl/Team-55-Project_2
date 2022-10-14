@@ -419,7 +419,7 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
         try{
-            String sqlStatement = "SELECT name FROM menuitems WHERE foodtype = 'entree' and foodtype = 'premium entree'";
+            String sqlStatement = "SELECT name FROM menuitems WHERE foodtype = 'entree' or foodtype = 'premium entree'";
 
             PreparedStatement p = conn.prepareStatement(sqlStatement);
             ResultSet result = p.executeQuery();
