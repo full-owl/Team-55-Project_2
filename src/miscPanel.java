@@ -12,7 +12,7 @@ public class miscPanel extends JPanel implements ActionListener {
     JButton editInventory;
     JButton updatePrices;
     JButton addNewItem;
-    JButton registerView;
+    //JButton registerView;
     miscPanel() {
         addInventory = new JButton("Add New Item to Inventory");
         addInventory.setBounds(50,100,200,50);
@@ -30,15 +30,15 @@ public class miscPanel extends JPanel implements ActionListener {
         addNewItem.setBounds(275, 100, 200,50);
         addNewItem.addActionListener(this);
 
-        registerView = new JButton("Register View");
-        registerView.setBounds(540,300,200,50);
-        registerView.addActionListener(this);
+//        registerView = new JButton("Register View");
+//        registerView.setBounds(540,300,200,50);
+//        registerView.addActionListener(this);
 
         this.add(addInventory);
         this.add(editInventory);
         this.add(updatePrices);
         this.add(addNewItem);
-        this.add(registerView);
+        //this.add(registerView);
         this.setLayout(new BorderLayout());
     }
 
@@ -56,10 +56,10 @@ public class miscPanel extends JPanel implements ActionListener {
         if (e.getSource()==addNewItem) {
             AddItemWindow addItemWindow = new AddItemWindow();
         }
-        if(e.getSource() == registerView) {
-            CashierView cashierWindow = new CashierView();
-            cashierWindow.startCashierView();
-            managerGui.f.dispose();
-        }
+//        if(e.getSource() == registerView) {
+//            CashierView cashierWindow = new CashierView();
+//            cashierWindow.startCashierView();
+//            managerGui.f.dispose();
+//        }
     }
 }
