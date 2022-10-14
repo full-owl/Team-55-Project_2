@@ -25,14 +25,13 @@ public class MealItem extends OrderItem {
         entreeLen = entrees[i];
         sideLen = sides[i];
 
-//        price = jdbcpostgreSQL.getTablePrice(mealType);
-        price = 0;
+        price = jdbcpostgreSQL.getTablePrice(mealType);
     }
 
 
     @Override
     public double getPrice() {
-        return 0;
+        return price;
     }
 
     @Override

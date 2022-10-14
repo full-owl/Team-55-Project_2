@@ -786,6 +786,49 @@ public class jdbcpostgreSQL {
         return -1; // not in table
     }
 
+    public static double getTablePrice(String mealtype) {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try{
+            //String sqlStatement = "INSERT INTO TeamMembers (student_name, section, favority_movie, favorite_holiday) VALUES('Plunky', 905, 'Jeepers Creepers', '2022-10-31')";
+//            String sqlStatement = "SELECT mealsizes.price FROM mealsizes INNER JOIN menuitems ON mealsizes.foodtype = menuitems.foodtype " +
+//                    "WHERE (menuitems.name = '" + foodname + "' AND mealtype ='" + mealtype +"');";
+            String sqlStatement = "SELECT price FROM mealsizes WHERE mealtype = ?";
+
+            PreparedStatement p = conn.prepareStatement(sqlStatement);
+            p.setString(1,mealtype);
+            ResultSet result = p.executeQuery();
+            if (result.next())
+                return result.getDouble("price");
+            return 0;
+        } catch (Exception e){
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        //closing the connection
+        try {
+            conn.close();
+            System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }//end try catch
+        return -1.0;
+    }
     public static double getTablePrice(String mealtype, String foodname) {
         Connection conn = null;
         String teamNumber = "55";
