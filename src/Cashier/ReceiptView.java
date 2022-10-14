@@ -1,6 +1,6 @@
 package src.Cashier;
 
-import src.jdbcpostgreSQL;
+import src.Database.jdbcpostgreSQL;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package src;
+package src.Database;
 
 public final class dbSetup  {
   //TODO: Update user and pswd

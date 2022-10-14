@@ -1,6 +1,6 @@
 package src.Cashier;
 
-import src.DBOrderItem;
+import src.Database.DBOrderItem;
 
 import java.util.Arrays;
 

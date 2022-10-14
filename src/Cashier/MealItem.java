@@ -1,7 +1,7 @@
 package src.Cashier;
 
-import src.DBOrderItem;
-import src.jdbcpostgreSQL;
+import src.Database.DBOrderItem;
+import src.Database.jdbcpostgreSQL;
 
 import java.util.Arrays;
 import java.util.Vector;

@@ -1,17 +1,19 @@
-package src;
+package src.Database;
+
+import src.Database.jdbcpostgreSQL;
 
 import java.util.Vector;
 
 public class DBOrderItem {
-    int orderId;
-    String orderType;
-    int menuItem1;
-    int menuItem2;
-    int menuItem3;
-    int menuItem4;
-    int menuItem5;
+    public int orderId;
+    public String orderType;
+    public int menuItem1;
+    public int menuItem2;
+    public int menuItem3;
+    public int menuItem4;
+    public int menuItem5;
     //int menuItem6;
-    String instructions;
+    public String instructions;
     public DBOrderItem(int orderId, String orderType, int menuItem1, int menuItem2, int menuItem3, int menuItem4, int menuItem5, String instructions)
     {
         this.orderId = orderId;
@@ -50,7 +52,6 @@ public class DBOrderItem {
         return;
     }
 
-    // TODO Implement add to have a meal to it
     public void setEntrees(Vector<String> entrees) {
         // Errors if there is a wrong amount of entrees
         if (entrees.size() == 3) {
@@ -76,16 +77,4 @@ public class DBOrderItem {
         return;
     }
 
-    // TODO IMPLEMENT THIS
-    public double getPrice() {
-        // Look up based off of the table in the db
-        return 0.0;
-    }
-
-    @Override
-    public String toString() {
-        // Ex. Bowl with white rice with orange chicken
-        // Plate with white rice with orange chicken and bejing beef.
-        return "TODO";
-    }
 }

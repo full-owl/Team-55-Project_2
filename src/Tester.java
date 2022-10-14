@@ -1,5 +1,8 @@
 package src;
 
+import src.Database.Order;
+import src.Database.jdbcpostgreSQL;
+
 public class Tester {
     public static void main(String args[]) {
         System.out.println(jdbcpostgreSQL.getDBSize("orders"));

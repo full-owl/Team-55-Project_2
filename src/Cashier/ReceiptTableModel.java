@@ -1,7 +1,5 @@
 package src.Cashier;
 
-import src.Order;
-
 import javax.swing.table.AbstractTableModel;
 import java.util.Vector;
 

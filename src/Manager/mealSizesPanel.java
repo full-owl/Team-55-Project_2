@@ -1,8 +1,6 @@
 package src.Manager;
 
-import src.jdbcpostgreSQL;
-
-import javax.swing.*;
+import src.Database.jdbcpostgreSQL;
 
 import javax.swing.*;
 

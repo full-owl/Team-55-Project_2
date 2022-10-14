@@ -1,4 +1,4 @@
-package src;
+package src.Database;
 
 import src.Cashier.OrderItem;
 //import src.Manager.managerGui;
@@ -24,8 +24,8 @@ public class jdbcpostgreSQL {
 
   /* DON"T COPY PASTE WRITE THE COMMANDS IN YOUR TERMINAL MANUALLY*/
 
-  //Windows: java -cp ".;postgresql-42.2.8.jar" src.jdbcpostgreSQL
-  //Mac/Linux: java -cp ".:postgresql-42.2.8.jar" src.jdbcpostgreSQL
+  //Windows: java -cp ".;postgresql-42.2.8.jar" src.Database.jdbcpostgreSQL
+  //Mac/Linux: java -cp ".:postgresql-42.2.8.jar" src.Database.jdbcpostgreSQL
   //MAKE SURE YOU ARE ON VPN or TAMU WIFI TO ACCESS DATABASE
 
     // Parses a csv file and pushes data to the database
