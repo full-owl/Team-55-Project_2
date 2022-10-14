@@ -6,10 +6,10 @@ import java.awt.*;
 
 public class managerGui {
     public static JFrame f;
-    public static void setFrame() {
-        f = new JFrame();
-        f.setTitle("Manager GUI");
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    public managerGui() {
+        f = new JFrame("Manager View");
+        f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         f.setLayout(new GridLayout(2,2));
         f.setSize(1600, 800);
 
@@ -19,11 +19,12 @@ public class managerGui {
         f.add(new miscPanel());
         f.setVisible(true);
     }
-    public static void main(String args[]){
-        setFrame();
-    }
-
-    public static void refreshManager() {
-        setFrame();
-    }
 }
+//    public static void main(String args[]){
+//        setFrame();
+//    }
+//
+//    public static void refreshManager() {
+//       setFrame();
+//    }
+//}

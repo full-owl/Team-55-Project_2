@@ -188,7 +188,7 @@ public class jdbcpostgreSQL {
         } catch(Exception e) {
             System.out.println("Connection NOT Closed.");
         }
-        managerGui.refreshManager();
+        //managerGui.refreshManager();
     }
 
     public static void editInventory(int id, int amount)
@@ -229,7 +229,7 @@ public class jdbcpostgreSQL {
         } catch(Exception e) {
             System.out.println("Connection NOT Closed.");
         }
-        managerGui.refreshManager();
+        //managerGui.refreshManager();
     }
 
     public static void addInventory(int id, String name, int amount, String unit)
@@ -274,7 +274,7 @@ public class jdbcpostgreSQL {
         } catch(Exception e) {
             System.out.println("Connection NOT Closed.");
         }
-        managerGui.refreshManager();
+        //managerGui.refreshManager();
     }
 
     public static void editPrices(String foodtype, String mealtype, float newPrice)
@@ -317,7 +317,7 @@ public class jdbcpostgreSQL {
         } catch(Exception e) {
             System.out.println("Connection NOT Closed.");
         }
-        managerGui.refreshManager();
+        //managerGui.refreshManager();
     }
 
     public static void addMenuItem(int id, String name, String type, String description)

@@ -1,8 +1,10 @@
 package src.Cashier;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class CashierView extends JSplitPane{
+public class CashierView extends JSplitPane {
 
     private MenuItemsView itemsView;
     private ReceiptView receiptView;

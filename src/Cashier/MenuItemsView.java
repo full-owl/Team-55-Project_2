@@ -1,6 +1,7 @@
 package src.Cashier;
 
 import src.jdbcpostgreSQL;
+import src.managerGui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,9 +10,10 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class MenuItemsView extends JPanel {
+public class MenuItemsView extends JPanel implements ActionListener{
 
     ButtonGroup sizeGroup;
+    JButton managerView;
     HashMap<String, ItemPanel> itemCategories;
 
     ReceiptTableModel receiptModel;
@@ -83,6 +85,11 @@ public class MenuItemsView extends JPanel {
             modifyArea.add(button);
         }
         add(modifyArea);
+
+        managerView = new JButton("Manager View");
+        managerView.setBounds(275, 170, 200,50);
+        managerView.addActionListener(this);
+        add(managerView);
     }
 
     private void createSizePanel() {
@@ -249,5 +256,13 @@ public class MenuItemsView extends JPanel {
             }
         }
         return -1;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==managerView) {
+            System.out.println("This is working-ish");
+            managerGui mangerView = new managerGui();
+        }
     }
 }
