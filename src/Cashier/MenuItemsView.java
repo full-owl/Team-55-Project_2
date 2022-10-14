@@ -1,7 +1,7 @@
 package src.Cashier;
 
 import src.jdbcpostgreSQL;
-import src.managerGui;
+import src.Manager.managerGui;
 
 import javax.swing.*;
 import java.awt.*;

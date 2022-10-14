@@ -1,4 +1,6 @@
-package src;
+package src.Manager;
+
+import src.jdbcpostgreSQL;
 
 import javax.swing.*;
 import javax.swing.JScrollPane;

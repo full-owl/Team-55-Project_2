@@ -1,4 +1,4 @@
-package src;
+package src.Manager;
 
 import javax.swing.*;
 import java.awt.*;

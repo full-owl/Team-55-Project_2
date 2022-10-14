@@ -1,6 +1,4 @@
-package src;
-
-import src.Cashier.CashierView;
+package src.Manager;
 
 import javax.swing.*;
 import java.awt.*;
