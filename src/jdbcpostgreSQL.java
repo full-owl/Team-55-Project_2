@@ -809,7 +809,7 @@ public class jdbcpostgreSQL {
 
             PreparedStatement p = conn.prepareStatement(sqlStatement);
             ResultSet result = p.executeQuery();
-
+            result.next();
             return result.getDouble("price");
 
         } catch (Exception e){
