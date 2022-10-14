@@ -810,7 +810,7 @@ public class jdbcpostgreSQL {
             PreparedStatement p = conn.prepareStatement(sqlStatement);
             ResultSet result = p.executeQuery();
             if (result.next())
-                return result.getFloat("price");
+                return result.getDouble("price");
             return 0;
         } catch (Exception e){
             e.printStackTrace();
