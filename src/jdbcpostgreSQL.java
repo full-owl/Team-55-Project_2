@@ -126,42 +126,17 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
+        // Calculate subTotal
         float subTotal = 0;
         for(var it: items) {
-            DBOrderItem item = it.toDBOrderItem();
-
-            try
-            {
-                String stmt ="INSERT INTO orderitems (orderid, mealtype, menuitem1, menuitem2, menuitem3, side1, side2," +
-                        "custominstructions) VALUES (? ? ? ? ? ? ? ?);";
-
-                PreparedStatement ps = conn.prepareStatement(stmt);
-                ps.setInt(1, orderid);
-                ps.setString(2, item.orderType);
-                ps.setInt(3, item.menuItem1);
-                ps.setInt(4, item.menuItem2);
-                ps.setInt(5, item.menuItem3);
-                ps.setInt(6, item.menuItem4);
-                ps.setInt(7, item.menuItem5);
-                ps.setString(8, item.instructions);
-
-                int result = ps.executeUpdate();
-
-                subTotal += it.getPrice(); // Only add to price if the item is successfully added
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-                System.err.println(e.getClass().getName()+": "+e.getMessage());
-                System.exit(0);
-            }
-
+            subTotal += it.getPrice();
         }
 
         // adding to orders
         Order order = new Order(orderid, subTotal);
         try
         {
-            String stmt ="INSERT INTO orders (id, date, subtotal, total, employeeid) VALUES (? ? ? ? ?);";
+            String stmt ="INSERT INTO orders (id, date, subtotal, total, employeeid) VALUES (?, ?, ?, ?, ?);";
 
             PreparedStatement ps = conn.prepareStatement(stmt);
             ps.setInt(1, orderid);
@@ -176,6 +151,36 @@ public class jdbcpostgreSQL {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
+        }
+
+
+
+        for (var it: items) {
+            var item = it.toDBOrderItem();
+            try
+            {
+                String stmt ="INSERT INTO orderitems (orderid, mealtype, menuitem1, menuitem2, menuitem3, side1, side2," +
+                        "custominstructions) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+
+                PreparedStatement ps = conn.prepareStatement(stmt);
+                ps.setInt(1, orderid);
+                ps.setString(2, item.orderType);
+                ps.setInt(3, item.menuItem1);
+                ps.setInt(4, item.menuItem2);
+                ps.setInt(5, item.menuItem3);
+                ps.setInt(6, item.menuItem4);
+                ps.setInt(7, item.menuItem5);
+                ps.setString(8, item.instructions);
+
+                int result = ps.executeUpdate();
+
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+                System.err.println(e.getClass().getName()+": "+e.getMessage());
+                System.exit(0);
+            }
+
         }
         try {
             conn.close();
