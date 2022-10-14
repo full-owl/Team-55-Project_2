@@ -20,6 +20,15 @@ public class CashierView extends JSplitPane{
         setDividerLocation(0.90);
         setResizeWeight(0.9);
     }
+    // for manager
+    public void startCashierView(){
+        var frame = new JFrame();
+        var cv = new CashierView();
+        frame.add(cv);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
 
     public static void main(String[] args) {
         var frame = new JFrame();

@@ -58,6 +58,8 @@ public class miscPanel extends JPanel implements ActionListener {
         }
         if(e.getSource() == registerView) {
             CashierView cashierWindow = new CashierView();
+            cashierWindow.startCashierView();
+            managerGui.f.dispose();
         }
     }
 }
