@@ -835,7 +835,7 @@ public class jdbcpostgreSQL {
     String sectionNumber = "904"; // Your section number
     String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
     String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-    dbSetup myCredentials = new dbSetup(); 
+    dbSetup myCredentials = new dbSetup();
 
     //Connecting to the database
     try {

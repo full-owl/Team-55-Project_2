@@ -126,6 +126,7 @@ public class MenuItemsView extends JPanel {
         for(String size: sizes) {
             var button = new JToggleButton();
             button.setText(size);
+            button.setActionCommand(size.toLowerCase());
             button.addActionListener(sizeController);
             sizePanel.add(button);
             sizeGroup.add(button);
@@ -206,6 +207,7 @@ public class MenuItemsView extends JPanel {
     }
 
     public static String[] menuItems(String category) {
+        // TODO: don't hardcode sizes
         String[] items = {};
         if (category.equals("Sides")) {
             String[] sides = new String[6];
