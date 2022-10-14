@@ -127,7 +127,7 @@ public class jdbcpostgreSQL {
         }
 
         // Calculate subTotal
-        float subTotal = 0;
+        double subTotal = 0;
         for(var it: items) {
             subTotal += it.getPrice();
         }
