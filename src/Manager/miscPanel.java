@@ -58,7 +58,7 @@ public class miscPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == addInventory) {
-            NewWindow addInventoryWindow = new NewWindow();
+            AddInventoryWindow addInventoryWindow = new AddInventoryWindow();
         }
         if (e.getSource() == editInventory) {
             EditInventoryWindow editInventoryWindow = new EditInventoryWindow();

@@ -14,8 +14,6 @@ public class ExcessReportWindow implements ActionListener {
     JTextField date = new JTextField();
     JButton submit = new JButton("submit");
 
-
-
     ExcessReportWindow() {
         lDate.setBounds(0,0,100,50);
         lDate.setFont(new Font(null,Font.PLAIN, 15));
@@ -29,8 +27,6 @@ public class ExcessReportWindow implements ActionListener {
         f.add(date);
         f.add(submit);
         f.pack();
-        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //f.setSize(500,500);
         f.setVisible(true);
     }
 

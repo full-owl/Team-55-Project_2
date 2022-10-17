@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class AddItemWindow implements ActionListener {
 
-    JFrame f = new JFrame("Edit Inventory");
+    JFrame f = new JFrame("Add Menu Item");
     JLabel lId = new JLabel("id:");
     JLabel lName = new JLabel("name: ");
     JLabel lType = new JLabel("type: ");
@@ -19,8 +19,6 @@ public class AddItemWindow implements ActionListener {
     JTextField type = new JTextField();
     JTextField description = new JTextField();
     JButton submit = new JButton("submit");
-
-
 
     AddItemWindow() {
         lId.setBounds(0,0,100,50);
@@ -34,8 +32,6 @@ public class AddItemWindow implements ActionListener {
 
         lDescription.setBounds(0,0,100,50);
         lDescription.setFont(new Font(null,Font.PLAIN, 15));
-
-
 
         submit.addActionListener(this);
 
@@ -55,8 +51,6 @@ public class AddItemWindow implements ActionListener {
         f.add(description);
         f.add(submit);
         f.pack();
-        //f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //f.setSize(500,500);
         f.setVisible(true);
     }
 

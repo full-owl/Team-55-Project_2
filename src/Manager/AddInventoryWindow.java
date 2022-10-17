@@ -7,9 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewWindow implements ActionListener {
+public class AddInventoryWindow implements ActionListener {
 
-    JFrame f = new JFrame("Edit Inventory");
+    JFrame f = new JFrame("Add Ingredient");
     JLabel lId = new JLabel("id:");
     JLabel lIngredient = new JLabel("ingredient: ");
     JLabel lAmount = new JLabel("amount: ");
@@ -20,9 +20,7 @@ public class NewWindow implements ActionListener {
     JTextField units = new JTextField();
     JButton submit = new JButton("submit");
 
-
-
-    NewWindow() {
+    AddInventoryWindow() {
         lId.setBounds(0,0,100,50);
         lId.setFont(new Font(null,Font.PLAIN, 15));
         lIngredient.setBounds(0,0,100,50);
@@ -38,7 +36,6 @@ public class NewWindow implements ActionListener {
         ingredient.setPreferredSize(new Dimension(250,40 ));
         amount.setPreferredSize(new Dimension(250,40 ));
         units.setPreferredSize(new Dimension(250,40 ));
-        //tf.setBounds(0,30,100,50);
 
         f.setLayout(new FlowLayout());
         f.add(lId);
@@ -52,7 +49,6 @@ public class NewWindow implements ActionListener {
         f.add(submit);
         f.pack();
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        //f.setSize(500,500);
         f.setVisible(true);
     }
 
