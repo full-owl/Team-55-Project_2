@@ -50,6 +50,7 @@ public class ItemPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 group.clearSelection();
+                updateNumSelected();
             }
         };
         deselectButton.addActionListener(deselectAction);
@@ -66,6 +67,7 @@ public class ItemPanel extends JPanel {
 
     public void setMax(int max) {
         group.setMax(max);
+        updateNumSelected();
     }
 
 }
