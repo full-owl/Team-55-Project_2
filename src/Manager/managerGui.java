@@ -6,6 +6,8 @@ import java.awt.*;
 
 public class managerGui {
     public static JFrame f;
+
+    //constructor for manager view
     public static void setFrame() {
         f = new JFrame("Manager View");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -18,14 +20,12 @@ public class managerGui {
         f.add(new miscPanel());
         f.setVisible(true);
     }
+
+    //calls constructor
     public static void managerGui() {
         setFrame();
     }
-
-//    public static void main(String args[]){
-//        setFrame();
-//    }
-//
+    // refreshes manager view when data changes on submission
     public static void refreshManager() {
         f.dispose();
        setFrame();
