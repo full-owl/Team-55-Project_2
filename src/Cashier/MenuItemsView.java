@@ -24,11 +24,72 @@ public class MenuItemsView extends JPanel implements ActionListener{
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setVisible(true);
 
-
         createSizePanel();
         createItemCategories();
+        createAddButtons();
+    }
 
-        // TODO better name
+    private void createSizePanel() {
+        var sizePanel = new JPanel();
+        sizePanel.setName("Sizes");
+        sizePanel.setBorder(BorderFactory.createTitledBorder("Sizes"));
+        sizePanel.setLayout(new GridLayout(0,5,5,5));
+        add(sizePanel);
+
+        // Why does button group not have a way to deselect stuff. uuuggghhh
+        // sauce: https://stackoverflow.com/questions/4904086/how-to-create-buttongroup-of-jtogglebuttons-that-allows-to-deselect-the-actual
+        sizeGroup = new ButtonGroup(){
+            @Override
+            public void setSelected(ButtonModel model, boolean selected) {
+                if (selected) {
+                    super.setSelected(model, selected);
+                } else {
+                    clearSelection();
+                }
+            }
+        };
+        var sizeController = new ActionListener() {
+            // Whenever you change sizes, update the max number of entrees and sides you can select at one time.
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String size = actionEvent.getActionCommand();
+                System.out.println("Size: " + size);
+                JToggleButton button = (JToggleButton) actionEvent.getSource();
+                if(button.isSelected()) {
+                    int entreeMax = numEntrees(size);
+                    itemCategories.get("Entrees").setMax(entreeMax);
+                    int sideMax = numSides(size);
+                    itemCategories.get("Sides").setMax(sideMax);
+                    addMealButton.setEnabled(true);
+                } else {
+                    itemCategories.get("Entrees").resetMax();
+                    itemCategories.get("Sides").resetMax();
+                    addMealButton.setEnabled(false);
+                }
+            }
+        };
+        for(String size: sizes) {
+            var button = new JToggleButton();
+            button.setText(size);
+            button.setActionCommand(size.toLowerCase());
+            button.addActionListener(sizeController);
+            sizePanel.add(button);
+            sizeGroup.add(button);
+        }
+    }
+
+    private void createItemCategories() {
+        itemCategories = new HashMap<>();
+
+        final String[] categories = {"Sides", "Entrees", "Drinks", "Appetizers"};
+        for (String category : categories) {
+            var itemPanel = new ItemPanel(category, menuItems(category));
+            itemCategories.put(category, itemPanel);
+            add(itemPanel);
+        }
+    }
+
+    private void createAddButtons() {
         var modifyArea = new JPanel();
         modifyArea.setName("Modify");
         modifyArea.setLayout(new GridLayout(0,5,5,5));
@@ -97,66 +158,6 @@ public class MenuItemsView extends JPanel implements ActionListener{
         managerView.setBounds(275, 170, 200,50);
         managerView.addActionListener(this);
         add(managerView);
-    }
-
-    private void createSizePanel() {
-        var sizePanel = new JPanel();
-        sizePanel.setName("Sizes");
-        sizePanel.setBorder(BorderFactory.createTitledBorder("Sizes"));
-        sizePanel.setLayout(new GridLayout(0,5,5,5));
-        add(sizePanel);
-
-        // Why does button group not have a way to deselect stuff. uuuggghhh
-        // sauce: https://stackoverflow.com/questions/4904086/how-to-create-buttongroup-of-jtogglebuttons-that-allows-to-deselect-the-actual
-        sizeGroup = new ButtonGroup(){
-            @Override
-            public void setSelected(ButtonModel model, boolean selected) {
-                if (selected) {
-                    super.setSelected(model, selected);
-                } else {
-                    clearSelection();
-                }
-            }
-        };
-        var sizeController = new ActionListener() {
-            // Whenever you change sizes, update the max number of entrees and sides you can select at one time.
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                String size = actionEvent.getActionCommand();
-                System.out.println("Size: " + size);
-                JToggleButton button = (JToggleButton) actionEvent.getSource();
-                if(button.isSelected()) {
-                    int entreeMax = numEntrees(size);
-                    itemCategories.get("Entrees").setMax(entreeMax);
-                    int sideMax = numSides(size);
-                    itemCategories.get("Sides").setMax(sideMax);
-                    addMealButton.setEnabled(true);
-                } else {
-                    itemCategories.get("Entrees").resetMax();
-                    itemCategories.get("Sides").resetMax();
-                    addMealButton.setEnabled(false);
-                }
-            }
-        };
-        for(String size: sizes) {
-            var button = new JToggleButton();
-            button.setText(size);
-            button.setActionCommand(size.toLowerCase());
-            button.addActionListener(sizeController);
-            sizePanel.add(button);
-            sizeGroup.add(button);
-        }
-    }
-
-    private void createItemCategories() {
-        itemCategories = new HashMap<>();
-
-        final String[] categories = {"Sides", "Entrees", "Drinks", "Appetizers"};
-        for (String category : categories) {
-            var itemPanel = new ItemPanel(category, menuItems(category));
-            itemCategories.put(category, itemPanel);
-            add(itemPanel);
-        }
     }
 
     public OrderItem addMeal() {
