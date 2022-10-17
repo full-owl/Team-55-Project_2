@@ -10,33 +10,48 @@ public class miscPanel extends JPanel implements ActionListener {
     JButton editInventory;
     JButton updatePrices;
     JButton addNewItem;
-    //JButton registerView;
+    JButton salesReport;
+    JButton excessReport;
+    JButton restockReport;
     miscPanel() {
-        addInventory = new JButton("Add New Item to Inventory");
-        addInventory.setBounds(50,100,200,50);
+        addInventory = new JButton("Add Ingredients");
+        addInventory.setBounds(25,100,200,50);
         addInventory.addActionListener(this);
 
         editInventory = new JButton("Edit Inventory");
-        editInventory.setBounds(50,170,200,50);
+        editInventory.setBounds(25,170,200,50);
         editInventory.addActionListener(this);
 
         updatePrices = new JButton("Edit Prices");
-        updatePrices.setBounds(275, 170, 200,50);
+        updatePrices.setBounds(230, 170, 200,50);
         updatePrices.addActionListener(this);
 
-        addNewItem = new JButton("Add New Menu Item");
-        addNewItem.setBounds(275, 100, 200,50);
+        addNewItem = new JButton("Add Menu Item");
+        addNewItem.setBounds(230, 100, 200,50);
         addNewItem.addActionListener(this);
 
-//        registerView = new JButton("Register View");
-//        registerView.setBounds(540,300,200,50);
-//        registerView.addActionListener(this);
+        salesReport = new JButton("Sales Report");
+        salesReport.setBounds(25, 250, 200,50);
+        salesReport.addActionListener(this);
+
+        excessReport = new JButton("Excess Report");
+        excessReport.setBounds(230, 250, 200,50);
+        excessReport.addActionListener(this);
+
+        restockReport = new JButton("Restock Report");
+        restockReport.setBounds(435, 250, 200,50);
+        restockReport.addActionListener(this);
+
+
+
 
         this.add(addInventory);
         this.add(editInventory);
         this.add(updatePrices);
         this.add(addNewItem);
-        //this.add(registerView);
+        this.add(salesReport);
+        this.add(excessReport);
+        this.add(restockReport);
         this.setLayout(new BorderLayout());
     }
 
