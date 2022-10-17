@@ -7,14 +7,8 @@ import src.Manager.*;
 import java.sql.*;
 import java.io.*;
 import java.util.*;
-/*
-CSCE 331
-9-28-2022 Lab
- */
-/**
- * @author evanw
- *
- */
+
+
 public class jdbcpostgreSQL {
 
   //Commands to run this script
@@ -105,7 +99,10 @@ public class jdbcpostgreSQL {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Inserts order into the orders database and the items into orderitems database
+     * @param items vector of orderitems
+     */
     public static void insertOrder(Vector<OrderItem> items) {
 
         int orderid = getDBSize("orders") + 1;
@@ -192,6 +189,11 @@ public class jdbcpostgreSQL {
         // new managerGui();
     }
 
+    /**
+     * Edit amount of item in inventory databasee
+     * @param id id of inventory item in database
+     * @param amount amount to put into inventory item of id
+     */
     public static void editInventory(int id, int amount)
     {
         Connection conn = null;
