@@ -70,4 +70,8 @@ public class ItemPanel extends JPanel {
         updateNumSelected();
     }
 
+    public void resetMax() {
+        setMax(group.getButtonCount());
+    }
+
 }

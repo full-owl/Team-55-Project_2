@@ -364,7 +364,7 @@ public class jdbcpostgreSQL {
         }
     }
 
-    public static void getSideMenuItems(String[] sideTable) {
+    public static Vector<String> getMenuItems(String foodType) {
         Connection conn = null;
         String teamNumber = "55";
         String sectionNumber = "904";
@@ -381,163 +381,32 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
         try{
-            String sqlStatement = "SELECT name FROM menuitems WHERE foodtype = 'side'";
+            String sqlStatement = "SELECT name FROM menuitems WHERE foodtype = ?";
 
             PreparedStatement p = conn.prepareStatement(sqlStatement);
+            p.setString(1,foodType);
             ResultSet result = p.executeQuery();
 
-            int r = 0;
-
+            Vector<String> out = new Vector<>();
             while(result.next()) {
-                sideTable[r] = result.getString("name");
-                r++;
+                out.add(result.getString("name"));
             }
 
+            //closing the connection
+            try {
+                conn.close();
+                System.out.println("Connection Closed.");
+            } catch(Exception e) {
+                System.out.println("Connection NOT Closed.");
+            }//end try catch
+
+            return out;
         } catch (Exception e){
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-
-        //closing the connection
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
-    }
-
-    public static void getEntreeMenuItems(String[] entreeTable) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-        try{
-            String sqlStatement = "SELECT name FROM menuitems WHERE foodtype = 'entree' or foodtype = 'premium entree'";
-
-            PreparedStatement p = conn.prepareStatement(sqlStatement);
-            ResultSet result = p.executeQuery();
-
-            int r = 0;
-
-            while(result.next()) {
-                entreeTable[r] = result.getString("name");
-                r++;
-            }
-
-        } catch (Exception e){
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-
-        //closing the connection
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
-    }
-
-    public static void getDrinkMenuItems(String[] drinkTable) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-        try{
-            String sqlStatement = "SELECT name FROM menuitems WHERE foodtype = 'drink'";
-
-            PreparedStatement p = conn.prepareStatement(sqlStatement);
-            ResultSet result = p.executeQuery();
-
-            int r = 0;
-
-            while(result.next()) {
-                drinkTable[r] = result.getString("name");
-                r++;
-            }
-
-        } catch (Exception e){
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-
-        //closing the connection
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
-    }
-
-    public static void getAppetizerMenuItems(String[] appetizerTable) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-        try{
-            String sqlStatement = "SELECT name FROM menuitems WHERE foodtype = 'appetizer'";
-
-            PreparedStatement p = conn.prepareStatement(sqlStatement);
-            ResultSet result = p.executeQuery();
-
-            int r = 0;
-
-            while(result.next()) {
-                appetizerTable[r] = result.getString("name");
-                r++;
-            }
-
-        } catch (Exception e){
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-
-        //closing the connection
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
+        return null;
     }
 
     public static void getInvTable(String[][] invTable) {

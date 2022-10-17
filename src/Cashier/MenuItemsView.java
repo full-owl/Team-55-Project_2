@@ -48,7 +48,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
         modifyArea.add(deselectButton);
 
 
-        var buttonLabels =  new String[]{"Add (small)", "Add (medium)", "Add (large)", "Add"};
+        var buttonLabels =  new String[]{"Add (small)", "Add (medium) no appetizers", "Add (large)", "Add"};
         var buttonActionCommand = new String[]{"small", "medium", "large", "add"};
         var addAction = new ActionListener() {
 
@@ -125,8 +125,8 @@ public class MenuItemsView extends JPanel implements ActionListener{
                     int sideMax = numSides(size);
                     itemCategories.get("Sides").setMax(sideMax);
                 } else {
-                    itemCategories.get("Entrees").setMax(menuItems("Entrees").length);
-                    itemCategories.get("Sides").setMax(menuItems("Sides").length);
+                    itemCategories.get("Entrees").resetMax();
+                    itemCategories.get("Sides").resetMax();
                 }
             }
         };
@@ -214,26 +214,11 @@ public class MenuItemsView extends JPanel implements ActionListener{
     }
 
     public static String[] menuItems(String category) {
-        // TODO: don't hardcode sizes
-        String[] items = {};
-        if (category.equals("Sides")) {
-            String[] sides = new String[10];
-            jdbcpostgreSQL.getSideMenuItems(sides);
-            items = sides;
-        } else if (category.equals("Entrees")) {
-            String[] entrees = new String[25];
-            jdbcpostgreSQL.getEntreeMenuItems(entrees);
-            items = entrees;
-        } else if (category.equals("Drinks")) {
-            String[] drinks = new String[25];
-            jdbcpostgreSQL.getDrinkMenuItems(drinks);
-            items = drinks;
-        } else if (category.equals("Appetizers")) {
-            String[] appetizers = new String[5];
-            jdbcpostgreSQL.getAppetizerMenuItems(appetizers);
-            items = appetizers;
-        }
-        return items;
+        // Turns "Sides" to "side"
+        String cat = category.toLowerCase().substring(0,category.length()-1);
+        // Can't cast it to (String[]) so have to do weird toArray(new String[0])
+        // It automatically resizes the array so the zero length doesn't matter
+        return jdbcpostgreSQL.getMenuItems(cat).toArray(new String[0]);
     }
 
     public static int numEntrees(String size) {
