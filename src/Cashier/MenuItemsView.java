@@ -11,12 +11,14 @@ import java.util.HashMap;
 import java.util.Vector;
 
 public class MenuItemsView extends JPanel implements ActionListener{
-
+    public static String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
     ButtonGroup sizeGroup;
     JButton managerView;
     HashMap<String, ItemPanel> itemCategories;
 
     ReceiptTableModel receiptModel;
+
+    JButton addMealButton;
 
     public MenuItemsView() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -48,7 +50,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
         modifyArea.add(deselectButton);
 
 
-        var buttonLabels =  new String[]{"Add (small)", "Add (medium) no appetizers", "Add (large)", "Add"};
+        var buttonLabels =  new String[]{"Add (small)", "Add (medium) no appetizers", "Add (large)", "Add meal"};
         var buttonActionCommand = new String[]{"small", "medium", "large", "add"};
         var addAction = new ActionListener() {
 
@@ -83,6 +85,11 @@ public class MenuItemsView extends JPanel implements ActionListener{
             button.setActionCommand(buttonActionCommand[i]);
             button.addActionListener(addAction);
             modifyArea.add(button);
+            // Add meal button
+            if (i == buttonLabels.length-1) {
+                addMealButton = button;
+                addMealButton.setEnabled(false);
+            }
         }
         add(modifyArea);
 
@@ -99,7 +106,6 @@ public class MenuItemsView extends JPanel implements ActionListener{
         sizePanel.setLayout(new GridLayout(0,5,5,5));
         add(sizePanel);
 
-        String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
         // Why does button group not have a way to deselect stuff. uuuggghhh
         // sauce: https://stackoverflow.com/questions/4904086/how-to-create-buttongroup-of-jtogglebuttons-that-allows-to-deselect-the-actual
         sizeGroup = new ButtonGroup(){
@@ -124,9 +130,11 @@ public class MenuItemsView extends JPanel implements ActionListener{
                     itemCategories.get("Entrees").setMax(entreeMax);
                     int sideMax = numSides(size);
                     itemCategories.get("Sides").setMax(sideMax);
+                    addMealButton.setEnabled(true);
                 } else {
                     itemCategories.get("Entrees").resetMax();
                     itemCategories.get("Sides").resetMax();
+                    addMealButton.setEnabled(false);
                 }
             }
         };
@@ -222,7 +230,6 @@ public class MenuItemsView extends JPanel implements ActionListener{
     }
 
     public static int numEntrees(String size) {
-        String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
         int[] nums = {1,2,3,3};
         for (int i = 0; i < sizes.length; i++) {
             if(sizes[i].equalsIgnoreCase(size)) {
@@ -233,7 +240,6 @@ public class MenuItemsView extends JPanel implements ActionListener{
     }
 
     public static int numSides(String size) {
-        String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
         int[] nums = {1,1,1,2};
         for (int i = 0; i < sizes.length; i++) {
             if(sizes[i].equalsIgnoreCase(size)) {
