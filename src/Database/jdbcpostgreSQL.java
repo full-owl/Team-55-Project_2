@@ -235,6 +235,12 @@ public class jdbcpostgreSQL {
         managerGui.refreshManager();
     }
 
+    /**
+     * Adds item of id, name, amount, unit
+     * @param id id of inventory item in database
+     * @param name name of ingredient to put into inventory
+     * @param unit unit name for inventory item
+     */
     public static void addInventory(int id, String name, int amount, String unit)
     {
         Connection conn = null;
@@ -280,6 +286,12 @@ public class jdbcpostgreSQL {
         managerGui.refreshManager();
     }
 
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param foodtype name of food item
+     * @param mealtype name of mealtype attribute in mealsizes database
+     *
+    * */
     public static void editPrices(String foodtype, String mealtype, float newPrice)
     {
         Connection conn = null;
@@ -300,6 +312,7 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
+        // maybe get rid of some fluff stuff
         try
         {
             String stmt = "UPDATE mealsizes SET price = ? WHERE foodtype = ? AND mealtype = ?";
@@ -323,6 +336,12 @@ public class jdbcpostgreSQL {
         managerGui.refreshManager();
     }
 
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param foodtype name of food item
+     * @param mealtype name of mealtype attribute in mealsizes database
+     *
+     * */
     public static void addMenuItem(int id, String name, String type, String description)
     {
         Connection conn = null;
@@ -366,6 +385,12 @@ public class jdbcpostgreSQL {
         }
     }
 
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param foodtype name of food item
+     * @param mealtype name of mealtype attribute in mealsizes database
+     *
+     * */
     public static Vector<String> getMenuItems(String foodType) {
         Connection conn = null;
         String teamNumber = "55";
@@ -411,6 +436,12 @@ public class jdbcpostgreSQL {
         return null;
     }
 
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param foodtype name of food item
+     * @param mealtype name of mealtype attribute in mealsizes database
+     *
+     * */
     public static void getInvTable(String[][] invTable) {
         Connection conn = null;
         String teamNumber = "55";
@@ -468,6 +499,12 @@ public class jdbcpostgreSQL {
         }//end try catch
     }
 
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param foodtype name of food item
+     * @param mealtype name of mealtype attribute in mealsizes database
+     *
+     * */
     public static void getOrdTable(String[][] ordTable) {
         Connection conn = null;
         String teamNumber = "55";
@@ -522,7 +559,12 @@ public class jdbcpostgreSQL {
             System.out.println("Connection NOT Closed.");
         }//end try catch
     }
-
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param foodtype name of food item
+     * @param mealtype name of mealtype attribute in mealsizes database
+     *
+     * */
     public static void getMealSizeTable(String[][] mealSizeTable) {
         Connection conn = null;
         String teamNumber = "55";
@@ -577,6 +619,12 @@ public class jdbcpostgreSQL {
         }//end try catch
     }
 
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param foodtype name of food item
+     * @param mealtype name of mealtype attribute in mealsizes database
+     *
+     * */
     public static int getDBSize(String tName) {
         Connection conn = null;
         String teamNumber = "55";
@@ -619,7 +667,12 @@ public class jdbcpostgreSQL {
         }//end try catch
         return -1;
     }
-
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param foodtype name of food item
+     * @param mealtype name of mealtype attribute in mealsizes database
+     *
+     * */
     public static int getItemIndex(String itemName) {
         Connection conn = null;
         String teamNumber = "55";
@@ -662,7 +715,12 @@ public class jdbcpostgreSQL {
         }//end try catch
         return -1; // not in table
     }
-
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param foodtype name of food item
+     * @param mealtype name of mealtype attribute in mealsizes database
+     *
+     * */
     public static double getTablePrice(String mealtype) {
         Connection conn = null;
         String teamNumber = "55";
@@ -706,6 +764,12 @@ public class jdbcpostgreSQL {
         }//end try catch
         return -1.0;
     }
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param foodtype name of food item
+     * @param mealtype name of mealtype attribute in mealsizes database
+     *
+     * */
     public static double getTablePrice(String mealtype, String foodname) {
         Connection conn = null;
         String teamNumber = "55";
@@ -747,6 +811,8 @@ public class jdbcpostgreSQL {
         }//end try catch
         return -1.0;
     }
+
+    // might delete
   public static void main(String args[]) {
 
     //Building the connection with your credentials
