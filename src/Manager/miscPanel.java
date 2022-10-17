@@ -69,10 +69,14 @@ public class miscPanel extends JPanel implements ActionListener {
         if (e.getSource()==addNewItem) {
             AddItemWindow addItemWindow = new AddItemWindow();
         }
-//        if(e.getSource() == registerView) {
-//            CashierView cashierWindow = new CashierView();
-//            cashierWindow.startCashierView();
-//            managerGui.f.dispose();
-//        }
+        if (e.getSource()==salesReport) {
+            SalesReportWindow salesReportWindow = new SalesReportWindow();
+        }
+        if (e.getSource()==excessReport) {
+            ExcessReportWindow excessReportWindow = new ExcessReportWindow();
+        }
+        if (e.getSource()==restockReport) {
+            RestockReportWindow restockReportWindow = new RestockReportWindow();
+        }
     }
 }
