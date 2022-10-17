@@ -1,5 +1,6 @@
 package src.Cashier;
 
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.Vector;
 
@@ -7,6 +8,8 @@ class ReceiptTableModel extends AbstractTableModel {
     private final String[] cols = {"Item", "Price"};
     public Vector<OrderItem> data = new Vector<>();
     public double price = 0.0;
+    public JLabel subtotalLabel;
+    public JLabel totalLabel;
 
 
     @Override
@@ -56,5 +59,12 @@ class ReceiptTableModel extends AbstractTableModel {
     public void clear() {
         data.clear();
         fireTableDataChanged();
+    }
+
+    @Override
+    public void fireTableDataChanged() {
+        super.fireTableDataChanged();
+        subtotalLabel.setText(String.format("Subtotal: %.2f", price));
+        totalLabel.setText(String.format("Total: %.2f", price*(1+0.0875)));
     }
 }

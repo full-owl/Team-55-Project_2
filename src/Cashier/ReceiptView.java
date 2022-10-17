@@ -24,7 +24,14 @@ public class ReceiptView extends JSplitPane {
 
         // Checkout view
         var checkoutView = new JPanel();
-        checkoutView.setLayout(new GridLayout(0,2,5,5));
+        checkoutView.setLayout(new GridLayout(2,2,5,5));
+
+        var subtotal = new JLabel("Subtotal: 0.0");
+        model.subtotalLabel = subtotal;
+        checkoutView.add(subtotal);
+        var total = new JLabel("Total: 0.0");
+        model.totalLabel = total;
+        checkoutView.add(total);
 
         var cancelAction = new ActionListener(){
 
