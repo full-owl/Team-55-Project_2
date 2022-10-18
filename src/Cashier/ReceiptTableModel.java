@@ -57,6 +57,7 @@ class ReceiptTableModel extends AbstractTableModel {
     }
 
     public void clear() {
+        price = 0;
         data.clear();
         fireTableDataChanged();
     }
