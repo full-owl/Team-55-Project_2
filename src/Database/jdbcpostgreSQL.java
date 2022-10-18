@@ -290,7 +290,7 @@ public class jdbcpostgreSQL {
      * edits price of foodtype and mealtype in mealsizes database
      * @param foodtype name of food item
      * @param mealtype name of mealtype attribute in mealsizes database
-     *
+     * @param newPrice new float price of item
     * */
     public static void editPrices(String foodtype, String mealtype, float newPrice)
     {
@@ -337,10 +337,10 @@ public class jdbcpostgreSQL {
     }
 
     /**
-     * edits price of foodtype and mealtype in mealsizes database
-     * @param foodtype name of food item
-     * @param mealtype name of mealtype attribute in mealsizes database
-     *
+     * adds menu item of id and name to menuitems database with a description
+     * @param id unique id code of menuitem, should be incremented up one from db
+     * @param name name of menuitem
+     * @param description string description that describes item
      * */
     public static void addMenuItem(int id, String name, String type, String description)
     {
@@ -386,9 +386,8 @@ public class jdbcpostgreSQL {
     }
 
     /**
-     * edits price of foodtype and mealtype in mealsizes database
-     * @param foodtype name of food item
-     * @param mealtype name of mealtype attribute in mealsizes database
+     * returns vector of strings of menuitems with foodtype
+     * @param foodtype string type of food item in database
      *
      * */
     public static Vector<String> getMenuItems(String foodType) {
@@ -437,11 +436,9 @@ public class jdbcpostgreSQL {
     }
 
     /**
-     * edits price of foodtype and mealtype in mealsizes database
-     * @param foodtype name of food item
-     * @param mealtype name of mealtype attribute in mealsizes database
-     *
-     * */
+     * takes in invTable by reference and makes it usable to display in manager gui. invTable holds data from the inventory database
+     * @param invTable 2D - String array that should be empty with a specific size for rows and must be 4 columns
+     */
     public static void getInvTable(String[][] invTable) {
         Connection conn = null;
         String teamNumber = "55";
@@ -467,13 +464,9 @@ public class jdbcpostgreSQL {
 
             // id, ingredient, currentamount, unit
 
-            System.out.println("--------------------Query Results--------------------");
+            // System.out.println("--------------------Query Results--------------------");
 
             int r = 0;
-//            invTable[0][0] = "ID";
-//            invTable[0][1] = "Ingredient";
-//            invTable[0][2] = "Current Amount";
-//            invTable[0][3] = "Unit";
 
             while(result.next()) {
 
@@ -493,17 +486,15 @@ public class jdbcpostgreSQL {
         //closing the connection
         try {
             conn.close();
-            System.out.println("Connection Closed.");
+            // System.out.println("Connection Closed.");
         } catch(Exception e) {
             System.out.println("Connection NOT Closed.");
         }//end try catch
     }
 
     /**
-     * edits price of foodtype and mealtype in mealsizes database
-     * @param foodtype name of food item
-     * @param mealtype name of mealtype attribute in mealsizes database
-     *
+     * takes in ordTable and makes it hold data from orders database - no return
+     * @param ordTable 2D - String array of size [> 0][5]
      * */
     public static void getOrdTable(String[][] ordTable) {
         Connection conn = null;
@@ -530,7 +521,7 @@ public class jdbcpostgreSQL {
 
 
 
-            System.out.println("--------------------Query Results--------------------");
+            // System.out.println("--------------------Query Results--------------------");
 
             int r = 0;
 
@@ -560,10 +551,8 @@ public class jdbcpostgreSQL {
         }//end try catch
     }
     /**
-     * edits price of foodtype and mealtype in mealsizes database
-     * @param foodtype name of food item
-     * @param mealtype name of mealtype attribute in mealsizes database
-     *
+     * takes in empty mealSizeTable and makes it hold data from mealsizes database - no return
+     * @param mealSizeTable 2D String array of size[>0][4] that holds data from each entry in mealsizes database
      * */
     public static void getMealSizeTable(String[][] mealSizeTable) {
         Connection conn = null;
@@ -590,7 +579,7 @@ public class jdbcpostgreSQL {
 
 
 
-            System.out.println("--------------------Query Results--------------------");
+            // System.out.println("--------------------Query Results--------------------");
 
             int r = 0;
 
@@ -620,10 +609,8 @@ public class jdbcpostgreSQL {
     }
 
     /**
-     * edits price of foodtype and mealtype in mealsizes database
-     * @param foodtype name of food item
-     * @param mealtype name of mealtype attribute in mealsizes database
-     *
+     * return integer of size of databse of String tName
+     * @param tName string name of database
      * */
     public static int getDBSize(String tName) {
         Connection conn = null;
@@ -668,10 +655,8 @@ public class jdbcpostgreSQL {
         return -1;
     }
     /**
-     * edits price of foodtype and mealtype in mealsizes database
-     * @param foodtype name of food item
-     * @param mealtype name of mealtype attribute in mealsizes database
-     *
+     * returns index of item of itemName for menuitems database
+     * @param itemName String name of food item
      * */
     public static int getItemIndex(String itemName) {
         Connection conn = null;
@@ -716,10 +701,8 @@ public class jdbcpostgreSQL {
         return -1; // not in table
     }
     /**
-     * edits price of foodtype and mealtype in mealsizes database
-     * @param foodtype name of food item
+     * returns a double, price of item of name meatype. returns -1 if price not in table
      * @param mealtype name of mealtype attribute in mealsizes database
-     *
      * */
     public static double getTablePrice(String mealtype) {
         Connection conn = null;
@@ -765,10 +748,9 @@ public class jdbcpostgreSQL {
         return -1.0;
     }
     /**
-     * edits price of foodtype and mealtype in mealsizes database
-     * @param foodtype name of food item
-     * @param mealtype name of mealtype attribute in mealsizes database
-     *
+     * returns double, price from mealsizes database of String mealtype and foodname
+     * @param mealtype name of mealtype in mealsizes database
+     * @param foodname name of food item in menuitems database
      * */
     public static double getTablePrice(String mealtype, String foodname) {
         Connection conn = null;
@@ -812,56 +794,57 @@ public class jdbcpostgreSQL {
         return -1.0;
     }
 
-    // might delete
-  public static void main(String args[]) {
+    /*
+    * main function for jdbcpostgreSQL - used as template for functions and testing to access database
+    * */
+    public static void main(String args[]) {
 
-    //Building the connection with your credentials
-    Connection conn = null;
-    String teamNumber = "55"; // Your team number
-    String sectionNumber = "904"; // Your section number
-    String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-    String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-    dbSetup myCredentials = new dbSetup();
+        //Building the connection with your credentials
+        Connection conn = null;
+        String teamNumber = "55"; // Your team number
+        String sectionNumber = "904"; // Your section number
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
 
-    //Connecting to the database
-    try {
-        conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-     } catch (Exception e) {
-        e.printStackTrace();
-        System.err.println(e.getClass().getName()+": "+e.getMessage());
-        System.exit(0);
-     }
+        //Connecting to the database
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+         } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+         }
 
-     System.out.println("Opened database successfully");
+         System.out.println("Opened database successfully");
 
-     try{
-       Statement stmt = conn.createStatement();
+         try{
+           Statement stmt = conn.createStatement();
 
-       //convertData(conn, "order_items.csv");
-       //ResultSet result = stmt.executeQuery(insert1);
-       //int result = stmt.executeUpdate(sqlStatement);
+           //convertData(conn, "order_items.csv");
+           //ResultSet result = stmt.executeQuery(insert1);
+           //int result = stmt.executeUpdate(sqlStatement);
 
 
-       System.out.println("--------------------Query Results--------------------");
-       //while (result.next()) {
-       //System.out.println(result.getString("column_name"));
-       //}
-       //OR
-       //System.out.println(result);
-   } catch (Exception e){
-       e.printStackTrace();
-       System.err.println(e.getClass().getName()+": "+e.getMessage());
-       System.exit(0);
-   }
+           System.out.println("--------------------Query Results--------------------");
+           //while (result.next()) {
+           //System.out.println(result.getString("column_name"));
+           //}
+           //OR
+           //System.out.println(result);
+        } catch (Exception e){
+           e.printStackTrace();
+           System.err.println(e.getClass().getName()+": "+e.getMessage());
+           System.exit(0);
+        }
 
-    //closing the connection
-    try {
-      conn.close();
-      System.out.println("Connection Closed.");
-    } catch(Exception e) {
-      System.out.println("Connection NOT Closed.");
-    }//end try catch
-  }//end main
-
+        //closing the connection
+        try {
+          conn.close();
+          System.out.println("Connection Closed.");
+        } catch(Exception e) {
+          System.out.println("Connection NOT Closed.");
+        }//end try catch
+    }//end main
 
 }//end Class
