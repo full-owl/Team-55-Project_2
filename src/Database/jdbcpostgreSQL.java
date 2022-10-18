@@ -388,7 +388,7 @@ public class jdbcpostgreSQL {
     /**
      * returns vector of strings of menuitems with foodtype
      * @param foodType string type of food item in database
-     *
+     * @return vector of strings of food types in menuitems table
      * */
     public static Vector<String> getMenuItems(String foodType) {
         Connection conn = null;
@@ -663,6 +663,7 @@ public class jdbcpostgreSQL {
     /**
      * return integer of size of databse of String tName
      * @param tName string name of database
+     * @return int that is size of database tName
      * */
     public static int getDBSize(String tName) {
         Connection conn = null;
@@ -709,6 +710,7 @@ public class jdbcpostgreSQL {
     /**
      * returns index of item of itemName for menuitems database
      * @param itemName String name of food item
+     * @return int index of item name in menuitems database
      * */
     public static int getItemIndex(String itemName) {
         Connection conn = null;
@@ -755,6 +757,7 @@ public class jdbcpostgreSQL {
     /**
      * returns a double, price of item of name meatype. returns -1 if price not in table
      * @param mealtype name of mealtype attribute in mealsizes database
+     * @return double, price of item of mealtype in mealsizes table
      * */
     public static double getTablePrice(String mealtype) {
         Connection conn = null;
@@ -803,6 +806,7 @@ public class jdbcpostgreSQL {
      * returns double, price from mealsizes database of String mealtype and foodname
      * @param mealtype name of mealtype in mealsizes database
      * @param foodname name of food item in menuitems database
+     * @return double, price of mealtype and foodname from mealsizes table
      * */
     public static double getTablePrice(String mealtype, String foodname) {
         Connection conn = null;
