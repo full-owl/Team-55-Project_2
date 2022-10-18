@@ -652,7 +652,7 @@ public class jdbcpostgreSQL {
         //closing the connection
         try {
             conn.close();
-            System.out.println("Connection Closed.");
+            // System.out.println("Connection Closed.");
         } catch(Exception e) {
             System.out.println("Connection NOT Closed.");
         }//end try catch
@@ -709,7 +709,7 @@ public class jdbcpostgreSQL {
         //closing the connection
         try {
             conn.close();
-            System.out.println("Connection Closed.");
+            // System.out.println("Connection Closed.");
         } catch(Exception e) {
             System.out.println("Connection NOT Closed.");
         }//end try catch

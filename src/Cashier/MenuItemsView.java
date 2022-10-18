@@ -253,7 +253,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==managerView) {
-            System.out.println("This is working-ish");
+            // System.out.println("This is working-ish");
             managerGui.managerGui();
         }
     }
