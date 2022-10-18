@@ -492,6 +492,58 @@ public class jdbcpostgreSQL {
         }//end try catch
     }
 
+    public static void getRestockTable(String[][] restockTable) {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try{
+            String sqlStatement = "SELECT * FROM inventory WHERE currentamount < 20";
+
+            PreparedStatement p = conn.prepareStatement(sqlStatement);
+            ResultSet result = p.executeQuery();
+
+            // id, ingredient, currentamount, unit
+
+            // System.out.println("--------------------Query Results--------------------");
+
+            int r = 0;
+
+            while(result.next()) {
+
+                restockTable[r][0] = result.getString("id");
+                restockTable[r][1] = result.getString("ingredient");
+                restockTable[r][2] = result.getString("currentamount");
+                restockTable[r][3] = result.getString("unit");
+                r++;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        //closing the connection
+        try {
+            conn.close();
+            // System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }//end try catch
+    }
+
     /**
      * takes in ordTable and makes it hold data from orders database - no return
      * @param ordTable 2D - String array of size [> 0][5]
