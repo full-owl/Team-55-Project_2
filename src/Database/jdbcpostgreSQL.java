@@ -544,7 +544,7 @@ public class jdbcpostgreSQL {
         }//end try catch
     }
 
-    public static void getSalesTable(String[][] SalesTable, String date1, String date2) {
+    public static void getSalesReportTable(String[][] SalesTable, String date1, String date2) {
         Connection conn = null;
         String teamNumber = "55";
         String sectionNumber = "904";
