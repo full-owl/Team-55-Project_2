@@ -387,7 +387,7 @@ public class jdbcpostgreSQL {
 
     /**
      * returns vector of strings of menuitems with foodtype
-     * @param foodtype string type of food item in database
+     * @param foodType string type of food item in database
      *
      * */
     public static Vector<String> getMenuItems(String foodType) {
