@@ -48,7 +48,7 @@ class ReceiptTableModel extends AbstractTableModel {
     }
 
     public void addItems(Vector<OrderItem> items) {
-        System.out.println(items);
+        // System.out.println(items);
         data.addAll(items);
         for(var item: items) {
             price += item.getPrice();

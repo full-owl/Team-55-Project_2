@@ -28,7 +28,7 @@ public class ItemPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Item: " + actionEvent.getActionCommand());
+                //System.out.println("Item: " + actionEvent.getActionCommand());
                 updateNumSelected();
             }
         };

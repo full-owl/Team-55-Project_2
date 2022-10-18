@@ -53,7 +53,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String size = actionEvent.getActionCommand();
-                System.out.println("Size: " + size);
+                // System.out.println("Size: " + size);
                 JToggleButton button = (JToggleButton) actionEvent.getSource();
                 if(button.isSelected()) {
                     int entreeMax = numEntrees(size);
@@ -118,7 +118,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String action = actionEvent.getActionCommand();
-                System.out.println(action);
+                // System.out.println(action);
                 Vector<OrderItem> items;
                 if (action.equals("add")) { // Only add meal since they don't need to specify what size they are
                     items = new Vector<>();
@@ -200,7 +200,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
             var selectedButtons = set.getValue().group.getSelections();
             var selected = new Vector<String>();
             for(var button: selectedButtons) {
-                System.out.println("Selected: " + button.getActionCommand());
+                // System.out.println("Selected: " + button.getActionCommand());
                 selected.add(button.getActionCommand());
             }
 

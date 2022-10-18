@@ -37,7 +37,7 @@ public class ReceiptView extends JSplitPane {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Cancel");
+                // System.out.println("Cancel");
                 ReceiptTableModel model = (ReceiptTableModel) table.getModel();
                 model.clear();
             }
@@ -50,7 +50,7 @@ public class ReceiptView extends JSplitPane {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Check out");
+                // System.out.println("Check out");
                 ReceiptTableModel model = (ReceiptTableModel) table.getModel();
                 jdbcpostgreSQL.insertOrder(model.data);
 
