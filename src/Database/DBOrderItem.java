@@ -4,16 +4,25 @@ import src.Database.jdbcpostgreSQL;
 
 import java.util.Vector;
 
+/**
+ * Class - order item in databse orderitems
+ *
+ * */
 public class DBOrderItem {
+    // variables
     public int orderId;
     public String orderType;
+    // entrees ids
     public int menuItem1;
     public int menuItem2;
     public int menuItem3;
+    // sides ids
     public int menuItem4;
     public int menuItem5;
-    //int menuItem6;
+
+    // custom instructions
     public String instructions;
+    // constructors
     public DBOrderItem(int orderId, String orderType, int menuItem1, int menuItem2, int menuItem3, int menuItem4, int menuItem5, String instructions)
     {
         this.orderId = orderId;
@@ -34,7 +43,10 @@ public class DBOrderItem {
         this.menuItem1 = jdbcpostgreSQL.getItemIndex(menuItem);
     }
 
-
+    /**
+     * sets object's sides depending on size of Vector sides
+     * @param sides Vector of strings that holds names of sides
+     * */
     public void setSides(Vector<String> sides) {
         // Errors if there is a wrong amount of sides
         if (sides.size() == 2) {
@@ -52,6 +64,10 @@ public class DBOrderItem {
         return;
     }
 
+    /**
+     * sets object's entrees depending on size of Vector sides
+     * @param entrees Vector of strings that holds names of entrees
+     * */
     public void setEntrees(Vector<String> entrees) {
         // Errors if there is a wrong amount of entrees
         if (entrees.size() == 3) {
