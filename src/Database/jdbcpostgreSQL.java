@@ -382,7 +382,10 @@ public class jdbcpostgreSQL {
         }
 
     }
-
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param restockTable 2D - String array that should be empty with a specific size for rows and must be 4 columns
+     * */
     public static void getRestockTable(String[][] restockTable) {
         Connection conn = getConn();
         try{
@@ -413,7 +416,12 @@ public class jdbcpostgreSQL {
         }
 
     }
-
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param SalesTable 2D - String array that should be empty with a specific size for rows and must be 2 columns
+     * @param date1 string containing the first date
+     * @param date2 string containing the second date
+     * */
     public static void getSalesReportTable(String[][] SalesTable, String date1, String date2) {
         Connection conn = getConn();
         try{
