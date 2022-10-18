@@ -35,7 +35,8 @@ public class Order {
 
 
     /**
-     * returns string of current date of order in form of "yyyy-MM-dd"
+     * used to get current date
+     * @return String of format "yyyy-MM-dd"
      * */
     public static String getDate() {
         return (new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date()));
