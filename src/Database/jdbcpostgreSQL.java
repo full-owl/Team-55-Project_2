@@ -544,6 +544,61 @@ public class jdbcpostgreSQL {
         }//end try catch
     }
 
+    public static void getSalesTable(String[][] SalesTable, String date1, String date2) {
+        Connection conn = null;
+        String teamNumber = "55";
+        String sectionNumber = "904";
+        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+        dbSetup myCredentials = new dbSetup();
+
+        try {
+            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+        } catch (Exception e) {
+            System.out.println("error");
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+        try{
+            String sqlStatement = "select menuitems.name, count(menuitems.id) from " +
+                    "((orderitems inner join orders on orderitems.orderid = orders.id) " +
+                    "inner join menuitems on orderitems.menuitem1 = menuitems.id " +
+                    "or orderitems.menuitem2 = menuitems.id or orderitems.menuitem3 = menuitems.id " +
+                    "or orderitems.side1 = menuitems.id or orderitems.side2 = menuitems.id) " +
+                    "where date between '" + date1 + "' and '" + date2 + "' group by menuitems.name;";
+
+            PreparedStatement p = conn.prepareStatement(sqlStatement);
+            ResultSet result = p.executeQuery();
+
+            // id, ingredient, currentamount, unit
+
+            // System.out.println("--------------------Query Results--------------------");
+
+            int r = 0;
+            result.next();
+            while(result.next()) {
+                SalesTable[r][0] = result.getString("menuitems.name");
+                int num = result.getInt("menuitems.id");
+                SalesTable[r][1] = Integer.toString(num);
+                r++;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+        //closing the connection
+        try {
+            conn.close();
+            // System.out.println("Connection Closed.");
+        } catch(Exception e) {
+            System.out.println("Connection NOT Closed.");
+        }//end try catch
+    }
+
     /**
      * takes in ordTable and makes it hold data from orders database - no return
      * @param ordTable 2D - String array of size [> 0][5]
