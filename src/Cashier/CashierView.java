@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Combines the MenuItemsView and ReceiptView into one Pane
+ * with MenuItems on the right and Receipt on the left
+ */
 public class CashierView extends JSplitPane {
 
     private MenuItemsView itemsView;

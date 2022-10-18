@@ -10,6 +10,11 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Vector;
 
+/**
+ * This is the right side of the Cashier view
+ * It handles selecting the different like sides, entrees, drinks, and appetizers.
+ * Also, it has buttons to add those selected items to the receipt.
+ */
 public class MenuItemsView extends JPanel implements ActionListener{
     public static String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
     ButtonGroup sizeGroup;
