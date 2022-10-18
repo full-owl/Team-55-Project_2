@@ -6,45 +6,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class miscPanel extends JPanel implements ActionListener {
-    JButton addInventory;
-    JButton editInventory;
-    JButton updatePrices;
-    JButton addNewItem;
-    JButton salesReport;
-    JButton excessReport;
-    JButton restockReport;
+
+    // button constructor
+    public JButton createButton(String name, int x, int y) {
+        JButton btn = new JButton();
+        btn.setText(name);
+        btn.setBounds(x,y,200,50);
+        btn.addActionListener(this);
+        return btn;
+    }
+    // Initialize buttons in manager view
+    JButton addInventory = createButton("Add Ingredients", 25, 100);
+    JButton editInventory = createButton("Edit Inventory", 25, 170);
+    JButton updatePrices = createButton("Edit Prices",230,170);
+    JButton addNewItem = createButton("Add Menu Item", 230 ,100);
+    JButton salesReport = createButton("Sales Report", 25, 250);
+    JButton excessReport = createButton("Excess Report", 230, 250);
+    JButton restockReport = createButton("Restock Report", 435, 250);
+
+    // Adds all buttons to a border layout in the fourth quadrant of the manager view
     miscPanel() {
-        addInventory = new JButton("Add Ingredients");
-        addInventory.setBounds(25,100,200,50);
-        addInventory.addActionListener(this);
-
-        editInventory = new JButton("Edit Inventory");
-        editInventory.setBounds(25,170,200,50);
-        editInventory.addActionListener(this);
-
-        updatePrices = new JButton("Edit Prices");
-        updatePrices.setBounds(230, 170, 200,50);
-        updatePrices.addActionListener(this);
-
-        addNewItem = new JButton("Add Menu Item");
-        addNewItem.setBounds(230, 100, 200,50);
-        addNewItem.addActionListener(this);
-
-        salesReport = new JButton("Sales Report");
-        salesReport.setBounds(25, 250, 200,50);
-        salesReport.addActionListener(this);
-
-        excessReport = new JButton("Excess Report");
-        excessReport.setBounds(230, 250, 200,50);
-        excessReport.addActionListener(this);
-
-        restockReport = new JButton("Restock Report");
-        restockReport.setBounds(435, 250, 200,50);
-        restockReport.addActionListener(this);
-
-
-
-
         this.add(addInventory);
         this.add(editInventory);
         this.add(updatePrices);
@@ -55,6 +36,7 @@ public class miscPanel extends JPanel implements ActionListener {
         this.setLayout(new BorderLayout());
     }
 
+    // Opens new window for each button
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == addInventory) {
