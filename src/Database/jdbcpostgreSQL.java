@@ -171,6 +171,7 @@ public class jdbcpostgreSQL {
                 ps.setString(8, item.instructions);
 
                 int result = ps.executeUpdate();
+                updateInventory(conn, orderid);
 
             } catch (Exception e)
             {
@@ -180,6 +181,8 @@ public class jdbcpostgreSQL {
             }
 
         }
+
+
         try {
             conn.close();
             // System.out.println("Connection Closed.");
@@ -189,6 +192,29 @@ public class jdbcpostgreSQL {
         // new managerGui();
     }
 
+    /**
+     *
+     * Update the inventory table based by the ingredients used for the order
+     * @param conn
+     * @param orderid
+     * @return ResultSet of the updated rows in ingredients table
+     * @throws SQLException
+     */
+    private static ResultSet updateInventory(Connection conn, int orderid) throws SQLException {
+
+        String stmt = """
+                update inventory
+                set currentamount = currentamount - amountneeded
+                from orderingredients
+                where orderingredients.inventoryid = inventory.id and orderingredients.orderid = ?
+                returning inventory.*;
+                """;
+        PreparedStatement ps = conn.prepareStatement(stmt);
+        ps.setInt(1,orderid);
+        ResultSet result = ps.executeQuery();
+        return result;
+
+    }
     /**
      * Edit amount of item in inventory databasee
      * @param id id of inventory item in database
