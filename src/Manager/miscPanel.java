@@ -58,7 +58,7 @@ public class miscPanel extends JPanel implements ActionListener {
             ExcessReportWindow excessReportWindow = new ExcessReportWindow();
         }
         if (e.getSource()==restockReport) {
-            RestockReportWindow restockReportWindow = new RestockReportWindow();
+            new RestockReportWindow();
         }
     }
 }

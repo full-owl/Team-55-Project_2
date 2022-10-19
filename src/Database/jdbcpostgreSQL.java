@@ -430,7 +430,7 @@ public class jdbcpostgreSQL {
                     "inner join menuitems on orderitems.menuitem1 = menuitems.id " +
                     "or orderitems.menuitem2 = menuitems.id or orderitems.menuitem3 = menuitems.id " +
                     "or orderitems.side1 = menuitems.id or orderitems.side2 = menuitems.id) " +
-                    "where date between '" + date1 + "' and '" + date2 + "' group by menuitems.name;";
+                    "where date between '" + date2 +  "' and '" + date1 + "' group by menuitems.name;";
 
             PreparedStatement p = conn.prepareStatement(sqlStatement);
             ResultSet result = p.executeQuery();
@@ -440,12 +440,22 @@ public class jdbcpostgreSQL {
             // System.out.println("--------------------Query Results--------------------");
 
             int r = 0;
-            result.next();
             while(result.next()) {
-                SalesTable[r][0] = result.getString("menuitems.name");
-                int num = result.getInt("menuitems.id");
-                SalesTable[r][1] = Integer.toString(num);
-                r++;
+                if (r == 0)
+                {
+                    String rand = result.getString("name");
+                    int num = result.getInt("count");
+                    String rand2 = Integer.toString(num);
+                    r++;
+                }
+                else
+                {
+                    SalesTable[r][0] = result.getString("name");
+                    int num = result.getInt("count");
+                    SalesTable[r][1] = Integer.toString(num);
+                    r++;
+                }
+
             }
 
         } catch (Exception e){
@@ -689,3 +699,6 @@ public class jdbcpostgreSQL {
     }//end main
 
 }//end Class
+
+//select menuitems.name, count(menuitems.id) from((orderitems inner join orders on orderitems.orderid = orders.id) inner join menuitems on orderitems.menuitem1 = menuitems.id or orderitems.menuitem2 = menuitems.id or orderitems.menuitem3 = menuitems.id or orderitems.side1 = menuitems.id or orderitems.side2 = menuitems.id) where date between '2022-10-01' and '2022-10-02' group by menuitems.name;
+//select menuitems.name, count(menuitems.id) from((orderitems inner join orders on orderitems.orderid = orders.id) inner join menuitems on orderitems.menuitem1 = menuitems.id or orderitems.menuitem2 = menuitems.id or orderitems.menuitem3 = menuitems.id or orderitems.side1 = menuitems.id or orderitems.side2 = menuitems.id) where date between '2022-10-02' and '2022-10-01' group by menuitems.name;

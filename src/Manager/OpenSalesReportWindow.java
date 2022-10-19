@@ -15,7 +15,7 @@ public class OpenSalesReportWindow extends JFrame{
 
         // Data to be displayed in the JTable
         Object[][] data;
-        String[][] ordTable = new String[100][2];
+        String[][] ordTable = new String[200][2];
         jdbcpostgreSQL.getSalesReportTable(ordTable, dateTo, dateFrom);
         data = ordTable;
         // Column Names
@@ -29,6 +29,7 @@ public class OpenSalesReportWindow extends JFrame{
 
         this.setTitle("Sales Report");
         this.add(sp);
+        this.pack();
         this.setVisible(true);
     }
 }
