@@ -493,8 +493,8 @@ public class jdbcpostgreSQL {
             int r = 0;
             while(result.next()) {
                 excessReport[r][0] = result.getString("ingredient");
-                excessReport[r][1] = result.getString("used");
-                excessReport[r][2] = result.getString("currentamount");
+                excessReport[r][1] = Integer.toString(result.getInt("used"));
+                excessReport[r][2] = Integer.toString(result.getInt("currentamount"));
                 excessReport[r][3] = result.getString("unit");
                 r++;
             }
