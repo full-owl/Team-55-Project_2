@@ -467,6 +467,46 @@ public class jdbcpostgreSQL {
     }
 
     /**
+     * Gets the report of the ingredients that have not been sold in a lot of items (less than 10% of total)
+     * @param excessReport 2D - String array that should be 4 columns wide
+     * @param date string containing the start date
+     */
+    public static void getExcessReport(String[][] excessReport, String date) {
+        String curr_date = Order.getDate();
+        Connection conn = getConn();
+        try {
+            String stmt = """
+                    select i.id, i.ingredient, sum(amountneeded) as used, currentamount, i.unit
+                    from orders
+                    join orderingredients on orderingredients.orderid = orders.id
+                    join inventory i on i.id = orderingredients.inventoryid
+                    where date between ? and ?
+                    group by i.id
+                    having (sum(amountneeded))/(currentamount + sum(amountneeded)) < 0.10
+                    order by i.id;""";
+            PreparedStatement p = conn.prepareStatement(stmt);
+            p.setString(1,date);
+            p.setString(1,curr_date);
+
+            ResultSet result = p.executeQuery();
+
+            int r = 0;
+            while(result.next()) {
+                excessReport[r][0] = result.getString("ingredient");
+                excessReport[r][1] = result.getString("used");
+                excessReport[r][2] = result.getString("currentamount");
+                excessReport[r][3] = result.getString("unit");
+                r++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println(e.getClass().getName()+": "+e.getMessage());
+            System.exit(0);
+        }
+
+    }
+
+    /**
      * takes in ordTable and makes it hold data from orders database - no return
      * @param ordTable 2D - String array of size [> 0][5]
      * */
