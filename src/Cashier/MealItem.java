@@ -19,6 +19,10 @@ public class MealItem extends OrderItem {
 
     private double price;
 
+    /**
+     *
+     * @param mealType
+     */
     public MealItem(String mealType) {
         super(mealType);
 

@@ -13,6 +13,10 @@ public abstract class OrderItem {
     String mealType;
 
 
+    /**
+     *
+     * @param mealType
+     */
     public OrderItem(String mealType) {
         assert Arrays.asList(sizes).contains(mealType);
         this.mealType = mealType;

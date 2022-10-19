@@ -54,7 +54,10 @@ public class MenuItemsView extends JPanel implements ActionListener{
             }
         };
         var sizeController = new ActionListener() {
-            // Whenever you change sizes, update the max number of entrees and sides you can select at one time.
+            /**
+             * Whenever you change sizes, update the max number of entrees and sides you can select at one time.
+             * @param actionEvent
+             */
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String size = actionEvent.getActionCommand();
@@ -227,6 +230,11 @@ public class MenuItemsView extends JPanel implements ActionListener{
         frame.setVisible(true);
     }
 
+    /**
+     *
+     * @param category
+     * @return
+     */
     public static String[] menuItems(String category) {
         // Turns "Sides" to "side"
         String cat = category.toLowerCase().substring(0,category.length()-1);
@@ -235,6 +243,11 @@ public class MenuItemsView extends JPanel implements ActionListener{
         return jdbcpostgreSQL.getMenuItems(cat).toArray(new String[0]);
     }
 
+    /**
+     *
+     * @param size
+     * @return
+     */
     public static int numEntrees(String size) {
         int[] nums = {1,2,3,3};
         for (int i = 0; i < sizes.length; i++) {
@@ -245,6 +258,11 @@ public class MenuItemsView extends JPanel implements ActionListener{
         return -1;
     }
 
+    /**
+     *
+     * @param size
+     * @return
+     */
     public static int numSides(String size) {
         int[] nums = {1,1,1,2};
         for (int i = 0; i < sizes.length; i++) {
@@ -255,6 +273,10 @@ public class MenuItemsView extends JPanel implements ActionListener{
         return -1;
     }
 
+    /**
+     *
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==managerView) {
