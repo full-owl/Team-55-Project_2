@@ -24,6 +24,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
     ReceiptTableModel receiptModel;
 
     JButton addMealButton;
+    JTextField customInstruction;
 
     public MenuItemsView() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -31,6 +32,15 @@ public class MenuItemsView extends JPanel implements ActionListener{
 
         createSizePanel();
         createItemCategories();
+
+        var instructionPanel = new JPanel();
+        instructionPanel.setName("Custom Instruction");
+        instructionPanel.setBorder(BorderFactory.createTitledBorder("Custom Instruction"));
+        instructionPanel.setLayout(new BorderLayout());
+        customInstruction = new JTextField();
+        instructionPanel.add(customInstruction);
+        add(instructionPanel);
+
         createAddButtons();
     }
 
@@ -119,7 +129,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
         modifyArea.add(deselectButton);
 
 
-        var buttonLabels =  new String[]{"Add (small)", "Add (medium) no appetizers", "Add (large)", "Add meal"};
+        var buttonLabels =  new String[]{"Add (small) no sides", "Add (medium) no appetizers", "Add (large)", "Add meal"};
         var buttonActionCommand = new String[]{"small", "medium", "large", "add"};
         var addAction = new ActionListener() {
 
