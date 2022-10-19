@@ -486,7 +486,7 @@ public class jdbcpostgreSQL {
                     order by i.id;""";
             PreparedStatement p = conn.prepareStatement(stmt);
             p.setString(1,date);
-            p.setString(1,curr_date);
+            p.setString(2,curr_date);
 
             ResultSet result = p.executeQuery();
 
