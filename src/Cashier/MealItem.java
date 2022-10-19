@@ -17,10 +17,9 @@ public class MealItem extends OrderItem {
     Vector<String> entrees = new Vector<>();
     int entreeLen;
 
-    private double price;
+    private final double price;
 
     /**
-     *
      * @param mealType
      */
     public MealItem(String mealType) {
@@ -28,8 +27,8 @@ public class MealItem extends OrderItem {
 
         // Look up associated arrays based off of the mealType
         // Ex. a bigger plate would have 3 entrees and 1 side
-        int[] entrees = {1,2,3,3};
-        int[] sides = {1,1,1,2};
+        int[] entrees = {1, 2, 3, 3};
+        int[] sides = {1, 1, 1, 2};
 
         int i = Arrays.asList(sizes).indexOf(mealType);
         entreeLen = entrees[i];

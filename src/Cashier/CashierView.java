@@ -1,8 +1,6 @@
 package src.Cashier;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Combines the MenuItemsView and ReceiptView into one Pane
@@ -10,8 +8,8 @@ import java.awt.event.ActionListener;
  */
 public class CashierView extends JSplitPane {
 
-    private MenuItemsView itemsView;
-    private ReceiptView receiptView;
+    private final MenuItemsView itemsView;
+    private final ReceiptView receiptView;
 
     public CashierView() {
         super();
@@ -26,8 +24,9 @@ public class CashierView extends JSplitPane {
         setDividerLocation(0.90);
         setResizeWeight(0.9);
     }
+
     // for manager
-    public void startCashierView(){
+    public void startCashierView() {
         var frame = new JFrame();
         var cv = new CashierView();
         frame.add(cv);

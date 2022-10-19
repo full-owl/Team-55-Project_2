@@ -53,7 +53,7 @@ class ReceiptTableModel extends AbstractTableModel {
     public void addItems(Vector<OrderItem> items) {
         // System.out.println(items);
         data.addAll(items);
-        for(var item: items) {
+        for (var item : items) {
             price += item.getPrice();
         }
         fireTableDataChanged();
@@ -69,6 +69,6 @@ class ReceiptTableModel extends AbstractTableModel {
     public void fireTableDataChanged() {
         super.fireTableDataChanged();
         subtotalLabel.setText(String.format("Subtotal: %.2f", price));
-        totalLabel.setText(String.format("Total: %.2f", price*(1+0.0875)));
+        totalLabel.setText(String.format("Total: %.2f", price * (1 + 0.0875)));
     }
 }

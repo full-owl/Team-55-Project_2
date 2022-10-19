@@ -14,7 +14,6 @@ public abstract class OrderItem {
 
 
     /**
-     *
      * @param mealType
      */
     public OrderItem(String mealType) {
@@ -23,5 +22,6 @@ public abstract class OrderItem {
     }
 
     public abstract double getPrice();
+
     public abstract DBOrderItem toDBOrderItem();
 }

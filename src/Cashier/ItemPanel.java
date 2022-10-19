@@ -15,12 +15,13 @@ public class ItemPanel extends JPanel {
     MyButtonGroup group;
 
     /**
-     *  Creates ItemPanel, based of the list of items and category
+     * Creates ItemPanel, based of the list of items and category
+     *
      * @param category String name of the category that the items belong to
-     * @param items String[] List of items
+     * @param items    String[] List of items
      */
     public ItemPanel(String category, String[] items) {
-        super(new BorderLayout(5,5));
+        super(new BorderLayout(5, 5));
         this.setName(category);
         this.setBorder(BorderFactory.createTitledBorder(category));
 
@@ -30,10 +31,10 @@ public class ItemPanel extends JPanel {
 
         // Item grid
         var innerPanel = new JPanel();
-        innerPanel.setLayout(new GridLayout(0,5,5,5));
+        innerPanel.setLayout(new GridLayout(0, 5, 5, 5));
 
         // Each button has an action listener to update the number selected so that the indicator it
-        var action = new ActionListener(){
+        var action = new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -42,7 +43,7 @@ public class ItemPanel extends JPanel {
             }
         };
         group = new MyButtonGroup(items.length);
-        for (String item: items) {
+        for (String item : items) {
             var button = new JToggleButton();
             button.setText(item);
             button.setActionCommand(item);
@@ -54,7 +55,7 @@ public class ItemPanel extends JPanel {
 
         // Deselect button
         var deselectButton = new JButton("X");
-        var deselectAction = new ActionListener(){
+        var deselectAction = new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {

@@ -10,13 +10,13 @@ import src.Database.jdbcpostgreSQL;
 public class AlLaCarteItem extends OrderItem {
 
     String item;
-    private double price;
+    private final double price;
 
     public AlLaCarteItem(String mealType, String item) {
         super(mealType);
         this.item = item;
 
-        price = jdbcpostgreSQL.getTablePrice(mealType,item);
+        price = jdbcpostgreSQL.getTablePrice(mealType, item);
     }
 
     @Override

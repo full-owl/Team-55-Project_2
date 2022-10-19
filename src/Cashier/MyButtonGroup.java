@@ -11,10 +11,9 @@ import java.util.Vector;
 public class MyButtonGroup extends ButtonGroup {
 
     private int max;
-    private Vector<ButtonModel> selections = new Vector<>();
+    private final Vector<ButtonModel> selections = new Vector<>();
 
     /**
-     *
      * @param maxSelection
      */
     public MyButtonGroup(int maxSelection) {
@@ -24,7 +23,7 @@ public class MyButtonGroup extends ButtonGroup {
 
     @Override
     public void clearSelection() {
-        while(!selections.isEmpty()) {
+        while (!selections.isEmpty()) {
             var button = selections.firstElement();
             button.setSelected(false);
         }
@@ -54,9 +53,10 @@ public class MyButtonGroup extends ButtonGroup {
         this.max = max;
         resetDisabledButtons();
     }
+
     @Override
     public void setSelected(ButtonModel button, boolean selected) {
-        if(selected) {
+        if (selected) {
             // For some reason, button.setSelected calls this function so to make sure you don't get infinite recursion
             // you have to check if it is selected before adding it
             if (button != null && !selections.contains(button)) {

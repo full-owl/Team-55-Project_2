@@ -15,7 +15,7 @@ import java.util.Vector;
  * It handles selecting the different like sides, entrees, drinks, and appetizers.
  * Also, it has buttons to add those selected items to the receipt.
  */
-public class MenuItemsView extends JPanel implements ActionListener{
+public class MenuItemsView extends JPanel implements ActionListener {
     public static String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
     ButtonGroup sizeGroup;
     JButton managerView;
@@ -39,12 +39,12 @@ public class MenuItemsView extends JPanel implements ActionListener{
         var sizePanel = new JPanel();
         sizePanel.setName("Sizes");
         sizePanel.setBorder(BorderFactory.createTitledBorder("Sizes"));
-        sizePanel.setLayout(new GridLayout(0,5,5,5));
+        sizePanel.setLayout(new GridLayout(0, 5, 5, 5));
         add(sizePanel);
 
         // Why does button group not have a way to deselect stuff. uuuggghhh
         // sauce: https://stackoverflow.com/questions/4904086/how-to-create-buttongroup-of-jtogglebuttons-that-allows-to-deselect-the-actual
-        sizeGroup = new ButtonGroup(){
+        sizeGroup = new ButtonGroup() {
             @Override
             public void setSelected(ButtonModel model, boolean selected) {
                 if (selected) {
@@ -64,7 +64,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
                 String size = actionEvent.getActionCommand();
 //                System.out.println("Size: " + size);
                 JToggleButton button = (JToggleButton) actionEvent.getSource();
-                if(button.isSelected()) {
+                if (button.isSelected()) {
                     int entreeMax = numEntrees(size);
                     itemCategories.get("Entrees").setMax(entreeMax);
                     int sideMax = numSides(size);
@@ -77,7 +77,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
                 }
             }
         };
-        for(String size: sizes) {
+        for (String size : sizes) {
             var button = new JToggleButton();
             button.setText(size);
             button.setActionCommand(size.toLowerCase());
@@ -102,17 +102,17 @@ public class MenuItemsView extends JPanel implements ActionListener{
     private void createAddButtons() {
         var modifyArea = new JPanel();
         modifyArea.setName("Modify");
-        modifyArea.setLayout(new GridLayout(0,5,5,5));
+        modifyArea.setLayout(new GridLayout(0, 5, 5, 5));
 
         // Deselect all button
         var deselectButton = new JButton();
         deselectButton.setText("Deselect All");
-        var deselectAction = new ActionListener(){
+        var deselectAction = new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 sizeGroup.clearSelection();
-                for(var category: itemCategories.values()) {
+                for (var category : itemCategories.values()) {
                     category.group.clearSelection();
                 }
             }
@@ -121,7 +121,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
         modifyArea.add(deselectButton);
 
 
-        var buttonLabels =  new String[]{"Add (small) no sides", "Add (medium) no appetizers", "Add (large)", "Add meal"};
+        var buttonLabels = new String[]{"Add (small) no sides", "Add (medium) no appetizers", "Add (large)", "Add meal"};
         var buttonActionCommand = new String[]{"small", "medium", "large", "add"};
         var addAction = new ActionListener() {
 
@@ -146,7 +146,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
                 if (action.equals("add")) { // Only add meal since they don't need to specify what size they are
                     items = new Vector<>();
                     var item = addMeal();
-                    if(item != null) {
+                    if (item != null) {
                         items.add(item);
                     }
                     sizeGroup.clearSelection();
@@ -163,14 +163,14 @@ public class MenuItemsView extends JPanel implements ActionListener{
                 receiptModel.addItems(items);
             }
         };
-        for(int i = 0; i < buttonLabels.length; i++) {
+        for (int i = 0; i < buttonLabels.length; i++) {
             var button = new JButton();
             button.setText(buttonLabels[i]);
             button.setActionCommand(buttonActionCommand[i]);
             button.addActionListener(addAction);
             modifyArea.add(button);
             // Add meal button
-            if (i == buttonLabels.length-1) {
+            if (i == buttonLabels.length - 1) {
                 addMealButton = button;
                 addMealButton.setEnabled(false);
             }
@@ -178,13 +178,14 @@ public class MenuItemsView extends JPanel implements ActionListener{
         add(modifyArea);
 
         managerView = new JButton("Manager View");
-        managerView.setBounds(275, 170, 200,50);
+        managerView.setBounds(275, 170, 200, 50);
         managerView.addActionListener(this);
         add(managerView);
     }
 
     /**
      * Create an order item based of the selected meal size, sides, and entrees
+     *
      * @return MealItem
      */
     public OrderItem addMeal() {
@@ -195,13 +196,13 @@ public class MenuItemsView extends JPanel implements ActionListener{
             var mealItem = new MealItem(mealSize);
 
             var sides = new Vector<String>();
-            for(var button: itemCategories.get("Sides").group.getSelections()) {
+            for (var button : itemCategories.get("Sides").group.getSelections()) {
                 sides.add(button.getActionCommand());
             }
             mealItem.setSides(sides);
 
             var entrees = new Vector<String>();
-            for(var button: itemCategories.get("Entrees").group.getSelections()) {
+            for (var button : itemCategories.get("Entrees").group.getSelections()) {
                 entrees.add(button.getActionCommand());
             }
             mealItem.setEntrees(entrees);
@@ -212,6 +213,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
 
     /**
      * Returns a list of AlLaCarteItems based off of what was selected and what size is being added
+     *
      * @param size String small, medium, or large
      * @return List of AlLaCarteItem
      */
@@ -222,22 +224,22 @@ public class MenuItemsView extends JPanel implements ActionListener{
             items.add(mealItem);
         }
 
-        for(var set: itemCategories.entrySet()) {
+        for (var set : itemCategories.entrySet()) {
             // Sides and Entrees are already added, so don't add them again
-            if(mealItem != null && (set.getKey().equals("Sides") || set.getKey().equals("Entrees"))) {
+            if (mealItem != null && (set.getKey().equals("Sides") || set.getKey().equals("Entrees"))) {
                 continue;
             }
 
             // Get Items that are selected for that category
             var selectedButtons = set.getValue().group.getSelections();
             var selected = new Vector<String>();
-            for(var button: selectedButtons) {
+            for (var button : selectedButtons) {
 //                System.out.println("Selected: " + button.getActionCommand());
                 selected.add(button.getActionCommand());
             }
 
             // Add Sides and Entrees al la carte
-            for(var itemName: selected) {
+            for (var itemName : selected) {
                 var item = new AlLaCarteItem(size, itemName);
                 items.add(item);
             }
@@ -255,28 +257,28 @@ public class MenuItemsView extends JPanel implements ActionListener{
     }
 
     /**
-     *
      * @param category
      * @return
      */
     public static String[] menuItems(String category) {
         // Turns "Sides" to "side"
-        String cat = category.toLowerCase().substring(0,category.length()-1);
+        String cat = category.toLowerCase().substring(0, category.length() - 1);
         // Can't cast it to (String[]) so have to do weird toArray(new String[0])
         // It automatically resizes the array so the zero length doesn't matter
         return jdbcpostgreSQL.getMenuItems(cat).toArray(new String[0]);
     }
 
     /**
-     *  Returns number of entrees a given meal size needs
-     *  Ex. Bigger Plate has 3 entrees
+     * Returns number of entrees a given meal size needs
+     * Ex. Bigger Plate has 3 entrees
+     *
      * @param size
      * @return
      */
     public static int numEntrees(String size) {
-        int[] nums = {1,2,3,3};
+        int[] nums = {1, 2, 3, 3};
         for (int i = 0; i < sizes.length; i++) {
-            if(sizes[i].equalsIgnoreCase(size)) {
+            if (sizes[i].equalsIgnoreCase(size)) {
                 return nums[i];
             }
         }
@@ -285,13 +287,14 @@ public class MenuItemsView extends JPanel implements ActionListener{
 
     /**
      * Returns number of sides a given meal size needs
+     *
      * @param size
      * @return
      */
     public static int numSides(String size) {
-        int[] nums = {1,1,1,2};
+        int[] nums = {1, 1, 1, 2};
         for (int i = 0; i < sizes.length; i++) {
-            if(sizes[i].equalsIgnoreCase(size)) {
+            if (sizes[i].equalsIgnoreCase(size)) {
                 return nums[i];
             }
         }
@@ -299,12 +302,11 @@ public class MenuItemsView extends JPanel implements ActionListener{
     }
 
     /**
-     *
      * @param e
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==managerView) {
+        if (e.getSource() == managerView) {
             // System.out.println("This is working-ish");
             managerGui.managerGui();
         }

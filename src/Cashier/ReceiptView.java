@@ -12,17 +12,17 @@ import java.awt.event.ActionListener;
  * It has a table that shows the items and their prices as well as a section to either cancel or checkout the order
  */
 public class ReceiptView extends JSplitPane {
-    private JButton cancelButton;
-    private JButton checkoutButton;
+    private final JButton cancelButton;
+    private final JButton checkoutButton;
 
     private JFrame confirm;
-//    private JButton cashButton;
+    //    private JButton cashButton;
 //    private JButton cardButton;
-    private JTable table;
+    private final JTable table;
 
     public ReceiptView(ReceiptTableModel model) {
         table = new JTable(model);
-        table.setPreferredScrollableViewportSize(new Dimension(500,70));
+        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
 
         var scrollPane = new JScrollPane(table);
@@ -30,7 +30,7 @@ public class ReceiptView extends JSplitPane {
 
         // Checkout view
         var checkoutView = new JPanel();
-        checkoutView.setLayout(new GridLayout(2,2,5,5));
+        checkoutView.setLayout(new GridLayout(2, 2, 5, 5));
 
         var subtotal = new JLabel("Subtotal: 0.0");
         model.subtotalLabel = subtotal;
@@ -39,7 +39,7 @@ public class ReceiptView extends JSplitPane {
         model.totalLabel = total;
         checkoutView.add(total);
 
-        var cancelAction = new ActionListener(){
+        var cancelAction = new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -47,7 +47,7 @@ public class ReceiptView extends JSplitPane {
                 ReceiptTableModel model = (ReceiptTableModel) table.getModel();
                 var a = JOptionPane.showConfirmDialog(confirm, "Do you want to cancel this order?", "Cancel Order", JOptionPane.YES_NO_OPTION);
                 System.out.println(a);
-                if(a == JOptionPane.YES_OPTION) {
+                if (a == JOptionPane.YES_OPTION) {
                     model.clear();
                 }
             }
@@ -56,7 +56,7 @@ public class ReceiptView extends JSplitPane {
         cancelButton.addActionListener(cancelAction);
         checkoutView.add(cancelButton);
 
-        var checkoutAction = new ActionListener(){
+        var checkoutAction = new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
