@@ -9,6 +9,11 @@ import java.awt.event.ActionListener;
 
 import static src.Manager.OpenSalesReportWindow.*;
 
+/**
+ * SalesReportWindow creates a JFrame with text-fields used for gathering input
+ * from the user upon clicking the 'Sales Report' button in the managerGUI.
+ * Upon submission the inputs are used to call a new JFrame displaying the results
+ **/
 public class SalesReportWindow implements ActionListener {
 
     JFrame f = new JFrame("Sales Report");
@@ -17,6 +22,10 @@ public class SalesReportWindow implements ActionListener {
     JTextField dateTo = new JTextField();
     JTextField dateFrom = new JTextField();
     JButton submit = new JButton("submit");
+
+    /**
+     * constructor for SalesReportWindow
+     **/
     SalesReportWindow() {
 
         lDateTo.setBounds(0,0,100,50);

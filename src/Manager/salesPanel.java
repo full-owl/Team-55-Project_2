@@ -4,8 +4,14 @@ import src.Database.jdbcpostgreSQL;
 
 import javax.swing.*;
 
+/**
+ * SalesPanel creates a JPanel in the I quadrant of the main JFrame displaying the orders table from the database in a JTable
+ **/
 public class salesPanel extends JPanel {
 
+    /**
+     * Constructor for SalesPanel
+     **/
     salesPanel() {
 
         JLabel l = new JLabel();

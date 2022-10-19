@@ -5,9 +5,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * MiscPanel creates a JPanel in the IV quadrant of the main JFrame that displays all of the buttons used in the managerGUI
+ **/
 public class miscPanel extends JPanel implements ActionListener {
 
-    // button constructor
+    /**
+     * This function sets a standard size for every button and adds them to the ActionListener
+     * @param name Title of the button
+     * @param x x position of the button
+     * @param y y position of the button
+     **/
     public JButton createButton(String name, int x, int y) {
         JButton btn = new JButton();
         btn.setText(name);
@@ -15,7 +23,7 @@ public class miscPanel extends JPanel implements ActionListener {
         btn.addActionListener(this);
         return btn;
     }
-    // Initialize buttons in manager view
+    // Intialize all buttons in manager view by calling createButton()
     JButton addInventory = createButton("Add Ingredients", 25, 100);
     JButton editInventory = createButton("Edit Inventory", 25, 170);
     JButton updatePrices = createButton("Edit Prices",230,170);
@@ -24,7 +32,9 @@ public class miscPanel extends JPanel implements ActionListener {
     JButton excessReport = createButton("Excess Report", 230, 250);
     JButton restockReport = createButton("Restock Report", 435, 250);
 
-    // Adds all buttons to a border layout in the fourth quadrant of the manager view
+    /**
+     * Constructor for the miscPanel adds all the initialized buttons and displays them in a border layout
+     **/
     miscPanel() {
         this.add(addInventory);
         this.add(editInventory);
@@ -36,7 +46,6 @@ public class miscPanel extends JPanel implements ActionListener {
         this.setLayout(new BorderLayout());
     }
 
-    // Opens new window for each button
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == addInventory) {

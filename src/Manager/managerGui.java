@@ -3,11 +3,14 @@ package src.Manager;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+ * managerGui creates the main JFrame that displays the entire manager view
+ **/
 public class managerGui {
     public static JFrame f;
-
-    //constructor for manager view
+    /**
+    * constructor for manager view
+     * **/
     public static void setFrame() {
         f = new JFrame("Manager View");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -21,11 +24,15 @@ public class managerGui {
         f.setVisible(true);
     }
 
-    //calls constructor
+    /**
+     * Calls constructor
+     **/
     public static void managerGui() {
         setFrame();
     }
-    // refreshes manager view when data changes on submission
+    /**
+     * Refreshes manager view when data changes on submission by recalling the constructor
+     **/
     public static void refreshManager() {
         f.dispose();
        setFrame();

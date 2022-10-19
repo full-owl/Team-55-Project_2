@@ -20,7 +20,7 @@ public class ExcessReportWindow implements ActionListener {
     JButton submit = new JButton("submit");
 
     /**
-     * constructor for the JFrane
+     * constructor for ExcessReportWindow
      **/
     ExcessReportWindow() {
         lDate.setBounds(0,0,100,50);

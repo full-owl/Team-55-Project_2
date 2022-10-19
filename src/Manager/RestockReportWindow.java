@@ -6,7 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * RestockReportWindow creates a JFrame with a JTable that displays the inventory below 10%
+ * requested from the user upon clicking the 'Restock Report' button in the managerGUI.
+ **/
 public class RestockReportWindow extends  JFrame{
+
+    /**
+     * Constructor for the RestockReportWindow
+     **/
     RestockReportWindow() {
 
         // Data to be displayed in the JTable

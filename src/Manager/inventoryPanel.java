@@ -7,10 +7,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 /**
- * Inventory Panel creates a JPanel in the
+ * InventoryPanel creates a JPanel in the II quadrant of the main JFrame displaying the invetory table from the database in a JTable
  **/
 public class inventoryPanel extends JPanel {
 
+    /**
+     * constructor for InventoryPanel
+     **/
     inventoryPanel() {
 
         JLabel l = new JLabel();

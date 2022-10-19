@@ -4,8 +4,14 @@ import src.Database.jdbcpostgreSQL;
 
 import javax.swing.*;
 
+/**
+ * MealSizesPanel creates a JPanel in the III quadrant of the main JFrame displaying the mealSizes table of the database in a JTable
+ **/
 public class mealSizesPanel extends JPanel {
 
+    /**
+     * Constructor for the mealSizesPanel
+     **/
     mealSizesPanel() {
 
         JLabel l = new JLabel();
