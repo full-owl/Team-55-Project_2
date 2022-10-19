@@ -24,6 +24,7 @@ public class RestockReportWindow extends  JFrame{
         JScrollPane sp = new JScrollPane(salesReport);
 
         this.setTitle("Restock Report");
+        this.add(sp);
         this.pack();
         this.setVisible(true);
     }
