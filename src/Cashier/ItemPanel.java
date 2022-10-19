@@ -5,12 +5,20 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Panel for a specific category of items like Sides, Entrées, or Drinks
+ */
 public class ItemPanel extends JPanel {
     String category;
     JLabel label;
 
     MyButtonGroup group;
 
+    /**
+     *
+     * @param category
+     * @param items
+     */
     public ItemPanel(String category, String[] items) {
         super(new BorderLayout(5,5));
         this.setName(category);
@@ -28,7 +36,7 @@ public class ItemPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Item: " + actionEvent.getActionCommand());
+//                System.out.println("Item: " + actionEvent.getActionCommand());
                 updateNumSelected();
             }
         };

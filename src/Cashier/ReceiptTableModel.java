@@ -4,6 +4,9 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.util.Vector;
 
+/**
+ * Handles the data of the receipt so that it can be displayed in the table
+ */
 class ReceiptTableModel extends AbstractTableModel {
     private final String[] cols = {"Item", "Price"};
     public Vector<OrderItem> data = new Vector<>();
@@ -48,7 +51,7 @@ class ReceiptTableModel extends AbstractTableModel {
     }
 
     public void addItems(Vector<OrderItem> items) {
-        System.out.println(items);
+        // System.out.println(items);
         data.addAll(items);
         for(var item: items) {
             price += item.getPrice();
@@ -57,6 +60,7 @@ class ReceiptTableModel extends AbstractTableModel {
     }
 
     public void clear() {
+        price = 0;
         data.clear();
         fireTableDataChanged();
     }

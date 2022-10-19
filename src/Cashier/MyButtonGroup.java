@@ -3,11 +3,20 @@ package src.Cashier;
 import javax.swing.*;
 import java.util.Vector;
 
+/**
+ * ButtonGroup only lets you select one at a time, and you can't deselect after you do
+ * So I made my own.
+ * Can select upto a max amount, and you can change the max dynamically
+ */
 public class MyButtonGroup extends ButtonGroup {
 
     private int max;
     private Vector<ButtonModel> selections = new Vector<>();
 
+    /**
+     *
+     * @param maxSelection
+     */
     public MyButtonGroup(int maxSelection) {
         super();
         max = maxSelection;

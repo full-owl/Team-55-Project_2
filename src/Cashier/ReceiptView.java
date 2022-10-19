@@ -7,9 +7,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The GUI that displays the items that are currently being ordered
+ * It has a table that shows the items and their prices as well as a section to either cancel or checkout the order
+ */
 public class ReceiptView extends JSplitPane {
     private JButton cancelButton;
     private JButton checkoutButton;
+
+    private JFrame confirm;
 //    private JButton cashButton;
 //    private JButton cardButton;
     private JTable table;
@@ -37,9 +43,13 @@ public class ReceiptView extends JSplitPane {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Cancel");
+                // System.out.println("Cancel");
                 ReceiptTableModel model = (ReceiptTableModel) table.getModel();
-                model.clear();
+                var a = JOptionPane.showConfirmDialog(confirm, "Do you want to cancel this order?", "Cancel Order", JOptionPane.YES_NO_OPTION);
+                System.out.println(a);
+                if(a == JOptionPane.YES_OPTION) {
+                    model.clear();
+                }
             }
         };
         cancelButton = new JButton("Cancel");
@@ -50,10 +60,11 @@ public class ReceiptView extends JSplitPane {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Check out");
+                // System.out.println("Check out");
                 ReceiptTableModel model = (ReceiptTableModel) table.getModel();
                 jdbcpostgreSQL.insertOrder(model.data);
 
+                JOptionPane.showInternalMessageDialog(confirm, "Order completed", "Order", JOptionPane.PLAIN_MESSAGE);
                 model.clear();
             }
         };

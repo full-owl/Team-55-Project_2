@@ -3,6 +3,10 @@ package src.Cashier;
 import src.Database.DBOrderItem;
 import src.Database.jdbcpostgreSQL;
 
+/**
+ * Al la Carte, order items individually
+ * This is used to order individual items like Drinks, Appetizers or if you want an entree or side by itself.
+ */
 public class AlLaCarteItem extends OrderItem {
 
     String item;

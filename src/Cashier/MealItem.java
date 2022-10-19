@@ -6,6 +6,10 @@ import src.Database.jdbcpostgreSQL;
 import java.util.Arrays;
 import java.util.Vector;
 
+/**
+ * MealItems represent items that are made of multiple things
+ * For example, Plate of rice with chicken, and beef
+ */
 public class MealItem extends OrderItem {
 
     Vector<String> sides = new Vector<>();
@@ -15,9 +19,14 @@ public class MealItem extends OrderItem {
 
     private double price;
 
+    /**
+     *
+     * @param mealType
+     */
     public MealItem(String mealType) {
         super(mealType);
 
+        // Number of items
         int[] entrees = {1,2,3,3};
         int[] sides = {1,1,1,2};
 

@@ -10,6 +10,11 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Vector;
 
+/**
+ * This is the right side of the Cashier view
+ * It handles selecting the different like sides, entrees, drinks, and appetizers.
+ * Also, it has buttons to add those selected items to the receipt.
+ */
 public class MenuItemsView extends JPanel implements ActionListener{
     public static String[] sizes = {"Bowl", "Plate", "Bigger Plate", "Family"};
     ButtonGroup sizeGroup;
@@ -49,11 +54,14 @@ public class MenuItemsView extends JPanel implements ActionListener{
             }
         };
         var sizeController = new ActionListener() {
-            // Whenever you change sizes, update the max number of entrees and sides you can select at one time.
+            /**
+             * Whenever you change sizes, update the max number of entrees and sides you can select at one time.
+             * @param actionEvent
+             */
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String size = actionEvent.getActionCommand();
-                System.out.println("Size: " + size);
+//                System.out.println("Size: " + size);
                 JToggleButton button = (JToggleButton) actionEvent.getSource();
                 if(button.isSelected()) {
                     int entreeMax = numEntrees(size);
@@ -118,7 +126,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String action = actionEvent.getActionCommand();
-                System.out.println(action);
+//                System.out.println(action);
                 Vector<OrderItem> items;
                 if (action.equals("add")) { // Only add meal since they don't need to specify what size they are
                     items = new Vector<>();
@@ -200,7 +208,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
             var selectedButtons = set.getValue().group.getSelections();
             var selected = new Vector<String>();
             for(var button: selectedButtons) {
-                System.out.println("Selected: " + button.getActionCommand());
+//                System.out.println("Selected: " + button.getActionCommand());
                 selected.add(button.getActionCommand());
             }
 
@@ -222,6 +230,11 @@ public class MenuItemsView extends JPanel implements ActionListener{
         frame.setVisible(true);
     }
 
+    /**
+     *
+     * @param category
+     * @return
+     */
     public static String[] menuItems(String category) {
         // Turns "Sides" to "side"
         String cat = category.toLowerCase().substring(0,category.length()-1);
@@ -230,6 +243,11 @@ public class MenuItemsView extends JPanel implements ActionListener{
         return jdbcpostgreSQL.getMenuItems(cat).toArray(new String[0]);
     }
 
+    /**
+     *
+     * @param size
+     * @return
+     */
     public static int numEntrees(String size) {
         int[] nums = {1,2,3,3};
         for (int i = 0; i < sizes.length; i++) {
@@ -240,6 +258,11 @@ public class MenuItemsView extends JPanel implements ActionListener{
         return -1;
     }
 
+    /**
+     *
+     * @param size
+     * @return
+     */
     public static int numSides(String size) {
         int[] nums = {1,1,1,2};
         for (int i = 0; i < sizes.length; i++) {
@@ -250,10 +273,14 @@ public class MenuItemsView extends JPanel implements ActionListener{
         return -1;
     }
 
+    /**
+     *
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==managerView) {
-            System.out.println("This is working-ish");
+            // System.out.println("This is working-ish");
             managerGui.managerGui();
         }
     }

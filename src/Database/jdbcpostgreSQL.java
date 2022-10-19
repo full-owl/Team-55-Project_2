@@ -11,6 +11,25 @@ import java.util.*;
 
 public class jdbcpostgreSQL {
 
+    static Connection conn;
+
+    public static Connection getConn() {
+        if(conn == null) {
+            String teamNumber = "55";
+            String sectionNumber = "904";
+            String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
+            String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
+            try {
+                conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
+            } catch (Exception e) {
+                System.out.println("error");
+                e.printStackTrace();
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                System.exit(0);
+            }
+        }
+        return conn;
+    }
   //Commands to run this script
   //This will compile all java files in this directory
   //javac *.java
@@ -107,22 +126,7 @@ public class jdbcpostgreSQL {
 
         int orderid = getDBSize("orders") + 1;
 
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-        try
-        {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e)
-        {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        Connection conn = getConn();
 
         // Calculate subTotal
         double subTotal = 0;
@@ -171,6 +175,7 @@ public class jdbcpostgreSQL {
                 ps.setString(8, item.instructions);
 
                 int result = ps.executeUpdate();
+                updateInventory(conn, orderid);
 
             } catch (Exception e)
             {
@@ -180,15 +185,34 @@ public class jdbcpostgreSQL {
             }
 
         }
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }
+
+
         // new managerGui();
     }
 
+    /**
+     *
+     * Update the inventory table based by the ingredients used for the order
+     * @param conn
+     * @param orderid
+     * @return ResultSet of the updated rows in ingredients table
+     * @throws SQLException
+     */
+    private static ResultSet updateInventory(Connection conn, int orderid) throws SQLException {
+
+        String stmt = """
+                update inventory
+                set currentamount = currentamount - amountneeded
+                from orderingredients
+                where orderingredients.inventoryid = inventory.id and orderingredients.orderid = ?
+                returning inventory.*;
+                """;
+        PreparedStatement ps = conn.prepareStatement(stmt);
+        ps.setInt(1,orderid);
+        ResultSet result = ps.executeQuery();
+        return result;
+
+    }
     /**
      * Edit amount of item in inventory databasee
      * @param id id of inventory item in database
@@ -196,25 +220,9 @@ public class jdbcpostgreSQL {
      */
     public static void editInventory(int id, int amount)
     {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
         try
         {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e)
-        {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-        try
-        {
+            Connection conn = getConn();
             String stmt = "UPDATE INVENTORY SET currentamount = ? WHERE id = ?";
             PreparedStatement ps = conn.prepareStatement(stmt);
             ps.setInt(1, amount);
@@ -225,12 +233,6 @@ public class jdbcpostgreSQL {
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
-        }
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
         }
         managerGui.refreshManager();
     }
@@ -243,24 +245,7 @@ public class jdbcpostgreSQL {
      */
     public static void addInventory(int id, String name, int amount, String unit)
     {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try
-        {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e)
-        {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-
+        Connection conn = getConn();
         try
         {
             String stmt = "INSERT INTO INVENTORY(id, ingredient, currentamount, unit) VALUES (?, ?, ?, ?)";
@@ -277,12 +262,6 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }
         managerGui.refreshManager();
     }
 
@@ -294,24 +273,8 @@ public class jdbcpostgreSQL {
     * */
     public static void editPrices(String foodtype, String mealtype, float newPrice)
     {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
 
-        try
-        {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e)
-        {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-
+        Connection conn = getConn();
         // maybe get rid of some fluff stuff
         try
         {
@@ -327,12 +290,6 @@ public class jdbcpostgreSQL {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }
         managerGui.refreshManager();
     }
 
@@ -344,24 +301,7 @@ public class jdbcpostgreSQL {
      * */
     public static void addMenuItem(int id, String name, String type, String description)
     {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try
-        {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e)
-        {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
-
+        Connection conn = getConn();
         try
         {
             String stmt = "INSERT INTO menuitems(id, name, foodtype, description) VALUES (?, ?, ?, ?)";
@@ -377,12 +317,6 @@ public class jdbcpostgreSQL {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }
     }
 
     /**
@@ -391,21 +325,7 @@ public class jdbcpostgreSQL {
      * @return vector of strings of food types in menuitems table
      * */
     public static Vector<String> getMenuItems(String foodType) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        Connection conn = getConn();
         try{
             String sqlStatement = "SELECT name FROM menuitems WHERE foodtype = ?";
 
@@ -417,14 +337,6 @@ public class jdbcpostgreSQL {
             while(result.next()) {
                 out.add(result.getString("name"));
             }
-
-            //closing the connection
-            try {
-                conn.close();
-                System.out.println("Connection Closed.");
-            } catch(Exception e) {
-                System.out.println("Connection NOT Closed.");
-            }//end try catch
 
             return out;
         } catch (Exception e){
@@ -440,24 +352,10 @@ public class jdbcpostgreSQL {
      * @param invTable 2D - String array that should be empty with a specific size for rows and must be 4 columns
      */
     public static void getInvTable(String[][] invTable) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        Connection conn = getConn();
         try{
             //String sqlStatement = "INSERT INTO TeamMembers (student_name, section, favority_movie, favorite_holiday) VALUES('Plunky', 905, 'Jeepers Creepers', '2022-10-31')";
-            String sqlStatement = "SELECT * FROM inventory";
+            String sqlStatement = "SELECT * FROM inventory ORDER BY id";
 
             PreparedStatement p = conn.prepareStatement(sqlStatement);
             ResultSet result = p.executeQuery();
@@ -483,31 +381,13 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
-        //closing the connection
-        try {
-            conn.close();
-            // System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
     }
-
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param restockTable 2D - String array that should be empty with a specific size for rows and must be 4 columns
+     * */
     public static void getRestockTable(String[][] restockTable) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        Connection conn = getConn();
         try{
             String sqlStatement = "SELECT * FROM inventory WHERE currentamount < 20";
 
@@ -535,31 +415,15 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
-        //closing the connection
-        try {
-            conn.close();
-            // System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
     }
-
+    /**
+     * edits price of foodtype and mealtype in mealsizes database
+     * @param SalesTable 2D - String array that should be empty with a specific size for rows and must be 2 columns
+     * @param date1 string containing the first date
+     * @param date2 string containing the second date
+     * */
     public static void getSalesReportTable(String[][] SalesTable, String date1, String date2) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        Connection conn = getConn();
         try{
             String sqlStatement = "select menuitems.name, count(menuitems.id) from " +
                     "((orderitems inner join orders on orderitems.orderid = orders.id) " +
@@ -590,13 +454,6 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
-        //closing the connection
-        try {
-            conn.close();
-            // System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
     }
 
     /**
@@ -604,21 +461,7 @@ public class jdbcpostgreSQL {
      * @param ordTable 2D - String array of size [> 0][5]
      * */
     public static void getOrdTable(String[][] ordTable) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        Connection conn = getConn();
         try{
             //String sqlStatement = "INSERT INTO TeamMembers (student_name, section, favority_movie, favorite_holiday) VALUES('Plunky', 905, 'Jeepers Creepers', '2022-10-31')";
             String sqlStatement = "SELECT * FROM orders ORDER BY id DESC;";
@@ -648,35 +491,13 @@ public class jdbcpostgreSQL {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-
-        //closing the connection
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
     }
     /**
      * takes in empty mealSizeTable and makes it hold data from mealsizes database - no return
      * @param mealSizeTable 2D String array of size[>0][4] that holds data from each entry in mealsizes database
      * */
     public static void getMealSizeTable(String[][] mealSizeTable) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        Connection conn = getConn();
         try{
             //String sqlStatement = "INSERT INTO TeamMembers (student_name, section, favority_movie, favorite_holiday) VALUES('Plunky', 905, 'Jeepers Creepers', '2022-10-31')";
             String sqlStatement = "SELECT * FROM mealsizes"; // ORDER BY id DESC;";
@@ -706,13 +527,6 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
-        //closing the connection
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
     }
 
     /**
@@ -721,21 +535,7 @@ public class jdbcpostgreSQL {
      * @return int that is size of database tName
      * */
     public static int getDBSize(String tName) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        Connection conn = getConn();
         try{
             //String sqlStatement = "INSERT INTO TeamMembers (student_name, section, favority_movie, favorite_holiday) VALUES('Plunky', 905, 'Jeepers Creepers', '2022-10-31')";
             String sqlStatement = "SELECT COUNT(1) FROM " + tName + ";";
@@ -753,13 +553,6 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
-        //closing the connection
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
         return -1;
     }
     /**
@@ -768,21 +561,7 @@ public class jdbcpostgreSQL {
      * @return int index of item name in menuitems database
      * */
     public static int getItemIndex(String itemName) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        Connection conn = getConn();
         try{
             //String sqlStatement = "INSERT INTO TeamMembers (student_name, section, favority_movie, favorite_holiday) VALUES('Plunky', 905, 'Jeepers Creepers', '2022-10-31')";
             String sqlStatement = "SELECT * FROM menuitems WHERE name = '" + itemName + "';";
@@ -800,13 +579,6 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
-        //closing the connection
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
         return -1; // not in table
     }
     /**
@@ -815,21 +587,7 @@ public class jdbcpostgreSQL {
      * @return double, price of item of mealtype in mealsizes table
      * */
     public static double getTablePrice(String mealtype) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        Connection conn = getConn();
         try{
             //String sqlStatement = "INSERT INTO TeamMembers (student_name, section, favority_movie, favorite_holiday) VALUES('Plunky', 905, 'Jeepers Creepers', '2022-10-31')";
 //            String sqlStatement = "SELECT mealsizes.price FROM mealsizes INNER JOIN menuitems ON mealsizes.foodtype = menuitems.foodtype " +
@@ -848,13 +606,6 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
-        //closing the connection
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
         return -1.0;
     }
     /**
@@ -864,21 +615,7 @@ public class jdbcpostgreSQL {
      * @return double, price of mealtype and foodname from mealsizes table
      * */
     public static double getTablePrice(String mealtype, String foodname) {
-        Connection conn = null;
-        String teamNumber = "55";
-        String sectionNumber = "904";
-        String dbName = "csce331_" + sectionNumber + "_" + teamNumber;
-        String dbConnectionString = "jdbc:postgresql://csce-315-db.engr.tamu.edu/" + dbName;
-        dbSetup myCredentials = new dbSetup();
-
-        try {
-            conn = DriverManager.getConnection(dbConnectionString, dbSetup.user, dbSetup.pswd);
-        } catch (Exception e) {
-            System.out.println("error");
-            e.printStackTrace();
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
-            System.exit(0);
-        }
+        Connection conn = getConn();
         try{
             //String sqlStatement = "INSERT INTO TeamMembers (student_name, section, favority_movie, favorite_holiday) VALUES('Plunky', 905, 'Jeepers Creepers', '2022-10-31')";
             String sqlStatement = "SELECT mealsizes.price FROM mealsizes INNER JOIN menuitems ON mealsizes.foodtype = menuitems.foodtype " +
@@ -895,13 +632,6 @@ public class jdbcpostgreSQL {
             System.exit(0);
         }
 
-        //closing the connection
-        try {
-            conn.close();
-            System.out.println("Connection Closed.");
-        } catch(Exception e) {
-            System.out.println("Connection NOT Closed.");
-        }//end try catch
         return -1.0;
     }
 
