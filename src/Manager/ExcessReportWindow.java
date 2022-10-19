@@ -34,7 +34,7 @@ public class ExcessReportWindow implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==submit) {
             String dateInput = date.getText();
-            //jdbcpostgreSQL.editInventory(idInput, amountInput);
+            new OpenExcessReportWindow(dateInput);
         }
     }
 }
