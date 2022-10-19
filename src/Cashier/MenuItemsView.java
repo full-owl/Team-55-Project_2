@@ -39,7 +39,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
         instructionPanel.setLayout(new BorderLayout());
         customInstruction = new JTextField();
         instructionPanel.add(customInstruction);
-        add(instructionPanel);
+//        add(instructionPanel);
 
         createAddButtons();
     }
