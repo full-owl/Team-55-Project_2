@@ -28,16 +28,16 @@ public class SalesReportWindow implements ActionListener {
      **/
     SalesReportWindow() {
 
-        lDateTo.setBounds(0,0,100,50);
-        lDateTo.setFont(new Font(null,Font.PLAIN, 15));
+        lDateTo.setBounds(0, 0, 100, 50);
+        lDateTo.setFont(new Font(null, Font.PLAIN, 15));
 
-        lDateFrom.setBounds(0,0,100,50);
-        lDateFrom.setFont(new Font(null,Font.PLAIN, 15));
+        lDateFrom.setBounds(0, 0, 100, 50);
+        lDateFrom.setFont(new Font(null, Font.PLAIN, 15));
 
         submit.addActionListener(this);
 
-        dateTo.setPreferredSize(new Dimension(250,40 ));
-        dateFrom.setPreferredSize(new Dimension(250,40 ));
+        dateTo.setPreferredSize(new Dimension(250, 40));
+        dateFrom.setPreferredSize(new Dimension(250, 40));
 
         f.setLayout(new FlowLayout());
         f.add(lDateFrom);
@@ -51,7 +51,7 @@ public class SalesReportWindow implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==submit) {
+        if (e.getSource() == submit) {
             String dateToInput = dateTo.getText();
             String dateFromInput = dateFrom.getText();
             System.out.println("Opening Sales Report..");

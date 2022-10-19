@@ -30,18 +30,18 @@ public class EditPriceWindow implements ActionListener {
      * constructor for the JFrame
      **/
     EditPriceWindow() {
-        lFoodType.setBounds(0,0,100,50);
-        lFoodType.setFont(new Font(null,Font.PLAIN, 15));
-        lMealType.setBounds(0,0,100,50);
-        lMealType.setFont(new Font(null,Font.PLAIN, 15));
-        lNewPrice.setBounds(0,0,100,50);
-        lNewPrice.setFont(new Font(null,Font.PLAIN, 15));
+        lFoodType.setBounds(0, 0, 100, 50);
+        lFoodType.setFont(new Font(null, Font.PLAIN, 15));
+        lMealType.setBounds(0, 0, 100, 50);
+        lMealType.setFont(new Font(null, Font.PLAIN, 15));
+        lNewPrice.setBounds(0, 0, 100, 50);
+        lNewPrice.setFont(new Font(null, Font.PLAIN, 15));
 
         submit.addActionListener(this);
 
-        foodType.setPreferredSize(new Dimension(250,40 ));
-        mealType.setPreferredSize(new Dimension(250,40 ));
-        newPrice.setPreferredSize(new Dimension(250,40 ));
+        foodType.setPreferredSize(new Dimension(250, 40));
+        mealType.setPreferredSize(new Dimension(250, 40));
+        newPrice.setPreferredSize(new Dimension(250, 40));
 
         f.setLayout(new FlowLayout());
         f.add(lFoodType);
@@ -59,7 +59,7 @@ public class EditPriceWindow implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==submit) {
+        if (e.getSource() == submit) {
             String foodTypeInput = foodType.getText();
             String mealTypeInput = mealType.getText();
             Float newPriceInput = Float.parseFloat(newPrice.getText());

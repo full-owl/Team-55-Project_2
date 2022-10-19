@@ -12,11 +12,13 @@ import javax.swing.*;
 public class OpenExcessReportWindow extends JFrame {
 
     String date;
+
     /**
      * Constructor for the OpenExcessReportWindow
+     *
      * @param dateInput String providing the date (yyyy-mm-dd)  to examine excess
      **/
-    OpenExcessReportWindow(String dateInput){
+    OpenExcessReportWindow(String dateInput) {
 
         date = dateInput;
         // Data to be displayed in the JTable

@@ -23,12 +23,12 @@ public class ExcessReportWindow implements ActionListener {
      * constructor for ExcessReportWindow
      **/
     ExcessReportWindow() {
-        lDate.setBounds(0,0,100,50);
-        lDate.setFont(new Font(null,Font.PLAIN, 15));
+        lDate.setBounds(0, 0, 100, 50);
+        lDate.setFont(new Font(null, Font.PLAIN, 15));
 
         submit.addActionListener(this);
 
-        date.setPreferredSize(new Dimension(250,40 ));
+        date.setPreferredSize(new Dimension(250, 40));
 
         f.setLayout(new FlowLayout());
         f.add(lDate);
@@ -40,7 +40,7 @@ public class ExcessReportWindow implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==submit) {
+        if (e.getSource() == submit) {
             String dateInput = date.getText();
             new OpenExcessReportWindow(dateInput);
         }

@@ -8,13 +8,14 @@ import java.awt.*;
  **/
 public class managerGui {
     public static JFrame f;
+
     /**
-    * constructor for manager view
-     * **/
+     * constructor for manager view
+     **/
     public static void setFrame() {
         f = new JFrame("Manager View");
         f.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        f.setLayout(new GridLayout(2,2));
+        f.setLayout(new GridLayout(2, 2));
         f.setSize(1600, 800);
 
         f.add(new inventoryPanel());
@@ -30,11 +31,12 @@ public class managerGui {
     public static void managerGui() {
         setFrame();
     }
+
     /**
      * Refreshes manager view when data changes on submission by recalling the constructor
      **/
     public static void refreshManager() {
         f.dispose();
-       setFrame();
+        setFrame();
     }
 }

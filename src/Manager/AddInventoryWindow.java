@@ -29,21 +29,21 @@ public class AddInventoryWindow implements ActionListener {
      * Constructor for the JFrame
      **/
     AddInventoryWindow() {
-        lId.setBounds(0,0,100,50);
-        lId.setFont(new Font(null,Font.PLAIN, 15));
-        lIngredient.setBounds(0,0,100,50);
-        lIngredient.setFont(new Font(null,Font.PLAIN, 15));
-        lAmount.setBounds(0,0,100,50);
-        lAmount.setFont(new Font(null,Font.PLAIN, 15));
-        lUnits.setBounds(0,0,100,50);
-        lUnits.setFont(new Font(null,Font.PLAIN, 15));
+        lId.setBounds(0, 0, 100, 50);
+        lId.setFont(new Font(null, Font.PLAIN, 15));
+        lIngredient.setBounds(0, 0, 100, 50);
+        lIngredient.setFont(new Font(null, Font.PLAIN, 15));
+        lAmount.setBounds(0, 0, 100, 50);
+        lAmount.setFont(new Font(null, Font.PLAIN, 15));
+        lUnits.setBounds(0, 0, 100, 50);
+        lUnits.setFont(new Font(null, Font.PLAIN, 15));
 
         submit.addActionListener(this);
 
-        id.setPreferredSize(new Dimension(250,40 ));
-        ingredient.setPreferredSize(new Dimension(250,40 ));
-        amount.setPreferredSize(new Dimension(250,40 ));
-        units.setPreferredSize(new Dimension(250,40 ));
+        id.setPreferredSize(new Dimension(250, 40));
+        ingredient.setPreferredSize(new Dimension(250, 40));
+        amount.setPreferredSize(new Dimension(250, 40));
+        units.setPreferredSize(new Dimension(250, 40));
 
         f.setLayout(new FlowLayout());
         f.add(lId);
@@ -62,7 +62,7 @@ public class AddInventoryWindow implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==submit) {
+        if (e.getSource() == submit) {
             int idInput = Integer.parseInt(id.getText());
             String ingredientInput = ingredient.getText();
             int amountInput = Integer.parseInt(amount.getText());

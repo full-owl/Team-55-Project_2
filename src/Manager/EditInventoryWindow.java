@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 /**
  * AddInventoryWindow creates a JFrame with text-fields used for gathering input
  * from the user upon clicking the 'Edit Inventory' button in the managerGUI.
@@ -21,20 +22,19 @@ public class EditInventoryWindow implements ActionListener {
     JButton submit = new JButton("submit");
 
 
-
     EditInventoryWindow() {
-        lId.setBounds(0,0,100,50);
-        lId.setFont(new Font(null,Font.PLAIN, 15));
+        lId.setBounds(0, 0, 100, 50);
+        lId.setFont(new Font(null, Font.PLAIN, 15));
 
-        lAmount.setBounds(0,0,100,50);
-        lAmount.setFont(new Font(null,Font.PLAIN, 15));
+        lAmount.setBounds(0, 0, 100, 50);
+        lAmount.setFont(new Font(null, Font.PLAIN, 15));
 
 
         submit.addActionListener(this);
 
-        id.setPreferredSize(new Dimension(250,40 ));
+        id.setPreferredSize(new Dimension(250, 40));
 
-        amount.setPreferredSize(new Dimension(250,40 ));
+        amount.setPreferredSize(new Dimension(250, 40));
 
         //tf.setBounds(0,30,100,50);
 
@@ -52,7 +52,7 @@ public class EditInventoryWindow implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==submit) {
+        if (e.getSource() == submit) {
             int idInput = Integer.parseInt(id.getText());
             int amountInput = Integer.parseInt(amount.getText());
             jdbcpostgreSQL.editInventory(idInput, amountInput);
