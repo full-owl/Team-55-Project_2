@@ -57,6 +57,8 @@ public class MyButtonGroup extends ButtonGroup {
     @Override
     public void setSelected(ButtonModel button, boolean selected) {
         if(selected) {
+            // For some reason, button.setSelected calls this function so to make sure you don't get infinite recursion
+            // you have to check if it is selected before adding it
             if (button != null && !selections.contains(button)) {
                 if (selections.size() >= max) {
                     setSelected(selections.firstElement(), false);

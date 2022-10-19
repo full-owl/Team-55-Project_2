@@ -15,9 +15,9 @@ public class ItemPanel extends JPanel {
     MyButtonGroup group;
 
     /**
-     *
-     * @param category
-     * @param items
+     *  Creates ItemPanel, based of the list of items and category
+     * @param category String name of the category that the items belong to
+     * @param items String[] List of items
      */
     public ItemPanel(String category, String[] items) {
         super(new BorderLayout(5,5));
@@ -32,6 +32,7 @@ public class ItemPanel extends JPanel {
         var innerPanel = new JPanel();
         innerPanel.setLayout(new GridLayout(0,5,5,5));
 
+        // Each button has an action listener to update the number selected so that the indicator it
         var action = new ActionListener(){
 
             @Override

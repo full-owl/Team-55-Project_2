@@ -26,7 +26,8 @@ public class MealItem extends OrderItem {
     public MealItem(String mealType) {
         super(mealType);
 
-        // Number of items
+        // Look up associated arrays based off of the mealType
+        // Ex. a bigger plate would have 3 entrees and 1 side
         int[] entrees = {1,2,3,3};
         int[] sides = {1,1,1,2};
 

@@ -32,15 +32,6 @@ public class MenuItemsView extends JPanel implements ActionListener{
 
         createSizePanel();
         createItemCategories();
-
-        var instructionPanel = new JPanel();
-        instructionPanel.setName("Custom Instruction");
-        instructionPanel.setBorder(BorderFactory.createTitledBorder("Custom Instruction"));
-        instructionPanel.setLayout(new BorderLayout());
-        customInstruction = new JTextField();
-        instructionPanel.add(customInstruction);
-//        add(instructionPanel);
-
         createAddButtons();
     }
 
@@ -99,6 +90,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
     private void createItemCategories() {
         itemCategories = new HashMap<>();
 
+        // Add each panel to a hashmap so that they can be referenced later
         final String[] categories = {"Sides", "Entrees", "Drinks", "Appetizers"};
         for (String category : categories) {
             var itemPanel = new ItemPanel(category, menuItems(category));
@@ -133,6 +125,19 @@ public class MenuItemsView extends JPanel implements ActionListener{
         var buttonActionCommand = new String[]{"small", "medium", "large", "add"};
         var addAction = new ActionListener() {
 
+            /**
+             * Adds selected items to the reciept
+             * If a meal is selected (Bowl, Plate, etc) then it add the meal
+             * if not add each item individually as al la carte based on the size selected
+             *
+             * Ex. if Coke and Egg Rolls are selected and Add small is presses then
+             * A Small Coke and a Small Egg Roll are added to the reciept
+             *
+             * Similarly, if Bowl, White Rice, and Orange Chicken is selected
+             * then a single meal of Bowl of White Rice and Orange Chicken is added to the reciept,
+             * since that is 1 item in Panda Express
+             * @param actionEvent
+             */
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String action = actionEvent.getActionCommand();
@@ -178,6 +183,10 @@ public class MenuItemsView extends JPanel implements ActionListener{
         add(managerView);
     }
 
+    /**
+     * Create an order item based of the selected meal size, sides, and entrees
+     * @return MealItem
+     */
     public OrderItem addMeal() {
 
         var mealButton = sizeGroup.getSelection();
@@ -201,6 +210,11 @@ public class MenuItemsView extends JPanel implements ActionListener{
         return null; // No meal was selected
     }
 
+    /**
+     * Returns a list of AlLaCarteItems based off of what was selected and what size is being added
+     * @param size String small, medium, or large
+     * @return List of AlLaCarteItem
+     */
     public Vector<OrderItem> addSelectedItems(String size) {
         var items = new Vector<OrderItem>();
         OrderItem mealItem = addMeal();
@@ -254,7 +268,8 @@ public class MenuItemsView extends JPanel implements ActionListener{
     }
 
     /**
-     *
+     *  Returns number of entrees a given meal size needs
+     *  Ex. Bigger Plate has 3 entrees
      * @param size
      * @return
      */
@@ -269,7 +284,7 @@ public class MenuItemsView extends JPanel implements ActionListener{
     }
 
     /**
-     *
+     * Returns number of sides a given meal size needs
      * @param size
      * @return
      */
