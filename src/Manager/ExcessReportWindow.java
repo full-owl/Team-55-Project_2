@@ -7,6 +7,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * ExcessReportWindow creates a JFrame with text-fields used for gathering input
+ * from the user upon clicking the 'Excess Report' button in the managerGUI.
+ * Upon submission the inputs are used to call a new JFrame displaying the results
+ **/
 public class ExcessReportWindow implements ActionListener {
 
     JFrame f = new JFrame("ExcessReport");
@@ -14,6 +19,9 @@ public class ExcessReportWindow implements ActionListener {
     JTextField date = new JTextField();
     JButton submit = new JButton("submit");
 
+    /**
+     * constructor for the JFrane
+     **/
     ExcessReportWindow() {
         lDate.setBounds(0,0,100,50);
         lDate.setFont(new Font(null,Font.PLAIN, 15));

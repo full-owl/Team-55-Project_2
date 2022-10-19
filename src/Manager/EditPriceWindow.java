@@ -7,6 +7,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * EditPriceWindow creates a JFrame with text-fields used for gathering input
+ * from the user upon clicking the 'Edit Price' button in the managerGUI.
+ * Upon submission the inputs are used to update the database with the function from jdbc
+ **/
 public class EditPriceWindow implements ActionListener {
 
     JFrame f = new JFrame("Edit Prices");
@@ -21,7 +26,9 @@ public class EditPriceWindow implements ActionListener {
     JButton submit = new JButton("submit");
 
 
-
+    /**
+     * constructor for the JFrame
+     **/
     EditPriceWindow() {
         lFoodType.setBounds(0,0,100,50);
         lFoodType.setFont(new Font(null,Font.PLAIN, 15));

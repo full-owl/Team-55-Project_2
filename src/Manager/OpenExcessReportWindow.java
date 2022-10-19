@@ -13,7 +13,7 @@ public class OpenExcessReportWindow extends JFrame {
         // Data to be displayed in the JTable
         Object[][] data;
         String[][] invTable = new String[200][4];
-        //jdbcpostgreSQL.getSalesReportTable(invTable, date);
+        jdbcpostgreSQL.exce(invTable, date);
         data = invTable;
         // Column Names
         String[] columnNames = {"ingredients", "amount used", "current amount", "units"};

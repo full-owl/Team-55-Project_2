@@ -6,7 +6,9 @@ import javax.swing.*;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-
+/**
+ * Inventory Panel creates a JPanel in the
+ **/
 public class inventoryPanel extends JPanel {
 
     inventoryPanel() {

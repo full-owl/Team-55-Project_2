@@ -7,6 +7,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * AddInventoryWindow creates a JFrame with text-fields used for gathering input
+ * from the user upon clicking the 'Add Ingredients' button in the managerGUI.
+ * Upon submission the inputs are used to update the database with the function from jdbc
+ **/
 public class AddInventoryWindow implements ActionListener {
 
     JFrame f = new JFrame("Add Ingredient");
@@ -20,6 +25,9 @@ public class AddInventoryWindow implements ActionListener {
     JTextField units = new JTextField();
     JButton submit = new JButton("submit");
 
+    /**
+     * Constructor for the JFrame
+     **/
     AddInventoryWindow() {
         lId.setBounds(0,0,100,50);
         lId.setFont(new Font(null,Font.PLAIN, 15));

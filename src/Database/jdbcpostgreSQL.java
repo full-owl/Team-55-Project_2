@@ -421,7 +421,7 @@ public class jdbcpostgreSQL {
      * @param SalesTable 2D - String array that should be empty with a specific size for rows and must be 2 columns
      * @param date1 string containing the first date
      * @param date2 string containing the second date
-     * */
+     **/
     public static void getSalesReportTable(String[][] SalesTable, String date1, String date2) {
         Connection conn = getConn();
         try{

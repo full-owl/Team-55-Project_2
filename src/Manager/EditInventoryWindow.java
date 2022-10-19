@@ -6,7 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * AddInventoryWindow creates a JFrame with text-fields used for gathering input
+ * from the user upon clicking the 'Edit Inventory' button in the managerGUI.
+ * Upon submission the inputs are used to update the database with the function from jdbc
+ **/
 public class EditInventoryWindow implements ActionListener {
 
     JFrame f = new JFrame("Edit Inventory");

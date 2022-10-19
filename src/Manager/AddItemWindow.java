@@ -7,6 +7,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * AddItemWindow creates a JFrame text-fields used for gathering input
+ * from the user upon clicking the 'Add Menu Item' button in the managerGUI.
+ * Upon submission the inputs are used to update the database with the function from jdbc
+ **/
 public class AddItemWindow implements ActionListener {
 
     JFrame f = new JFrame("Add Menu Item");
@@ -20,6 +25,9 @@ public class AddItemWindow implements ActionListener {
     JTextField description = new JTextField();
     JButton submit = new JButton("submit");
 
+    /**
+     * Constructor for the JFrame
+     **/
     AddItemWindow() {
         lId.setBounds(0,0,100,50);
         lId.setFont(new Font(null,Font.PLAIN, 15));
